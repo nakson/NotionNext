@@ -43,11 +43,6 @@ const Style = () => {
         color: var(--theme-color);
       }
 
-      /* 站点欢迎语 */
-      #theme-hexo #typed {
-        font-family: 'Noto Sans SC', monospace;
-      }
-
       /* 文章列表中标题行悬浮时的文字颜色 */
       #theme-hexo h2:hover .menu-link {
         color: var(--theme-color) !important;
