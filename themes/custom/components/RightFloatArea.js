@@ -55,12 +55,12 @@ export default function RightFloatArea({ floatSlot }) {
     <div
       className={
         (showFloatButton ? 'opacity-100 ' : 'invisible opacity-0') +
-        '  duration-300 transition-all bottom-12 right-1 fixed justify-end z-20  text-white bg-indigo-500 dark:bg-hexo-black-gray rounded-sm'
+        ' duration-300 transition-all bottom-16 right-4 fixed justify-end z-20 text-white flex flex-col gap-3'
       }>
-      <div
-        className={'justify-center flex flex-col items-center cursor-pointer'}>
-        <ButtonDarkModeFloat />
+      {/* 浮动按钮容器 - 现代设计 */}
+      <div className='flex flex-col gap-2'>
         {floatSlot}
+        <ButtonDarkModeFloat />
         <ButtonJumpToTop />
       </div>
     </div>

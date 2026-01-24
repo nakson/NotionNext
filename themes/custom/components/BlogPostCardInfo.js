@@ -27,13 +27,13 @@ export const BlogPostCardInfo = ({
             <Link
               href={post?.href}
               passHref
-              className={`line-clamp-2 replace cursor-pointer text-2xl ${
+              className={`line-clamp-2 replace cursor-pointer text-xl font-semibold text-slate-800 dark:text-slate-100 transition-colors duration-200 hover:text-indigo-600 dark:hover:text-indigo-400 ${
                 showPreview ? 'text-center' : ''
-              } leading-tight font-normal text-gray-600 dark:text-gray-100 hover:text-indigo-700 dark:hover:text-indigo-400`}>
+              }`}>
               {siteConfig('POST_TITLE_ICON') && (
                 <NotionIcon icon={post.pageIcon} />
               )}
-              <span className='menu-link '>{post.title}</span>
+              <span>{post.title}</span>
             </Link>
           </h2>
 
@@ -42,17 +42,17 @@ export const BlogPostCardInfo = ({
             <div
               className={`flex mt-2 items-center ${
                 showPreview ? 'justify-center' : 'justify-start'
-              } flex-wrap dark:text-gray-500 text-gray-400 `}>
+              } flex-wrap text-slate-500 dark:text-slate-400`}>
               <Link
                 href={`/category/${post.category}`}
                 passHref
-                className='cursor-pointer font-light text-sm menu-link hover:text-indigo-700 dark:hover:text-indigo-400 transform'>
+                className='cursor-pointer font-medium text-xs hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200 mr-2'>
                 <i className='mr-1 far fa-folder' />
                 {post.category}
               </Link>
 
               <TwikooCommentCount
-                className='text-sm hover:text-indigo-700 dark:hover:text-indigo-400'
+                className='text-xs hover:text-indigo-600 dark:hover:text-indigo-400'
                 post={post}
               />
             </div>
@@ -61,7 +61,7 @@ export const BlogPostCardInfo = ({
 
         {/* 摘要 */}
         {(!showPreview || showSummary) && !post.results && (
-          <main className='line-clamp-2 replace my-3 text-gray-700  dark:text-gray-300 text-sm font-light leading-7'>
+          <main className='line-clamp-2 replace my-3 text-slate-600 dark:text-slate-400 text-sm leading-relaxed'>
             {post.summary}
           </main>
         )}

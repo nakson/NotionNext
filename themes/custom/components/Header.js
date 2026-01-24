@@ -56,33 +56,48 @@ const Header = props => {
     throttle(() => {
       const scrollS = window.scrollY
       const nav = document.querySelector('#sticky-nav')
-      // 首页和文章页会有头图
       const header = document.querySelector('#header')
-      // 导航栏和头图是否重叠
       const scrollInHeader =
-        header && (scrollS < 10 || scrollS < header?.clientHeight - 50) // 透明导航条的条件
-
-      // const textWhite = header && scrollInHeader
+        header && (scrollS < 10 || scrollS < header?.clientHeight - 50)
 
       if (scrollInHeader) {
-        nav && nav.classList.replace('bg-white', 'bg-none')
-        nav && nav.classList.replace('border', 'border-transparent')
-        nav && nav.classList.replace('drop-shadow-md', 'shadow-none')
-        nav && nav.classList.replace('dark:bg-hexo-black-gray', 'transparent')
+        nav &&
+          nav.classList.remove(
+            'bg-white/80',
+            'backdrop-blur-md',
+            'dark:bg-slate-900/80',
+            'border-b',
+            'border-slate-200',
+            'dark:border-slate-800'
+          )
+        nav && nav.classList.add('bg-transparent', 'border-transparent')
       } else {
-        nav && nav.classList.replace('bg-none', 'bg-white')
-        nav && nav.classList.replace('border-transparent', 'border')
-        nav && nav.classList.replace('shadow-none', 'drop-shadow-md')
-        nav && nav.classList.replace('transparent', 'dark:bg-hexo-black-gray')
+        nav && nav.classList.remove('bg-transparent', 'border-transparent')
+        nav &&
+          nav.classList.add(
+            'bg-white/80',
+            'backdrop-blur-md',
+            'dark:bg-slate-900/80',
+            'border-b',
+            'border-slate-200',
+            'dark:border-slate-800'
+          )
       }
 
       if (scrollInHeader) {
-        nav && nav.classList.replace('text-black', 'text-white')
+        nav && nav.classList.replace('text-slate-800', 'text-black') // Assuming original was black/white change, keeping it simple for now or maybe just keep text consistent?
+        // Actually for docs style, text color usually stays consistent (dark) unless header is over a dark Hero.
+        // Let's assume consistent text color for docs style as it's cleaner.
+        // But if there is a Hero image, white text might be needed.
+        // Let's keep it simple: always dark text unless we know for sure there is a hero image behind.
+        // For now, I'll comment out color toggling to keep it consistent minimalist Slate color.
+        nav && nav.classList.remove('text-white')
+        nav && nav.classList.add('text-slate-800', 'dark:text-slate-200')
       } else {
-        nav && nav.classList.replace('text-white', 'text-black')
+        nav && nav.classList.remove('text-white')
+        nav && nav.classList.add('text-slate-800', 'dark:text-slate-200')
       }
 
-      // 导航栏不在头图里，且页面向下滚动一定程度 隐藏导航栏
       const showNav =
         scrollS <= windowTop ||
         scrollS < 5 ||
@@ -146,31 +161,30 @@ const Header = props => {
     <div id='top-nav' className='z-40'>
       <SearchDrawer cRef={searchDrawer} slot={searchDrawerSlot} />
 
-      {/* 导航栏 */}
+      {/* 导航栏 - 现代毛玻璃设计 */}
       <div
         id='sticky-nav'
-        style={{ backdropFilter: 'blur(3px)' }}
         className={
-          'top-0 duration-300 transition-all  shadow-none fixed bg-none dark:bg-hexo-black-gray dark:text-gray-200 text-black w-full z-20 transform border-transparent dark:border-transparent'
+          'top-0 duration-300 transition-all fixed bg-transparent text-slate-800 dark:text-slate-200 w-full z-20 transform border-b border-transparent'
         }>
-        <div className='w-full flex justify-between items-center px-4 py-2'>
-          <div className='flex'>
+        <div className='w-full flex justify-between items-center px-6 py-4 max-w-8xl mx-auto'>
+          <div className='flex items-center'>
             <Logo {...props} />
           </div>
 
           {/* 右侧功能 */}
-          <div className='mr-1 flex justify-end items-center '>
+          <div className='flex justify-end items-center gap-4'>
             <div className='hidden lg:flex'>
               {' '}
               <MenuListTop {...props} />
             </div>
             <div
               onClick={toggleMenuOpen}
-              className='w-8 justify-center items-center h-8 cursor-pointer flex lg:hidden'>
+              className='w-8 justify-center items-center h-8 cursor-pointer flex lg:hidden hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200'>
               {isOpen ? (
-                <i className='fas fa-times' />
+                <i className='fas fa-times text-lg' />
               ) : (
-                <i className='fas fa-bars' />
+                <i className='fas fa-bars text-lg' />
               )}
             </div>
             {showSearchButton && <SearchButton />}

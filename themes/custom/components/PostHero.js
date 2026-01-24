@@ -24,75 +24,61 @@ export default function PostHero({ post, siteInfo }) {
   const headerImage = post?.pageCover ? post.pageCover : siteInfo?.pageCover
 
   return (
-    <div id='header' className='w-full h-96 relative md:flex-shrink-0 z-10'>
-      <LazyImage
-        priority={true}
-        src={headerImage}
-        className='w-full h-full object-cover object-center absolute top-0'
-      />
+    <div id='header' className='w-full relative z-10 md:pt-12 pt-12 pb-8'>
+      <header className='w-full max-w-5xl mx-auto px-4'>
+        {/* 文章分类与日期 */}
+        <div className='flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400 mb-6'>
+          {post.category && (
+            <Link
+              href={`/category/${post.category}`}
+              className='font-medium text-indigo-600 dark:text-indigo-400 hover:underline'>
+              {post.category}
+            </Link>
+          )}
 
-      <header
-        id='article-header-cover'
-        className='bg-black bg-opacity-70 absolute top-0 w-full h-96 py-10 flex justify-center items-center '>
-        <div className='mt-10'>
-          <div className='mb-3 flex justify-center'>
-            {post.category && (
-              <>
-                <Link
-                  href={`/category/${post.category}`}
-                  passHref
-                  legacyBehavior>
-                  <div className='cursor-pointer px-2 py-1 mb-2 border rounded-sm dark:border-white text-sm font-medium hover:underline duration-200 shadow-text-md text-white'>
-                    {post.category}
-                  </div>
-                </Link>
-              </>
-            )}
-          </div>
+          {post?.type !== 'Page' && (
+            <span className='flex items-center'>
+              <time>{post?.publishDay}</time>
+            </span>
+          )}
 
-          {/* 文章Title */}
-          <div className='leading-snug font-bold xs:text-4xl sm:text-4xl md:text-5xl md:leading-snug text-4xl shadow-text-md flex justify-center text-center text-white'>
-            {siteConfig('POST_TITLE_ICON') && (
-              <NotionIcon icon={post.pageIcon} className='text-4xl mx-1' />
-            )}
-            {post.title}
-          </div>
-
-          <section className='flex-wrap shadow-text-md flex text-sm justify-center mt-4 text-white dark:text-gray-400 font-light leading-8'>
-            <div className='flex justify-center dark:text-gray-200 text-opacity-70'>
-              {post?.type !== 'Page' && (
-                <>
-                  <Link
-                    href={`/archive#${formatDateFmt(post?.publishDate, 'yyyy-MM')}`}
-                    passHref
-                    className='pl-1 mr-2 cursor-pointer hover:underline'>
-                    {locale.COMMON.POST_TIME}: {post?.publishDay}
-                  </Link>
-                </>
-              )}
-              <div className='pl-1 mr-2'>
-                {locale.COMMON.LAST_EDITED_TIME}: {post.lastEditedDay}
-              </div>
+          {JSON.parse(siteConfig('ANALYTICS_BUSUANZI_ENABLE')) && (
+            <div className='busuanzi_container_page_pv font-light'>
+              <span className='mr-1 busuanzi_value_page_pv' />
+              {locale.COMMON.VIEWS}
             </div>
-
-            {JSON.parse(siteConfig('ANALYTICS_BUSUANZI_ENABLE')) && (
-              <div className='busuanzi_container_page_pv font-light mr-2'>
-                <span className='mr-2 busuanzi_value_page_pv' />
-                {locale.COMMON.VIEWS}
-              </div>
-            )}
-          </section>
-
-          <div className='mt-4 mb-1'>
-            {post.tagItems && (
-              <div className='flex justify-center flex-nowrap overflow-x-auto'>
-                {post.tagItems.map(tag => (
-                  <TagItemMini key={tag.name} tag={tag} />
-                ))}
-              </div>
-            )}
-          </div>
+          )}
         </div>
+
+        {/* 文章Title */}
+        <h1 className='text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 mb-8 leading-tight'>
+          {siteConfig('POST_TITLE_ICON') && (
+            <NotionIcon icon={post.pageIcon} className='mr-3 inline-block' />
+          )}
+          {post.title}
+        </h1>
+
+        {/* 标签 */}
+        <div className='mb-8'>
+          {post.tagItems && (
+            <div className='flex flex-wrap gap-2'>
+              {post.tagItems.map(tag => (
+                <TagItemMini key={tag.name} tag={tag} />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* 封面图 - 如果有，则以圆角矩形展示，不再作为背景 */}
+        {headerImage && (
+          <div className='w-full h-64 md:h-96 relative rounded-2xl overflow-hidden shadow-lg border border-slate-200 dark:border-slate-800 mb-8'>
+            <LazyImage
+              priority={true}
+              src={headerImage}
+              className='w-full h-full object-cover'
+            />
+          </div>
+        )}
       </header>
     </div>
   )

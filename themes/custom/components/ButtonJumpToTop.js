@@ -16,10 +16,18 @@ const ButtonJumpToTop = ({ showPercent = true, percent }) => {
   if (!siteConfig('HEXO_WIDGET_TO_TOP', null, CONFIG)) {
     return <></>
   }
-  return (<div className='space-x-1 items-center justify-center transform hover:scale-105 duration-200 w-7 h-auto pb-1 text-center' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} >
-        <div title={locale.POST.TOP} ><i className='fas fa-arrow-up text-xs' /></div>
-        {showPercent && (<div className='text-xs hidden lg:block'>{percent}</div>)}
-    </div>)
+  return (
+    <div
+      className='floating-button flex flex-col items-center justify-center w-10 h-10 bg-gradient-to-br from-indigo-500 to-blue-500 rounded-lg cursor-pointer hover:shadow-lg hover:shadow-indigo-500/50 transform hover:scale-110 duration-200 text-white'
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+      <div title={locale.POST.TOP}>
+        <i className='fas fa-arrow-up text-sm' />
+      </div>
+      {showPercent && (
+        <div className='text-[10px] font-semibold'>{percent}</div>
+      )}
+    </div>
+  )
 }
 
 export default ButtonJumpToTop

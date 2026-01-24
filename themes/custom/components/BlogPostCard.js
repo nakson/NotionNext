@@ -18,21 +18,13 @@ const BlogPostCard = ({ index, post, showSummary, siteInfo }) => {
     siteConfig('HEXO_POST_LIST_COVER', null, CONFIG) &&
     post?.pageCoverThumbnail &&
     !showPreview
-  //   const delay = (index % 2) * 200
 
   return (
-    <div
-      className={`${siteConfig('HEXO_POST_LIST_COVER_HOVER_ENLARGE', null, CONFIG) ? ' hover:scale-110 transition-all duration-150' : ''}`}>
+    <div className='w-full mb-6'>
       <div
         key={post.id}
-        data-aos='fade-up'
-        data-aos-easing='ease-in-out'
-        data-aos-duration='500'
-        data-aos-once='false'
-        data-aos-anchor-placement='top-bottom'
         id='blog-post-card'
-        className={`group md:h-56 w-full flex justify-between md:flex-row flex-col-reverse ${siteConfig('HEXO_POST_LIST_IMG_CROSSOVER', null, CONFIG) && index % 2 === 1 ? 'md:flex-row-reverse' : ''}
-                    overflow-hidden border dark:border-black rounded-xl bg-white dark:bg-hexo-black-gray`}>
+        className={`group md:h-56 w-full flex justify-between md:flex-row flex-col-reverse relative overflow-hidden rounded-xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800 transition-all duration-200 hover:border-indigo-500/50 dark:hover:border-indigo-400/50 hover:shadow-lg hover:shadow-indigo-500/10 ${siteConfig('HEXO_POST_LIST_IMG_CROSSOVER', null, CONFIG) && index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
         {/* 文字内容 */}
         <BlogPostCardInfo
           index={index}
@@ -44,14 +36,14 @@ const BlogPostCard = ({ index, post, showSummary, siteInfo }) => {
 
         {/* 图片封面 */}
         {showPageCover && (
-          <div className='md:w-5/12 overflow-hidden'>
+          <div className='md:w-5/12 overflow-hidden relative'>
             <Link href={post?.href}>
               <>
                 <LazyImage
                   priority={index === 1}
                   alt={post?.title}
                   src={post?.pageCoverThumbnail}
-                  className='h-56 w-full object-cover object-center group-hover:scale-110 duration-500'
+                  className='h-56 w-full object-cover object-center transition-transform duration-500 group-hover:scale-105'
                 />
               </>
             </Link>

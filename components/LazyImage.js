@@ -22,7 +22,11 @@ export default function LazyImage({
   style
 }) {
   const maxWidth = siteConfig('IMAGE_COMPRESS_WIDTH')
-  const defaultPlaceholderSrc = siteConfig('IMG_LAZY_LOAD_PLACEHOLDER')
+  // 1x1 transparent GIF as a safe default placeholder so transparent images keep transparency
+  const TRANSPARENT_PLACEHOLDER =
+    'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
+  const defaultPlaceholderSrc =
+    siteConfig('IMG_LAZY_LOAD_PLACEHOLDER') || TRANSPARENT_PLACEHOLDER
   const imageRef = useRef(null)
   const [currentSrc, setCurrentSrc] = useState(
     placeholderSrc || defaultPlaceholderSrc
@@ -139,8 +143,12 @@ export default function LazyImage({
     alt: alt || 'Lazy loaded image',
     onLoad: handleThumbnailLoaded,
     onError: handleImageError,
+    // ensure image never shows a background color so transparent PNGs stay transparent
     className: `${className || ''} lazy-image-placeholder`,
-    style,
+    style: Object.assign(
+      { background: 'transparent', backgroundColor: 'transparent' },
+      style || {}
+    ),
     width: width || 'auto',
     height: height || 'auto',
     onClick,

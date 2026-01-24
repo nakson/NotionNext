@@ -21,9 +21,9 @@ export default function ButtonRandomPostMini(props) {
   return (
     <div
       title={locale.MENU.WALK_AROUND}
-      className='flex space-x-1 items-center justify-center transform hover:scale-105 duration-200 w-7 h-7 text-center'
+      className='floating-button flex items-center justify-center w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg cursor-pointer hover:shadow-lg hover:shadow-purple-500/50 transform hover:scale-110 duration-200 text-white'
       onClick={handleClick}>
-      <i className='fa-solid fa-podcast'></i>
+      <i className='fa-solid fa-dice text-sm'></i>
     </div>
   )
 }

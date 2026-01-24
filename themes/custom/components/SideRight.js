@@ -53,17 +53,28 @@ export default function SideRight(props) {
     return null
   }
 
+  // 如果是文章详情页，仅显示目录，保持极简
+  if (post) {
+    return (
+      <div id='sideRight' className='lg:w-80 lg:pt-0'>
+        <div className='sticky top-24 space-y-4'>
+          {post && post.toc && post.toc.length > 1 && (
+            <Card>
+              <Catalog toc={post.toc} />
+            </Card>
+          )}
+          <Announcement post={notice} />
+        </div>
+      </div>
+    )
+  }
+
+  // 这里的样式只对非文章详情页（首页、列表页）生效
   return (
     <div
       id='sideRight'
       className={` lg:w-80 lg:pt-8 ${post ? 'lg:pt-0' : 'lg:pt-4'}`}>
-      <div className='sticky top-8 space-y-4'>
-        {post && post.toc && post.toc.length > 1 && (
-          <Card>
-            <Catalog toc={post.toc} />
-          </Card>
-        )}
-
+      <div className='sticky top-24 space-y-4'>
         <InfoCard {...props} />
         {siteConfig('HEXO_WIDGET_ANALYTICS', null, CONFIG) && (
           <AnalyticsCard {...props} />

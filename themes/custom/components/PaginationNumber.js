@@ -20,7 +20,7 @@ const PaginationNumber = ({ page, totalPage }) => {
   const pages = generatePages(pagePrefix, page, currentPage, totalPage)
 
   return (
-    <div className='mt-10 mb-5 flex justify-center items-end font-medium text-indigo-400 duration-500 py-3 space-x-2'>
+    <div className='mt-10 mb-5 flex justify-center items-center font-semibold text-gray-600 dark:text-gray-300 duration-300 py-4 space-x-1'>
       {/* 上一页 */}
       <Link
         href={{
@@ -31,8 +31,8 @@ const PaginationNumber = ({ page, totalPage }) => {
           query: router.query.s ? { s: router.query.s } : {}
         }}
         rel='prev'
-        className={`${currentPage === 1 ? 'invisible' : 'block'} pb-0.5 hover:bg-indigo-400 hover:text-white w-6 text-center cursor-pointer duration-200 hover:font-bold`}>
-        <i className='fas fa-angle-left' />
+        className={`${currentPage === 1 ? 'invisible' : 'block'} px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-indigo-500 hover:to-blue-500 hover:text-white text-center cursor-pointer duration-200 transition-all hover:scale-105`}>
+        <i className='fas fa-chevron-left' />
       </Link>
 
       {pages}
@@ -44,8 +44,8 @@ const PaginationNumber = ({ page, totalPage }) => {
           query: router.query.s ? { s: router.query.s } : {}
         }}
         rel='next'
-        className={`${+showNext ? 'block' : 'invisible'} pb-0.5 hover:bg-indigo-400 hover:text-white w-6 text-center cursor-pointer duration-200 hover:font-bold`}>
-        <i className='fas fa-angle-right' />
+        className={`${+showNext ? 'block' : 'invisible'} px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-indigo-500 hover:to-blue-500 hover:text-white text-center cursor-pointer duration-200 transition-all hover:scale-105`}>
+        <i className='fas fa-chevron-right' />
       </Link>
     </div>
   )
