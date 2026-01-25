@@ -26,6 +26,63 @@ const Style = () => {
           color 0.3s;
       }
 
+      /* Static Neon Gradient Glass Background */
+      // .aurora-bg {
+      //   position: fixed;
+      //   top: 0;
+      //   left: 0;
+      //   width: 100vw;
+      //   height: 100vh;
+      //   z-index: -10;
+      //   background: linear-gradient(
+      //     120deg,
+      //     #23a6d5 0%,
+      //     #e73c7e 50%,
+      //     #ee7752 100%
+      //   );
+      //   opacity: 0.4;
+      //   pointer-events: none;
+      // }
+      // .dark .aurora-bg {
+      //   background: linear-gradient(
+      //     120deg,
+      //     #1e1b4b 0%,
+      //     #312e81 50%,
+      //     #4c1d95 100%
+      //   );
+      //   opacity: 0.5;
+      // }
+
+      // /* Glassmorphism Utility */
+      // .glass-morphism {
+      //   background: rgba(255, 255, 255, 0.25);
+      //   backdrop-filter: blur(12px);
+      //   -webkit-backdrop-filter: blur(12px);
+      //   border: 1px solid rgba(255, 255, 255, 0.3);
+      //   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      // }
+      // .dark .glass-morphism {
+      //   background: rgba(0, 0, 0, 0.3);
+      //   border: 1px solid rgba(255, 255, 255, 0.05);
+      // }
+
+      // /* Sidebar Glassmorphism (assume aside is sidebar) */
+      // aside {
+      //   background: rgba(255, 255, 255, 0.25);
+      //   backdrop-filter: blur(12px);
+      //   -webkit-backdrop-filter: blur(12px);
+      //   border-right: 1px solid rgba(255, 255, 255, 0.3);
+      // }
+      // .dark aside {
+      //   background: rgba(0, 0, 0, 0.3);
+      //   border-right: 1px solid rgba(255, 255, 255, 0.05);
+      // }
+
+      // /* Optional: rounded corners for main content */
+      // #wrapper {
+      //   border-radius: 12px;
+      // }
+
       /* Global Link Styles */
       a {
         color: #1a1a1a;

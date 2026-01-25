@@ -46,9 +46,9 @@ const TaniaSideBar = props => {
   const { theme, isDarkMode, toggleDarkMode } = useGlobal()
   console.log('>>> customMenu', customMenu)
   return (
-    <aside className='md:w-72 md:h-screen md:fixed md:overflow-y-auto flex flex-col p-8 border-r border-[#333]'>
+    <aside className='md:w-64 md:h-screen md:fixed md:overflow-y-auto flex flex-col py-8 px-4 border-r border-[#333]'>
       {/* Profile */}
-      <div className='mb-8'>
+      <div className='mb-8 border-b border-gray-700'>
         <div className='flex items-center justify-between mb-4'>
           <div
             className='flex items-center gap-4 cursor-pointer hover:opacity-80 transition-opacity'
@@ -91,11 +91,22 @@ const TaniaSideBar = props => {
             console.log('>>> link', link)
 
             const selected =
-              router.pathname === link.href || router.asPath === link.href
+              router.pathname === link.href ||
+              router.asPath === link.href ||
+              router.query?.category === link.href?.replace('/category/', '')
+
+            console.log(
+              '>>> selected',
+              selected,
+              router,
+              router.pathname,
+              router.asPath,
+              link.href
+            )
             return (
               <li
                 key={link.id}
-                className={`rounded-xl transition-colors ${selected ? 'bg-black/10 dark:bg-white/10' : 'hover:bg-black/10 dark:hover:bg-white/10'}`}>
+                className={`rounded-xl transition-colors ${selected ? 'active bg-black/10 dark:bg-white/10' : 'hover:bg-black/10 dark:hover:bg-white/10'}`}>
                 <Link
                   href={link.href || '/'}
                   target={link.target}

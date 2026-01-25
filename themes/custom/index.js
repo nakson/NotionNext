@@ -99,6 +99,9 @@ const LayoutBase = props => {
         }}>
         <Style />
 
+        {/* Aurora Animated Background */}
+        <div className='aurora-bg' />
+
         {/* 侧边栏 (Desktop) */}
         <div className='hidden lg:block w-72 shrink-0 relative'>
           <TaniaSideBar {...props} />
@@ -114,7 +117,7 @@ const LayoutBase = props => {
           {/* 主区块 */}
           <main
             id='wrapper'
-            className='w-full max-w-4xl lg:px-12 px-4 py-8 overflow-x-hidden min-h-screen relative'
+            className='glass-morphism w-full max-w-4xl lg:px-12 px-4 py-8 overflow-x-hidden min-h-screen relative md:my-8 md:rounded-xl'
             style={{ marginLeft: 'auto', marginRight: 'auto' }}>
             <Transition
               show={!onLoading}
