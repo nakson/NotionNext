@@ -93,7 +93,7 @@ const LayoutBase = props => {
         className={`${siteConfig('FONT_STYLE')} bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 min-h-screen scroll-smooth flex flex-col md:flex-row`}
         style={{
           minHeight: '100vh',
-          maxWidth: fullWidth ? '100%' : '1200px',
+          maxWidth: fullWidth ? '100%' : '1300px',
           marginLeft: 'auto',
           marginRight: 'auto'
         }}>

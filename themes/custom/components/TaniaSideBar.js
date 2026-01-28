@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import SocialButton from './SocialButton'
 import { useGlobal } from '@/lib/global'
+import { useEffect, useState } from 'react'
+import { loadExternalResource } from '@/lib/utils'
 
 // Minimal sun icon (stroke only)
 function SunIcon(props) {
@@ -44,7 +46,36 @@ const TaniaSideBar = props => {
   const { siteInfo, notices, customMenu } = props
   const router = useRouter()
   const { theme, isDarkMode, toggleDarkMode } = useGlobal()
-  console.log('>>> customMenu', customMenu)
+  const [typedSidebar, setTypedSidebar] = useState()
+
+  useEffect(() => {
+    if (
+      !typedSidebar &&
+      typeof window !== 'undefined' &&
+      document.getElementById('typed-sidebar')
+    ) {
+      loadExternalResource('/js/typed.min.js', 'js').then(() => {
+        if (window.Typed) {
+          setTypedSidebar(
+            new window.Typed('#typed-sidebar', {
+              strings: siteConfig('GREETING_WORDS').split(','),
+              typeSpeed: 60,
+              backSpeed: 40,
+              backDelay: 1500,
+              showCursor: true,
+              smartBackspace: true,
+              cursorChar: '|'
+            })
+          )
+        }
+      })
+    }
+
+    return () => {
+      if (typedSidebar && typedSidebar.destroy) typedSidebar.destroy()
+    }
+  }, [typedSidebar])
+
   return (
     <aside className='md:w-64 md:h-screen md:fixed md:overflow-y-auto flex flex-col py-8 px-4 border-r border-[#333]'>
       {/* Profile */}
@@ -77,9 +108,13 @@ const TaniaSideBar = props => {
           </button>
         </div>
 
-        <p className='text-sm text-gray-400 leading-relaxed mb-6'>
+        {/* <p className='text-sm text-gray-400 leading-relaxed mb-2'>
           {siteConfig('BIO')}
-        </p>
+        </p> */}
+
+        <div className='text-sm text-gray-400 leading-relaxed mb-6'>
+          <span id='typed-sidebar' />
+        </div>
       </div>
 
       {/* Navigation */}
@@ -95,23 +130,18 @@ const TaniaSideBar = props => {
               router.asPath === link.href ||
               router.query?.category === link.href?.replace('/category/', '')
 
-            console.log(
-              '>>> selected',
-              selected,
-              router,
-              router.pathname,
-              router.asPath,
-              link.href
-            )
             return (
               <li
                 key={link.id}
-                className={`rounded-xl transition-colors ${selected ? 'active bg-black/10 dark:bg-white/10' : 'hover:bg-black/10 dark:hover:bg-white/10'}`}>
+                className={`rounded-md transition-colors ${selected ? 'active bg-black/10 dark:bg-white/10' : 'hover:bg-black/10 dark:hover:bg-white/10'}`}>
                 <Link
                   href={link.href || '/'}
                   target={link.target}
-                  className={`block py-1 px-3 hover:text-black dark:hover:text-yellow-300 transition-colors duration-200 ${selected ? 'text-black dark:text-yellow-300 font-bold' : 'text-gray-700 dark:text-gray-300'}`}>
-                  {link?.icon && <i className={link?.icon + ' mr-2'} />}{' '}
+                  className={`block py-1 px-3 text-base ${selected ? '!font-bold !text-gray-900 dark:!text-gray-100' : '!font-medium !text-gray-700 dark:!text-gray-300'}`}>
+                  {/* {link?.icon && <i className={link?.icon + ' mr-3'} />} */}
+                  {link?.pageIcon && (
+                    <span className='mr-2'>{link?.pageIcon}</span>
+                  )}
                   {link?.name}
                 </Link>
               </li>

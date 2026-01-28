@@ -83,7 +83,7 @@ export default function PostHero({ post, siteInfo }) {
             )}
           </section>
 
-          <div className='mt-4 mb-1'>
+          {/* <div className='mt-4 mb-1'>
             {post.tagItems && (
               <div className='flex justify-center flex-nowrap overflow-x-auto'>
                 {post.tagItems.map(tag => (
@@ -91,7 +91,7 @@ export default function PostHero({ post, siteInfo }) {
                 ))}
               </div>
             )}
-          </div>
+          </div> */}
         </div>
       </header>
     </div>
