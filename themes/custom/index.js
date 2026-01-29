@@ -26,6 +26,7 @@ import Hero from './components/Hero'
 import PostHero from './components/PostHero'
 import RightFloatArea from './components/RightFloatArea'
 import SearchNav from './components/SearchNav'
+import SearchInput from './components/SearchInput'
 import SideRight from './components/SideRight'
 import SlotBar from './components/SlotBar'
 import TagItemMini from './components/TagItemMini'
@@ -166,7 +167,11 @@ const LayoutBase = props => {
  * @returns
  */
 const LayoutIndex = props => {
-  return <LayoutPostList {...props} className='pt-8' />
+  return (
+    <div className='overflow-hidden'>
+      <LayoutPostList {...props} className='pt-8' />
+    </div>
+  )
 }
 
 /**
@@ -176,8 +181,11 @@ const LayoutIndex = props => {
  */
 const LayoutPostList = props => {
   return (
-    <div className='pt-8'>
+    <div className='pt-8 overflow-hidden'>
       <SlotBar {...props} />
+      <div className='mt-4 mb-8 pr-24'>
+        <SearchInput {...props} />
+      </div>
       {siteConfig('POST_LIST_STYLE') === 'page' ? (
         <BlogPostListPage {...props} />
       ) : (
