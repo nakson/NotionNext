@@ -20,7 +20,7 @@ const BlogPostListPage = ({
   siteInfo,
   category
 }) => {
-  console.log('>>> category', category)
+  // console.log('>>> category', category)
   const { NOTION_CONFIG } = useGlobal()
   const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', null, NOTION_CONFIG)
   const totalPage = Math.ceil(postCount / POSTS_PER_PAGE)
