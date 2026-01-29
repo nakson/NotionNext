@@ -127,8 +127,10 @@ const TaniaSideBar = props => {
             const selected =
               router.pathname === link.href ||
               router.asPath === link.href ||
-              router.query?.category === link.href?.replace('/category/', '') ||
-              router.query?.category === link.slug?.replace('/category/', '')
+              decodeURIComponent(router.query?.category) ===
+                link.href?.replace('/category/', '') ||
+              decodeURIComponent(router.query?.category) ===
+                link.slug?.replace('/category/', '')
 
             console.log('>>> link', link, router, selected)
             return (
