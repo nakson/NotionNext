@@ -123,7 +123,6 @@ const TaniaSideBar = props => {
           {/* Custom Menu */}
           {customMenu?.map(link => {
             if (link.name === 'English') return null // hide English link
-            console.log('>>> link', link)
 
             const selected =
               router.pathname === link.href ||
@@ -131,6 +130,7 @@ const TaniaSideBar = props => {
               router.query?.category === link.href?.replace('/category/', '') ||
               router.query?.category === link.slug?.replace('/category/', '')
 
+            console.log('>>> link', link, router, selected)
             return (
               <li
                 key={link.id}
