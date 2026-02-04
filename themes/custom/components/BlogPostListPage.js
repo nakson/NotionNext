@@ -1,7 +1,6 @@
 import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
 import BlogPostCard from './BlogPostCard'
-import BlogCard from './BlogCard'
 import BlogPostListEmpty from './BlogPostListEmpty'
 import PaginationNumber from './PaginationNumber'
 
@@ -33,19 +32,11 @@ const BlogPostListPage = ({
         {/* 文章列表 */}
         <div id='posts-wrapper' className='flex flex-col space-y-8'>
           {posts?.map(post => (
-            // <BlogPostCard
-            //   index={posts.indexOf(post)}
-            //   key={post.id}
-            //   post={post}
-            //   siteInfo={siteInfo}
-            // />
-            <BlogCard
+            <BlogPostCard
               index={posts.indexOf(post)}
               key={post.id}
               post={post}
               siteInfo={siteInfo}
-              showAnimate
-              showSummary
             />
           ))}
         </div>

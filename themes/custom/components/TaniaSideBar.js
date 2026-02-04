@@ -77,9 +77,9 @@ const TaniaSideBar = props => {
   }, [typedSidebar])
 
   return (
-    <aside className='md:w-64 md:h-screen md:fixed md:overflow-y-auto flex flex-col py-8 px-4 border-r border-[#333]'>
+    <aside className='md:w-64 md:h-screen md:fixed md:overflow-y-auto flex flex-col py-8 px-4 border-r border-neutral-300 dark:border-slate-800'>
       {/* Profile */}
-      <div className='mb-8 border-b border-gray-700'>
+      <div className='mb-8 border-b border-neutral-300 dark:border-slate-800'>
         <div className='flex items-center justify-between mb-4'>
           <div
             className='flex items-center gap-4 cursor-pointer hover:opacity-80 transition-opacity'
@@ -154,7 +154,7 @@ const TaniaSideBar = props => {
       </nav>
 
       {/* Footer/Social */}
-      <div className='mt-8 pt-6 border-t border-gray-700'>
+      <div className='mt-8 pt-6 border-t border-neutral-300 dark:border-slate-800'>
         <div className='flex flex-wrap gap-4 mb-4'>
           <SocialButton />
         </div>

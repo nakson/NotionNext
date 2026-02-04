@@ -19,7 +19,7 @@ export const BlogPostCardInfo = ({
 }) => {
   return (
     <article
-      className={`flex flex-col justify-between lg:p-6 p-4  ${showPageCover && !showPreview ? 'md:w-7/12 w-full md:max-h-60' : 'w-full'}`}>
+      className={`game-card-content flex flex-col justify-between lg:p-6 p-4 ${showPageCover && !showPreview ? 'flex-1 w-full md:max-h-60' : 'w-full'}`}>
       <div>
         <header>
           <h2>
@@ -27,7 +27,7 @@ export const BlogPostCardInfo = ({
             <Link
               href={post?.href}
               passHref
-              className={`line-clamp-2 replace cursor-pointer text-xl font-semibold text-slate-800 dark:text-slate-100 transition-colors duration-200 hover:text-indigo-600 dark:hover:text-indigo-400 ${
+              className={`line-clamp-2 replace cursor-pointer text-xl font-semibold text-slate-900 dark:text-slate-50 transition-colors duration-200 hover:text-cyan-600 dark:hover:text-cyan-300 ${
                 showPreview ? 'text-center' : ''
               }`}>
               {siteConfig('POST_TITLE_ICON') && (
@@ -42,17 +42,17 @@ export const BlogPostCardInfo = ({
             <div
               className={`flex mt-2 items-center ${
                 showPreview ? 'justify-center' : 'justify-start'
-              } flex-wrap text-slate-500 dark:text-slate-400`}>
+              } flex-wrap text-slate-600 dark:text-slate-300`}>
               <Link
                 href={`/category/${post.category}`}
                 passHref
-                className='cursor-pointer font-medium text-xs hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200 mr-2'>
+                className='cursor-pointer font-medium text-xs hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors duration-200 mr-2'>
                 <i className='mr-1 far fa-folder' />
                 {post.category}
               </Link>
 
               <TwikooCommentCount
-                className='text-xs hover:text-indigo-600 dark:hover:text-indigo-400'
+                className='text-xs hover:text-cyan-600 dark:hover:text-cyan-300'
                 post={post}
               />
             </div>
@@ -61,7 +61,7 @@ export const BlogPostCardInfo = ({
 
         {/* 摘要 */}
         {(!showPreview || showSummary) && !post.results && (
-          <main className='line-clamp-2 replace my-3 text-slate-600 dark:text-slate-400 text-sm leading-relaxed'>
+          <main className='line-clamp-2 replace my-3 text-slate-700/90 dark:text-slate-300/90 text-sm leading-relaxed'>
             {post.summary}
           </main>
         )}
@@ -85,7 +85,7 @@ export const BlogPostCardInfo = ({
 
       <div>
         {/* 日期标签 */}
-        <div className='text-gray-400 justify-between flex'>
+        <div className='text-slate-500/90 dark:text-slate-400 justify-between flex'>
           {/* 日期 */}
           <Link
             href={`/archive#${formatDateFmt(post?.publishDate, 'yyyy-MM')}`}

@@ -91,7 +91,7 @@ const LayoutBase = props => {
     <ThemeGlobalHexo.Provider value={{ searchModal }}>
       <div
         id='theme-custom'
-        className={`${siteConfig('FONT_STYLE')} bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 min-h-screen scroll-smooth flex flex-col md:flex-row`}
+        className={`${siteConfig('FONT_STYLE')} bg-transparent text-gray-900 dark:text-gray-300 min-h-screen scroll-smooth flex flex-col md:flex-row`}
         style={{
           minHeight: '100vh',
           maxWidth: fullWidth ? '100%' : '1300px',
@@ -118,7 +118,7 @@ const LayoutBase = props => {
           {/* 主区块 */}
           <main
             id='wrapper'
-            className='glass-morphism w-full max-w-4xl lg:px-12 px-4 py-8 overflow-x-hidden min-h-screen relative md:my-8 md:rounded-xl'
+            className='w-full max-w-4xl lg:px-12 px-4 py-8 overflow-x-hidden min-h-screen relative md:my-8 md:rounded-xl'
             style={{ marginLeft: 'auto', marginRight: 'auto' }}>
             <Transition
               show={!onLoading}
