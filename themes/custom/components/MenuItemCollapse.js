@@ -28,14 +28,12 @@ export const MenuItemCollapse = props => {
 
   return (
     <>
-      <div
-        className='w-full px-8 py-3 dark:hover:bg-indigo-500  hover:bg-indigo-500 hover:text-white text-left dark:bg-hexo-black-gray'
-        onClick={toggleShow}>
+      <div className='w-full px-8 py-3 ' onClick={toggleShow}>
         {!hasSubMenu && (
           <Link
             href={link?.href}
             target={link?.target}
-            className=' font-extralight flex justify-between pl-2 pr-4 dark:text-gray-200 no-underline tracking-widest pb-1'>
+            className='font-extralight flex justify-between pl-2 pr-4 !text-slate-800 dark:!text-slate-200 no-underline tracking-widest pb-1'>
             <span className=' transition-all items-center duration-200'>
               {link?.icon && <i className={link.icon + ' mr-4'} />}
               {link?.name}
@@ -45,7 +43,7 @@ export const MenuItemCollapse = props => {
         {hasSubMenu && (
           <div
             onClick={hasSubMenu ? toggleOpenSubMenu : null}
-            className='font-extralight flex items-center justify-between pl-2 pr-4 cursor-pointer  dark:text-gray-200 no-underline tracking-widest pb-1'>
+            className='font-extralight flex items-center justify-between pl-2 pr-4 cursor-pointer!text-slate-800 dark:!text-slate-200 no-underline tracking-widest pb-1'>
             <span className='transition-all items-center duration-200'>
               {link?.icon && <i className={link.icon + ' mr-4'} />}
               {link?.name}
@@ -63,7 +61,7 @@ export const MenuItemCollapse = props => {
             return (
               <div
                 key={index}
-                className='dark:hover:bg-indigo-500 hover:bg-indigo-500 hover:text-white dark:bg-black dark:text-gray-200 text-left px-10 justify-start bg-gray-50 tracking-widest transition-all duration-200  py-3 pr-6'>
+                className='!text-slate-800 dark:!text-slate-200 hover:text-white dark:bg-black dark:text-gray-200 text-left px-10 justify-start bg-gray-50 tracking-widest transition-all duration-200  py-3 pr-6'>
                 <Link href={sLink.href} target={link?.target}>
                   <span className='text-sm ml-4 whitespace-nowrap'>
                     {link?.icon && <i className={sLink.icon + ' mr-2'} />}{' '}

@@ -63,24 +63,24 @@ const Header = props => {
       if (scrollInHeader) {
         nav &&
           nav.classList.remove(
-            'bg-white/80',
+            'bg-white/30',
             'backdrop-blur-md',
-            'dark:bg-slate-900/80',
+            'dark:bg-slate-900/30',
             'border-b',
-            'border-slate-200',
-            'dark:border-slate-800'
+            'border-slate-50',
+            'dark:border-slate-900'
           )
         nav && nav.classList.add('bg-transparent', 'border-transparent')
       } else {
         nav && nav.classList.remove('bg-transparent', 'border-transparent')
         nav &&
           nav.classList.add(
-            'bg-white/80',
+            'bg-white/30',
             'backdrop-blur-md',
-            'dark:bg-slate-900/80',
+            'dark:bg-slate-900/30',
             'border-b',
-            'border-slate-200',
-            'dark:border-slate-800'
+            'border-slate-50',
+            'dark:border-slate-900'
           )
       }
 

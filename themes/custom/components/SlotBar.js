@@ -7,7 +7,7 @@ import SmartLink from '@/components/SmartLink'
  */
 export default function SlotBar(props) {
   const { tag, category } = props
-  console.log('>>> SlotBar props', props)
+  // console.log('>>> SlotBar props', props)
 
   // Tag 显示：pill 风格，支持横向滚动以防标签过多
   if (tag) {
