@@ -80,6 +80,7 @@ const LayoutBase = props => {
     siteConfig('HEXO_THEME_NEON_ACCENT', null, CONFIG) ||
     siteConfig('HEXO_THEME_COLOR', '#0ea5e9', CONFIG)
   const showMatrixRain = cyberIntensity === 'high'
+  const showScanlines = cyberIntensity !== 'low'
   const bgArtUrl = resolveThemeBackgroundUrl(
     siteConfig('HEXO_THEME_BG_PIXEL_ART_URL', '', CONFIG),
     siteConfig
@@ -148,9 +149,10 @@ const LayoutBase = props => {
         <Style />
 
         <div className='cyber-viewport-bg' aria-hidden>
+          <div className='glass-ambient-base' />
+          <div className='glass-ambient-mesh' />
           {hasBgArt && <div className='aurora-bg-art' />}
-          <div className='aurora-bg' />
-          <div className='aurora-scanlines' />
+          {showScanlines && <div className='aurora-scanlines' />}
           {showMatrixRain && <TerminalMatrixBg />}
         </div>
 
@@ -170,7 +172,7 @@ const LayoutBase = props => {
           {/* 主区块 */}
           <main
             id='wrapper'
-            className='w-full max-w-4xl lg:px-12 px-4 py-8 overflow-x-hidden min-h-screen relative md:my-8 md:rounded-lg'
+            className='w-full max-w-3xl lg:px-12 px-4 py-8 overflow-x-hidden min-h-screen relative md:my-8'
             style={{ marginLeft: 'auto', marginRight: 'auto' }}>
             <Transition
               show={!onLoading}

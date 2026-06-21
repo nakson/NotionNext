@@ -6,10 +6,18 @@
 const Style = () => {
   return (
     <style jsx global>{`
-      @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Domine:wght@600;700&family=JetBrains+Mono:wght@400;600&family=Work+Sans:wght@400;500;600&display=swap');
 
       /* --- Design tokens (light default on #theme-custom) --- */
       #theme-custom {
+        /* 兼容仍引用 --pixel-* 的旧组件 */
+        --pixel-accent: var(--cyber-link);
+        --pixel-secondary: var(--cyber-neon-cyan);
+        --pixel-bg: var(--cyber-bg-deep);
+        --pixel-bg-light: var(--cyber-panel-bg-solid);
+        --pixel-text: var(--cyber-text);
+        --pixel-text-muted: var(--cyber-text-muted);
+
         --cyber-user-neon: #0ea5e9;
         --cyber-bg-base: #f4f4f5;
         --cyber-bg-deep: #e4e4e7;
@@ -35,38 +43,60 @@ const Style = () => {
         --cyber-scanline-opacity: 0.018;
         --cyber-float-shadow: 0 4px 20px rgba(24, 24, 27, 0.08);
         --cyber-bg-art-opacity: 0.28;
+
+        /* Liquid Glass 材质（亮色） */
+        --glass-fill: rgba(255, 255, 255, 0.52);
+        --glass-fill-hover: rgba(255, 255, 255, 0.65);
+        --glass-blur: 24px;
+        --glass-saturate: 1.5;
+        --glass-border: rgba(255, 255, 255, 0.45);
+        --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+        --glass-shadow: 0 8px 32px rgba(24, 24, 27, 0.08);
+        --glass-radius: 12px;
+        --cyber-panel-bg: var(--glass-fill);
       }
 
       .dark #theme-custom {
-        --cyber-bg-base: #09090b;
-        --cyber-bg-deep: #18181b;
-        --cyber-panel-bg: rgba(24, 24, 27, 0.5);
-        --cyber-panel-bg-solid: rgba(24, 24, 27, 0.78);
-        --cyber-panel-border: rgba(255, 255, 255, 0.08);
-        --cyber-panel-border-strong: rgba(255, 255, 255, 0.14);
-        --cyber-text: #fafafa;
-        --cyber-text-muted: #a1a1aa;
-        --cyber-term-fg: #86efac;
-        --cyber-term-dim: #4ade80;
-        --cyber-neon-cyan: var(--cyber-user-neon, #38bdf8);
-        --cyber-neon-magenta: #a78bfa;
-        --cyber-grid-line: rgba(255, 255, 255, 0.06);
+        /* Gruvbox Dark — 对齐 elmc.at */
+        --cyber-bg-base: #1d2021;
+        --cyber-bg-deep: #282828;
+        --cyber-panel-bg-solid: rgba(40, 40, 40, 0.78);
+
+        /* Liquid Glass 材质（Gruvbox 暗色） */
+        --glass-fill: rgba(40, 40, 40, 0.52);
+        --glass-fill-hover: rgba(40, 40, 40, 0.62);
+        --glass-blur: 24px;
+        --glass-saturate: 1.65;
+        --glass-border: rgba(255, 255, 255, 0.09);
+        --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+        --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.28);
+        --glass-radius: 12px;
+        --cyber-panel-bg: var(--glass-fill);
+        --cyber-panel-border: #3c3836;
+        --cyber-panel-border-strong: #504945;
+        --cyber-text: #ebdbb2;
+        --cyber-text-muted: #a89984;
+        --cyber-term-fg: #98971a;
+        --cyber-term-dim: #bdae93;
+        --cyber-neon-cyan: var(--cyber-user-neon, #fabd2f);
+        --cyber-neon-magenta: #d3869b;
+        --cyber-grid-line: rgba(168, 153, 132, 0.04);
         --cyber-grid-size: 16px;
-        --cyber-link: #7dd3fc;
-        --cyber-link-hover: #bae6fd;
-        --cyber-link-active: #38bdf8;
-        --cyber-selection-bg: rgba(56, 189, 248, 0.22);
-        --cyber-selection-fg: #fafafa;
-        --cyber-scrollbar-track: #18181b;
-        --cyber-scrollbar-thumb: #52525b;
-        --cyber-scanline-opacity: 0.035;
+        --cyber-link: #83a598;
+        --cyber-link-hover: #8ec07c;
+        --cyber-link-active: #458588;
+        --cyber-selection-bg: rgba(131, 165, 152, 0.25);
+        --cyber-selection-fg: #ebdbb2;
+        --cyber-scrollbar-track: #1d2021;
+        --cyber-scrollbar-thumb: #3c3836;
+        --cyber-scanline-opacity: 0.012;
         --cyber-float-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
-        --cyber-bg-art-opacity: 0.32;
+        --cyber-bg-art-opacity: 0.08;
       }
 
       body:has(#theme-custom) {
         font-family:
-          'IBM Plex Sans',
+          'Work Sans',
           -apple-system,
           BlinkMacSystemFont,
           'Segoe UI',
@@ -76,14 +106,16 @@ const Style = () => {
           sans-serif;
         background: var(--cyber-bg-base);
         color: var(--cyber-text);
-        line-height: 1.75;
+        line-height: 1.6;
+        letter-spacing: -0.015em;
+        font-weight: 500;
         transition:
           background 0.3s,
           color 0.3s;
       }
 
       .dark body:has(#theme-custom) {
-        background: var(--cyber-bg-deep);
+        background: var(--cyber-bg-base);
         color: var(--cyber-text);
       }
 
@@ -96,10 +128,18 @@ const Style = () => {
       #theme-custom a {
         color: var(--cyber-link);
         text-decoration: none;
-        transition: color 0.2s;
+        transition:
+          color 0.2s,
+          background-color 0.2s;
       }
       #theme-custom a:hover {
         color: var(--cyber-link-hover);
+      }
+      /* 正文内链 elmc.at 式 hover 高亮 */
+      .dark #theme-custom .notion a:hover,
+      .dark #theme-custom #wrapper p a:hover {
+        background-color: var(--cyber-link);
+        color: var(--cyber-bg-deep);
       }
       #theme-custom a.active,
       #theme-custom a[aria-current='page'],
@@ -125,7 +165,22 @@ const Style = () => {
         border-radius: 2px;
       }
       body:has(#theme-custom) ::-webkit-scrollbar-thumb:hover {
-        background: var(--cyber-neon-cyan);
+        background: var(--cyber-link);
+      }
+
+      /* 标题字体 — Domine */
+      #theme-custom h1,
+      #theme-custom h2,
+      #theme-custom h3,
+      #theme-custom h4,
+      #theme-custom h5,
+      #theme-custom h6,
+      #theme-custom .notion-h,
+      #theme-custom .notion-h-title {
+        font-family: 'Domine', Georgia, serif;
+        font-weight: 700;
+        line-height: 1.25;
+        letter-spacing: -0.005em;
       }
 
       /* Typed.js */
@@ -145,20 +200,13 @@ const Style = () => {
           monospace;
       }
 
-      /* --- Main column — frosted glass (agent panel) --- */
+      /* --- Main column — 透明阅读区 --- */
       #theme-custom #wrapper {
-        background: var(--cyber-panel-bg);
-        border: 1px solid var(--cyber-panel-border);
-        box-shadow:
-          0 0 0 1px rgba(255, 255, 255, 0.06) inset,
-          0 20px 50px rgba(24, 24, 27, 0.06);
-        backdrop-filter: blur(18px) saturate(1.25);
-        -webkit-backdrop-filter: blur(18px) saturate(1.25);
-      }
-      .dark #theme-custom #wrapper {
-        box-shadow:
-          0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-          0 24px 56px rgba(0, 0, 0, 0.4);
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
       }
 
       /* 全视口背景栈（fixed），避免子元素负 z-index 落到 body 背后 */
@@ -172,6 +220,48 @@ const Style = () => {
         overflow: hidden;
       }
 
+      /* --- Gruvbox Ambient Mesh 氛围底图 --- */
+      .glass-ambient-base {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background: var(--cyber-bg-base);
+      }
+
+      .glass-ambient-mesh {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        overflow: hidden;
+        pointer-events: none;
+        opacity: 0.75;
+        background:
+          radial-gradient(
+            ellipse 55% 45% at 12% 18%,
+            color-mix(in srgb, var(--cyber-panel-border-strong) 45%, transparent),
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse 50% 42% at 88% 78%,
+            color-mix(in srgb, var(--cyber-panel-border) 50%, transparent),
+            transparent 68%
+          ),
+          radial-gradient(
+            ellipse 42% 36% at 72% 12%,
+            color-mix(in srgb, var(--cyber-link) 10%, transparent),
+            transparent 65%
+          ),
+          radial-gradient(
+            ellipse 38% 32% at 22% 88%,
+            color-mix(in srgb, var(--cyber-neon-cyan) 7%, transparent),
+            transparent 62%
+          );
+      }
+
+      .dark .glass-ambient-mesh {
+        opacity: 0.85;
+      }
+
       /* --- Optional pixel-art / GIF backdrop --- */
       .aurora-bg-art {
         display: none;
@@ -180,7 +270,7 @@ const Style = () => {
         display: block;
         position: absolute;
         inset: 0;
-        z-index: 0;
+        z-index: 2;
         overflow: hidden;
       }
       #theme-custom[data-bg-art='1'] .cyber-viewport-bg .aurora-bg-art::before {
@@ -209,74 +299,12 @@ const Style = () => {
         pointer-events: none;
       }
 
-      /* --- Layered background --- */
+      /* 遗留 cyber 背景（仅 medium/high 扫描线仍可用） */
       .aurora-bg {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        overflow: hidden;
-        background: linear-gradient(
-          165deg,
-          var(--cyber-bg-base) 0%,
-          var(--cyber-bg-deep) 55%,
-          var(--cyber-bg-base) 100%
-        );
+        display: none;
       }
 
-      #theme-custom[data-bg-art='1'] .cyber-viewport-bg .aurora-bg {
-        background: linear-gradient(
-          165deg,
-          color-mix(in srgb, var(--cyber-bg-base) 82%, transparent) 0%,
-          color-mix(in srgb, var(--cyber-bg-deep) 78%, transparent) 52%,
-          color-mix(in srgb, var(--cyber-bg-base) 85%, transparent) 100%
-        );
-      }
-
-      .aurora-bg::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        opacity: 1;
-        background-image:
-          linear-gradient(
-            to right,
-            var(--cyber-grid-line) 1px,
-            transparent 1px
-          ),
-          linear-gradient(
-            to bottom,
-            var(--cyber-grid-line) 1px,
-            transparent 1px
-          );
-        background-size: var(--cyber-grid-size) var(--cyber-grid-size);
-      }
-
-      .aurora-bg::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        opacity: 0.14;
-        background: radial-gradient(
-          ellipse 85% 60% at 50% 12%,
-          color-mix(in srgb, var(--cyber-neon-cyan) 10%, transparent),
-          transparent 72%
-        );
-        pointer-events: none;
-      }
-
-      .dark .aurora-bg::after {
-        opacity: 0.2;
-        background: radial-gradient(
-          ellipse 75% 55% at 50% 15%,
-          color-mix(in srgb, var(--cyber-neon-cyan) 14%, transparent),
-          transparent 68%
-        );
-      }
-
-      /* Scanlines overlay */
+      /* Scanlines overlay — medium/high 强度可选 */
       .aurora-scanlines {
         position: absolute;
         inset: 0;
@@ -305,10 +333,10 @@ const Style = () => {
       }
 
       #theme-custom[data-cyber-intensity='low'] {
-        --cyber-scanline-opacity: 0.02;
+        --cyber-scanline-opacity: 0.01;
       }
       .dark #theme-custom[data-cyber-intensity='low'] {
-        --cyber-scanline-opacity: 0.03;
+        --cyber-scanline-opacity: 0.006;
       }
       #theme-custom[data-cyber-intensity='high'] {
         --cyber-scanline-opacity: 0.06;
@@ -334,7 +362,7 @@ const Style = () => {
       #theme-custom .notion {
         color: var(--cyber-text-muted);
         font-family:
-          'IBM Plex Sans',
+          'Work Sans',
           -apple-system,
           BlinkMacSystemFont,
           'Segoe UI',
@@ -359,17 +387,26 @@ const Style = () => {
       }
       .dark #theme-custom .notion code,
       .dark #theme-custom .notion .notion-inline-code {
-        background: rgba(34, 211, 238, 0.08) !important;
-        color: var(--cyber-text) !important;
+        background: #282828 !important;
+        color: #bdae93 !important;
+        border-color: #3c3836;
+      }
+      .dark #theme-custom .notion pre,
+      .dark #theme-custom .notion .notion-code {
+        background: #282828 !important;
       }
       #theme-custom .notion .notion-quote,
       #theme-custom .notion blockquote.notion-quote {
-        border-left: 3px solid var(--cyber-neon-cyan);
+        border-left: 3px solid #8ec07c;
         background: color-mix(
           in srgb,
-          var(--cyber-neon-cyan) 6%,
+          #689d6a 8%,
           transparent
         );
+      }
+      .dark #theme-custom .notion .notion-quote,
+      .dark #theme-custom .notion blockquote.notion-quote {
+        color: #689d6a;
       }
       #theme-custom .notion .notion-callout {
         border: 1px solid var(--cyber-panel-border-strong);
@@ -379,102 +416,43 @@ const Style = () => {
 
       /* --- Card panels (category / tag / sidebar cards) --- */
       #theme-custom .card {
-        background: var(--cyber-panel-bg);
-        border: 1px solid var(--cyber-panel-border);
-        border-radius: 8px;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        box-shadow: 0 4px 24px rgba(24, 24, 27, 0.05);
-      }
-      .dark #theme-custom .card {
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+        background: var(--glass-fill);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--glass-radius);
+        backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+        -webkit-backdrop-filter: blur(var(--glass-blur))
+          saturate(var(--glass-saturate));
+        box-shadow: var(--glass-highlight), var(--glass-shadow);
       }
 
-      /* --- Terminal post cards --- */
+      /* --- Liquid Glass 文章卡片 --- */
       .game-card {
         position: relative;
         isolation: isolate;
-        border-radius: 8px !important;
-        background: var(--cyber-panel-bg);
-        border: 1px solid var(--cyber-panel-border);
-        backdrop-filter: blur(14px) saturate(1.1);
-        -webkit-backdrop-filter: blur(14px) saturate(1.1);
-        box-shadow: 0 4px 24px rgba(24, 24, 27, 0.06);
+        border-radius: var(--glass-radius) !important;
+        background: var(--glass-fill);
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+        -webkit-backdrop-filter: blur(var(--glass-blur))
+          saturate(var(--glass-saturate));
+        box-shadow: var(--glass-highlight), var(--glass-shadow);
         transition:
+          background 220ms ease,
           border-color 220ms ease,
           box-shadow 220ms ease;
-      }
-      .dark .game-card {
-        box-shadow:
-          0 12px 40px rgba(0, 0, 0, 0.35),
-          0 0 0 1px rgba(255, 255, 255, 0.04) inset;
-      }
-
-      .game-card::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        pointer-events: none;
-        z-index: 0;
-        opacity: 0.35;
-        background: repeating-linear-gradient(
-          0deg,
-          transparent 0,
-          transparent 3px,
-          color-mix(in srgb, var(--cyber-neon-cyan) 6%, transparent) 3px,
-          color-mix(in srgb, var(--cyber-neon-cyan) 6%, transparent) 4px
-        );
-        mix-blend-mode: multiply;
-      }
-      .dark .game-card::before {
-        mix-blend-mode: screen;
-        opacity: 0.12;
-      }
-
-      .game-card::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        padding: 1px;
-        border-radius: inherit;
-        background: linear-gradient(
-          145deg,
-          color-mix(in srgb, var(--cyber-neon-cyan) 22%, transparent),
-          color-mix(in srgb, var(--cyber-panel-border-strong) 40%, transparent),
-          color-mix(in srgb, var(--cyber-neon-cyan) 15%, transparent)
-        );
-        -webkit-mask:
-          linear-gradient(#000 0 0) content-box,
-          linear-gradient(#000 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-        opacity: 0.35;
-        transition:
-          opacity 220ms ease,
-          filter 220ms ease;
-        pointer-events: none;
-        z-index: 1;
       }
 
       .game-card:hover,
       .game-card:focus-within {
+        background: var(--glass-fill-hover);
         border-color: color-mix(
           in srgb,
-          var(--cyber-neon-cyan) 35%,
-          transparent
+          var(--glass-border) 70%,
+          rgba(255, 255, 255, 0.18)
         );
-        box-shadow: 0 0 0 1px
-          color-mix(in srgb, var(--cyber-neon-cyan) 12%, transparent) inset;
-      }
-      .game-card:hover::before,
-      .game-card:focus-within::before {
-        opacity: 0.12;
-      }
-      .game-card:hover::after,
-      .game-card:focus-within::after {
-        opacity: 0.5;
-        filter: none;
+        box-shadow:
+          var(--glass-highlight),
+          0 12px 40px rgba(0, 0, 0, 0.32);
       }
 
       .game-card-content {
@@ -492,14 +470,11 @@ const Style = () => {
           backdrop-filter 0.25s;
       }
       #theme-custom .cyber-mobile-nav--scrolled {
-        background: var(--cyber-panel-bg) !important;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        background: transparent !important;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
         border-bottom-color: var(--cyber-panel-border) !important;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-      }
-      .dark #theme-custom .cyber-mobile-nav--scrolled {
-        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+        box-shadow: none;
       }
 
       /* --- Search drawer --- */
@@ -528,22 +503,17 @@ const Style = () => {
         opacity: 1;
       }
 
-      /* --- Hero terminal frame --- */
+      /* --- Hero — Liquid Glass --- */
       .cyber-hero-terminal {
         min-height: 38vh;
-        border: 1px solid var(--cyber-panel-border);
-        border-radius: 8px;
-        background: var(--cyber-panel-bg);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--glass-radius);
+        background: var(--glass-fill);
+        backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+        -webkit-backdrop-filter: blur(var(--glass-blur))
+          saturate(var(--glass-saturate));
         margin-bottom: 1rem;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      }
-      .dark .cyber-hero-terminal {
-        background: rgba(24, 24, 27, 0.42);
-        box-shadow:
-          inset 0 0 48px rgba(0, 0, 0, 0.35),
-          0 0 0 1px rgba(255, 255, 255, 0.06);
+        box-shadow: var(--glass-highlight), var(--glass-shadow);
       }
       .cyber-hero-chrome {
         font-family:
@@ -553,16 +523,12 @@ const Style = () => {
         font-size: 11px;
         letter-spacing: 0.06em;
         color: var(--cyber-term-dim);
-        border-bottom: 1px solid var(--cyber-panel-border);
+        border-bottom: 1px solid var(--glass-border);
         padding: 0.35rem 0.75rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: color-mix(
-          in srgb,
-          var(--cyber-panel-bg) 80%,
-          transparent
-        );
+        background: color-mix(in srgb, var(--glass-fill) 85%, transparent);
       }
       .cyber-hero-body {
         position: relative;
@@ -590,14 +556,15 @@ const Style = () => {
         text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
       }
 
-      /* --- Search input terminal --- */
+      /* --- Search input --- */
       .cyber-search-input-wrap {
-        border: 1px solid var(--cyber-panel-border-strong);
-        border-radius: 6px;
-        background: var(--cyber-panel-bg);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+        border: 1px solid var(--glass-border);
+        border-radius: calc(var(--glass-radius) - 4px);
+        background: var(--glass-fill);
+        backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+        -webkit-backdrop-filter: blur(var(--glass-blur))
+          saturate(var(--glass-saturate));
+        box-shadow: var(--glass-highlight);
       }
       .cyber-search-input-wrap input {
         caret-color: var(--cyber-neon-cyan);
@@ -618,13 +585,14 @@ const Style = () => {
       #theme-custom .cyber-float-btn {
         width: 2.5rem;
         height: 2.5rem;
-        border-radius: 6px;
-        border: 1px solid var(--cyber-panel-border-strong);
-        background: var(--cyber-panel-bg);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        border-radius: calc(var(--glass-radius) - 4px);
+        border: 1px solid var(--glass-border);
+        background: var(--glass-fill);
+        backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+        -webkit-backdrop-filter: blur(var(--glass-blur))
+          saturate(var(--glass-saturate));
         color: var(--cyber-term-fg);
-        box-shadow: var(--cyber-float-shadow);
+        box-shadow: var(--glass-highlight), var(--glass-shadow);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -639,19 +607,23 @@ const Style = () => {
       }
       #theme-custom .cyber-float-btn:hover {
         transform: translateY(-1px);
-        border-color: color-mix(in srgb, var(--cyber-neon-cyan) 55%, transparent);
-        box-shadow: 0 8px 24px rgba(24, 24, 27, 0.12);
-      }
-      .dark #theme-custom .cyber-float-btn:hover {
-        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+        background: var(--glass-fill-hover);
+        border-color: color-mix(
+          in srgb,
+          var(--glass-border) 70%,
+          rgba(255, 255, 255, 0.18)
+        );
+        box-shadow:
+          var(--glass-highlight),
+          0 12px 40px rgba(0, 0, 0, 0.32);
       }
 
-      /* --- Sidebar terminal --- */
+      /* --- Sidebar — 透明导航区 --- */
       #theme-custom aside.cyber-sidebar-shell {
         border-right: 1px solid var(--cyber-panel-border);
-        background: color-mix(in srgb, var(--cyber-panel-bg) 55%, transparent);
-        backdrop-filter: blur(16px) saturate(1.15);
-        -webkit-backdrop-filter: blur(16px) saturate(1.15);
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
       }
 
       /* --- 404 --- */
@@ -660,16 +632,14 @@ const Style = () => {
           'JetBrains Mono',
           ui-monospace,
           monospace;
-        border: 1px solid var(--cyber-panel-border);
-        border-radius: 8px;
+        border: 1px solid var(--glass-border);
+        border-radius: var(--glass-radius);
         padding: 2rem;
-        background: var(--cyber-panel-bg);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        box-shadow: 0 16px 48px rgba(24, 24, 27, 0.1);
-      }
-      .dark .cyber-404-panel {
-        box-shadow: 0 20px 56px rgba(0, 0, 0, 0.4);
+        background: var(--glass-fill);
+        backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+        -webkit-backdrop-filter: blur(var(--glass-blur))
+          saturate(var(--glass-saturate));
+        box-shadow: var(--glass-highlight), var(--glass-shadow);
       }
 
       /* --- Loading --- */
@@ -710,6 +680,22 @@ const Style = () => {
         }
       }
 
+      @media (prefers-reduced-transparency: reduce) {
+        .glass-ambient-mesh {
+          opacity: 0.3;
+        }
+        .game-card,
+        #theme-custom .card,
+        .cyber-hero-terminal,
+        .cyber-search-input-wrap,
+        #theme-custom .cyber-float-btn,
+        .cyber-404-panel {
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
+          background: var(--cyber-panel-bg-solid);
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .cyber-boot-bar::after {
           animation: none !important;
@@ -717,9 +703,7 @@ const Style = () => {
         .aurora-scanlines {
           opacity: 0.02 !important;
         }
-        .game-card,
-        .game-card::before,
-        .game-card::after {
+        .game-card {
           transition: none;
         }
       }

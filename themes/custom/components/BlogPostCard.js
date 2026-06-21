@@ -20,14 +20,14 @@ const BlogPostCard = ({ index, post, showSummary, siteInfo }) => {
     !showPreview
 
   return (
-    <div className='w-full mb-6'>
+    <div className='w-full mb-8'>
       <div
         key={post.id}
         id='blog-post-card'
         className={`game-card group md:h-56 w-full flex justify-between md:flex-row flex-col relative overflow-hidden`}>
         {/* 图片封面 */}
         {showPageCover && (
-          <div className='md:w-auto md:aspect-[1/1.4] md:h-full w-full h-56 overflow-hidden relative flex-shrink-0 border-r-2 border-[var(--pixel-secondary)]'>
+          <div className='md:w-auto md:aspect-[1/1.4] md:h-full w-full h-56 overflow-hidden relative flex-shrink-0 border-r border-[color:var(--cyber-panel-border)]'>
             <Link href={post?.href}>
               <>
                 <LazyImage

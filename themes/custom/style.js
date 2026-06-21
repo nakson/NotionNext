@@ -3,6 +3,7 @@ import { siteConfig } from '@/lib/config'
 import CONFIG from './config'
 
 /**
+ * @deprecated 遗留像素风样式（#theme-hexo），当前主题使用 style_tania.js（#theme-custom）
  * 像素风 (8-bit Cyberpunk) 主题样式
  * 赛博朋克 + 像素艺术融合设计
  * @returns

@@ -117,7 +117,7 @@ const TaniaSideBar = props => {
               e.stopPropagation()
               toggleDarkMode()
             }}
-            className='ml-1 p-2 rounded border border-[color:var(--cyber-panel-border)] hover:border-[color:var(--cyber-neon-cyan)] text-[color:var(--cyber-text-muted)] hover:text-[color:var(--cyber-neon-cyan)] transition-colors flex items-center justify-center'>
+            className='ml-1 p-2 rounded border border-[color:var(--cyber-panel-border)] hover:border-[color:var(--cyber-link)] text-[color:var(--cyber-text-muted)] hover:text-[color:var(--cyber-link)] transition-colors flex items-center justify-center'>
             {isDarkMode ? <SunIcon /> : <MoonIcon />}
           </button>
         </div>
@@ -145,8 +145,8 @@ const TaniaSideBar = props => {
                 key={link.id}
                 className={`rounded border border-transparent transition-colors ${
                   selected
-                    ? 'border-[color:var(--cyber-panel-border-strong)] bg-[color:var(--cyber-panel-bg)]'
-                    : 'hover:border-[color:var(--cyber-panel-border)] hover:bg-[color:var(--cyber-panel-bg)]'
+                    ? 'border-[color:var(--cyber-panel-border-strong)]'
+                    : 'hover:border-[color:var(--cyber-panel-border)]'
                 }`}>
                 <Link
                   href={link.href || '/'}

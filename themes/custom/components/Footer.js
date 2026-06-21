@@ -9,21 +9,18 @@ const Footer = ({ title }) => {
   const since = siteConfig('SINCE')
   const copyrightDate =
     parseInt(since) < currentYear ? since + '-' + currentYear : currentYear
-  const pixelEdge = siteConfig('HEXO_THEME_PIXEL_HEADER_FOOTER', true, CONFIG)
+  const showEdge = siteConfig('HEXO_THEME_PIXEL_HEADER_FOOTER', false, CONFIG)
 
   return (
-    <footer className='relative z-10 flex-shrink-0 justify-center text-center m-auto w-full leading-7 text-[var(--pixel-text-muted)] text-xs p-8 border-t-4 border-[var(--pixel-accent)] bg-[var(--pixel-bg)] font-mono'>
-      {pixelEdge && <div className='cyber-footer-pixel-edge' aria-hidden />}
+    <footer className='relative z-10 flex-shrink-0 justify-center text-center m-auto w-full leading-7 text-[color:var(--cyber-text-muted)] text-xs p-8 border-t border-[color:var(--cyber-panel-border)] bg-transparent'>
+      {showEdge && <div className='cyber-footer-pixel-edge' aria-hidden />}
       <div className='max-w-5xl mx-auto'>
-        <div className='flex items-center justify-center gap-2 mb-3 text-[var(--pixel-text)]'>
-          <span className='text-[var(--pixel-accent)] select-none animate-pulse'>
-            &gt;&gt;
-          </span>
+        <div className='flex items-center justify-center gap-2 mb-3 text-[color:var(--cyber-text)]'>
           <span className='font-bold'>{`${copyrightDate}`}</span>
-          <span className='text-[var(--pixel-secondary)]'>|</span>
+          <span className='text-[color:var(--cyber-text-muted)]'>|</span>
           <a
             href={siteConfig('LINK')}
-            className='font-semibold text-[var(--pixel-accent)] hover:text-[var(--pixel-secondary)] transition-colors duration-100 hover:drop-shadow-lg'>
+            className='font-semibold text-[color:var(--cyber-link)] hover:text-[color:var(--cyber-link-hover)] transition-colors duration-200'>
             {siteConfig('AUTHOR')}
           </a>
         </div>
@@ -33,32 +30,25 @@ const Footer = ({ title }) => {
           <BeiAnGongAn />
         </div>
 
-        <div className='flex justify-center items-center gap-4 mb-4 text-[11px]'>
+        <div className='flex justify-center items-center gap-4 mb-4 text-[11px] cyber-mono'>
           <span className='hidden busuanzi_container_site_pv'>
-            <span className='text-[var(--pixel-accent)]'>&lt;pv&gt;</span>
-            <span className='px-1 busuanzi_value_site_pv ml-1 font-mono'>
-              {' '}
-            </span>
+            <span className='text-[color:var(--cyber-link)]'>pv</span>
+            <span className='px-1 busuanzi_value_site_pv ml-1'> </span>
           </span>
           <span className='hidden busuanzi_container_site_uv'>
-            <span className='text-[var(--pixel-secondary)]'>&lt;uv&gt;</span>
-            <span className='px-1 busuanzi_value_site_uv ml-1 font-mono'>
-              {' '}
-            </span>
+            <span className='text-[color:var(--cyber-text-muted)]'>uv</span>
+            <span className='px-1 busuanzi_value_site_uv ml-1'> </span>
           </span>
         </div>
 
-        <div className='text-[11px] opacity-85 leading-relaxed border-t-2 border-dashed border-[var(--pixel-secondary)] pt-3'>
+        <div className='text-[11px] opacity-85 leading-relaxed border-t border-[color:var(--cyber-panel-border)] pt-3'>
           {title}
           {siteConfig('BIO') && (
             <>
-              <span className='mx-2 text-[var(--pixel-secondary)]'>|</span>
+              <span className='mx-2 text-[color:var(--cyber-text-muted)]'>|</span>
               {siteConfig('BIO')}
             </>
           )}
-          <div className='mt-2 text-[var(--pixel-accent)]'>
-            🎮 Built with Pixel Art Style 🎮
-          </div>
         </div>
       </div>
     </footer>
