@@ -4,8 +4,24 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import SocialButton from './SocialButton'
 import { useGlobal } from '@/lib/global'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { loadExternalResource } from '@/lib/utils'
+import CONFIG from '../config'
+
+function resolveGreetingWords () {
+  const raw = siteConfig('GREETING_WORDS', null, CONFIG)
+  if (Array.isArray(raw)) {
+    return raw.map(item => String(item).trim()).filter(Boolean)
+  }
+  if (typeof raw === 'string') {
+    return raw.split(',').map(item => item.trim()).filter(Boolean)
+  }
+  const themeFallback = siteConfig('HEXO_HOME_BANNER_GREETINGS', null, CONFIG)
+  if (Array.isArray(themeFallback)) {
+    return themeFallback.map(item => String(item).trim()).filter(Boolean)
+  }
+  return []
+}
 
 function SunIcon (props) {
   return (
@@ -44,60 +60,47 @@ const TaniaSideBar = props => {
   const { siteInfo, customMenu } = props
   const router = useRouter()
   const { isDarkMode, toggleDarkMode } = useGlobal()
-  const [typedSidebar, setTypedSidebar] = useState()
-
-  const shellHost = (siteConfig('TITLE') || 'blog')
-    .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^a-z0-9-]/g, '')
-    .slice(0, 28) || 'blog'
+  const greetingWords = resolveGreetingWords()
+  const greetingKey = greetingWords.join('\u0000')
 
   useEffect(() => {
     if (
-      !typedSidebar &&
-      typeof window !== 'undefined' &&
-      document.getElementById('typed-sidebar')
+      typeof window === 'undefined' ||
+      !document.getElementById('typed-sidebar') ||
+      !greetingWords.length
     ) {
-      loadExternalResource('/js/typed.min.js', 'js').then(() => {
-        if (window.Typed) {
-          setTypedSidebar(
-            new window.Typed('#typed-sidebar', {
-              strings: siteConfig('GREETING_WORDS').split(','),
-              typeSpeed: 60,
-              backSpeed: 40,
-              backDelay: 1500,
-              showCursor: true,
-              smartBackspace: true,
-              cursorChar: '|'
-            })
-          )
-        }
-      })
+      return
     }
 
+    let typedInstance
+    loadExternalResource('/js/typed.min.js', 'js').then(() => {
+      if (!window.Typed) return
+      typedInstance = new window.Typed('#typed-sidebar', {
+        strings: greetingWords,
+        typeSpeed: 60,
+        backSpeed: 40,
+        backDelay: 1500,
+        showCursor: true,
+        smartBackspace: true,
+        cursorChar: '|'
+      })
+    })
+
     return () => {
-      if (typedSidebar && typedSidebar.destroy) typedSidebar.destroy()
+      typedInstance?.destroy?.()
     }
-  }, [typedSidebar])
+  }, [greetingKey])
 
   return (
     <aside className='cyber-sidebar-shell md:w-64 md:h-screen md:fixed md:overflow-y-auto flex flex-col py-8 px-4'>
       <div className='mb-6 border-b border-[color:var(--cyber-panel-border)] pb-4'>
-        <p className='cyber-mono text-[11px] leading-relaxed text-[color:var(--cyber-term-dim)] mb-3 select-none'>
-          <span className='text-[color:var(--cyber-term-fg)]'>guest</span>
-          <span className='text-[color:var(--cyber-text-muted)]'>@</span>
-          <span className='text-[color:var(--cyber-neon-cyan)]'>{shellHost}</span>
-          <span className='text-[color:var(--cyber-text-muted)]'>:~$</span>{' '}
-          <span className='opacity-70'>session — ok</span>
-        </p>
-
         <div className='flex items-center justify-between mb-3'>
           <div
             className='flex items-center gap-3 cursor-pointer hover:opacity-85 transition-opacity'
             onClick={() => void router.push('/')}>
             <LazyImage
               src={siteInfo?.icon}
-              className='rounded-sm h-10 w-10 object-cover ring-1 ring-[color:var(--cyber-panel-border)]'
+              className='rounded-sm h-10 w-10 object-cover'
               width={40}
               height={40}
               alt={siteConfig('AUTHOR')}
