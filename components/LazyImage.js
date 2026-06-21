@@ -1,6 +1,19 @@
 import { siteConfig } from '@/lib/config'
 import Head from 'next/head'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+
+const getTargetImageWidth = (width, maxWidth) => {
+  const parsedWidth = Number(width)
+  const parsedMaxWidth = Number(maxWidth)
+
+  if (Number.isFinite(parsedWidth) && parsedWidth > 0) {
+    return Number.isFinite(parsedMaxWidth) && parsedMaxWidth > 0
+      ? Math.min(parsedWidth, parsedMaxWidth)
+      : parsedWidth
+  }
+
+  return maxWidth
+}
 
 /**
  * 图片懒加载
@@ -12,6 +25,7 @@ export default function LazyImage({
   id,
   src,
   alt,
+  fallbackSrc,
   placeholderSrc,
   className,
   width,
@@ -22,11 +36,8 @@ export default function LazyImage({
   style
 }) {
   const maxWidth = siteConfig('IMAGE_COMPRESS_WIDTH')
-  // 1x1 transparent GIF as a safe default placeholder so transparent images keep transparency
-  const TRANSPARENT_PLACEHOLDER =
-    'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
-  const defaultPlaceholderSrc =
-    siteConfig('IMG_LAZY_LOAD_PLACEHOLDER') || TRANSPARENT_PLACEHOLDER
+  const targetImageWidth = getTargetImageWidth(width, maxWidth)
+  const defaultPlaceholderSrc = siteConfig('IMG_LAZY_LOAD_PLACEHOLDER')
   const imageRef = useRef(null)
   const [currentSrc, setCurrentSrc] = useState(
     placeholderSrc || defaultPlaceholderSrc
@@ -40,37 +51,33 @@ export default function LazyImage({
       // onLoad() // 触发传递的onLoad回调函数
     }
   }
-  // 原图加载完成
-  const handleImageLoaded = img => {
-    if (typeof onLoad === 'function') {
-      onLoad() // 触发传递的onLoad回调函数
-    }
-    // 移除占位符类名
+
+  const handleImageError = useCallback(() => {
     if (imageRef.current) {
-      imageRef.current.classList.remove('lazy-image-placeholder')
-    }
-  }
-  /**
-   * 图片加载失败回调
-   */
-  const handleImageError = () => {
-    if (imageRef.current) {
-      // 尝试加载 placeholderSrc，如果失败则加载 defaultPlaceholderSrc
-      if (imageRef.current.src !== placeholderSrc && placeholderSrc) {
+      // 优先回退 fallbackSrc，再尝试 placeholderSrc，最后 defaultPlaceholderSrc
+      if (imageRef.current.src !== fallbackSrc && fallbackSrc) {
+        imageRef.current.src = fallbackSrc
+      } else if (imageRef.current.src !== placeholderSrc && placeholderSrc) {
         imageRef.current.src = placeholderSrc
       } else {
         imageRef.current.src = defaultPlaceholderSrc
       }
-      // 移除占位符类名
+      imageRef.current.classList.remove('lazy-image-placeholder')
+    }
+  }, [defaultPlaceholderSrc, fallbackSrc, placeholderSrc])
+
+  useEffect(() => {
+    const adjustedImageSrc =
+      adjustImgSize(src, targetImageWidth) || defaultPlaceholderSrc
+    const imageElement = imageRef.current
+    const handleImageLoaded = () => {
+      if (typeof onLoad === 'function') {
+        onLoad()
+      }
       if (imageRef.current) {
         imageRef.current.classList.remove('lazy-image-placeholder')
       }
     }
-  }
-
-  useEffect(() => {
-    const adjustedImageSrc =
-      adjustImgSize(src, maxWidth) || defaultPlaceholderSrc
 
     // 如果是优先级图片，直接加载
     if (priority) {
@@ -124,16 +131,25 @@ export default function LazyImage({
       }
     )
 
-    if (imageRef.current) {
-      observer.observe(imageRef.current)
+    if (imageElement) {
+      observer.observe(imageElement)
     }
 
     return () => {
-      if (imageRef.current) {
-        observer.unobserve(imageRef.current)
+      if (imageElement) {
+        observer.unobserve(imageElement)
       }
     }
-  }, [src, maxWidth, priority])
+  }, [
+    src,
+    targetImageWidth,
+    priority,
+    defaultPlaceholderSrc,
+    fallbackSrc,
+    handleImageError,
+    onLoad,
+    placeholderSrc
+  ])
 
   // 动态添加width、height和className属性，仅在它们为有效值时添加
   const imgProps = {
@@ -145,10 +161,7 @@ export default function LazyImage({
     onError: handleImageError,
     // ensure image never shows a background color so transparent PNGs stay transparent
     className: `${className || ''} lazy-image-placeholder`,
-    style: Object.assign(
-      { background: 'transparent', backgroundColor: 'transparent' },
-      style || {}
-    ),
+    style,
     width: width || 'auto',
     height: height || 'auto',
     onClick,
@@ -162,6 +175,9 @@ export default function LazyImage({
 
   if (id) imgProps.id = id
   if (title) imgProps.title = title
+  if (width) imgProps.width = width
+  if (height) imgProps.height = height
+  if (priority) imgProps.fetchPriority = 'high'
 
   if (!src) {
     return null
@@ -170,11 +186,16 @@ export default function LazyImage({
   return (
     <>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img {...imgProps} />
+      <img alt={imgProps.alt} {...imgProps} />
       {/* 预加载 */}
       {priority && (
         <Head>
-          <link rel='preload' as='image' href={adjustImgSize(src, maxWidth)} />
+          <link
+            rel='preload'
+            as='image'
+            href={adjustImgSize(src, targetImageWidth)}
+            fetchPriority='high'
+          />
         </Head>
       )}
     </>
@@ -193,9 +214,14 @@ const adjustImgSize = (src, maxWidth) => {
   }
   const screenWidth =
     (typeof window !== 'undefined' && window?.screen?.width) || maxWidth
+  const parsedMaxWidth = Number(maxWidth)
+  const targetWidth =
+    Number.isFinite(parsedMaxWidth) && parsedMaxWidth > 0
+      ? Math.min(screenWidth, parsedMaxWidth)
+      : screenWidth
 
   // 屏幕尺寸大于默认图片尺寸，没必要再压缩
-  if (screenWidth > maxWidth) {
+  if (!targetWidth) {
     return src
   }
 
@@ -206,6 +232,6 @@ const adjustImgSize = (src, maxWidth) => {
 
   // 使用正则表达式替换 width/w 参数
   return src
-    .replace(widthRegex, `width=${screenWidth}`)
-    .replace(wRegex, `w=${screenWidth}`)
+    .replace(widthRegex, `width=${targetWidth}`)
+    .replace(wRegex, `w=${targetWidth}`)
 }
