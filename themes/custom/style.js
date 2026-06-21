@@ -3,409 +3,491 @@ import { siteConfig } from '@/lib/config'
 import CONFIG from './config'
 
 /**
- * 这里的css样式只对当前主题生效
- * 主题客制化css
+ * 像素风 (8-bit Cyberpunk) 主题样式
+ * 赛博朋克 + 像素艺术融合设计
  * @returns
  */
 const Style = () => {
-  // 从配置中获取主题色，如果没有配置则使用默认值 #3758F9（现代蓝）
-  const themeColor = siteConfig('HEXO_THEME_COLOR', '#3758F9', CONFIG)
+  // 像素风色彩配置
+  const accentColor = '#00ffff' // 霓虹青
+  const secondaryColor = '#ff00ff' // 霓虹紫/洋红
+  const warningColor = '#ffff00' // 霓虹黄
 
   return (
     <style jsx global>{`
+      @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=VT323&display=swap');
+
       :root {
-        --theme-color: ${themeColor};
-        --accent-color: #13c296;
-        --gradient-primary: linear-gradient(
-          135deg,
-          ${themeColor} 0%,
-          #6b5fff 100%
-        );
-        --gradient-secondary: linear-gradient(135deg, #13c296 0%, #0fa678 100%);
+        --pixel-accent: ${accentColor};
+        --pixel-secondary: ${secondaryColor};
+        --pixel-warning: ${warningColor};
+        --pixel-bg: #0f172a;
+        --pixel-bg-light: #1e293b;
+        --pixel-text: #e0e0e0;
+        --pixel-text-muted: #a0a0a0;
+        --pixel-border: #00ffff;
+        --pixel-border-alt: #ff00ff;
+        --font-pixel: 'Pixelify Sans', 'VT323', monospace;
+        --font-pixel-title: 'Pixelify Sans', monospace;
       }
 
-      // 现代底色系统 - 极简光影风格
+      /* ===== 像素风背景系统 - 赛博朋克夜景 ===== */
       #theme-hexo body {
-        background-color: #f8fafc;
-        background-image:
-          radial-gradient(
-            at 0% 0%,
-            rgba(99, 102, 241, 0.1) 0px,
-            transparent 50%
-          ),
-          radial-gradient(
-            at 100% 0%,
-            rgba(168, 85, 247, 0.1) 0px,
-            transparent 50%
-          ),
-          radial-gradient(
-            at 100% 100%,
-            rgba(56, 189, 248, 0.1) 0px,
-            transparent 50%
-          ),
-          radial-gradient(
-            at 0% 100%,
-            rgba(236, 72, 153, 0.1) 0px,
-            transparent 50%
-          );
+        background-color: var(--pixel-bg);
+        background-image: repeating-linear-gradient(
+          0deg,
+          rgba(0, 255, 255, 0.03) 0px,
+          rgba(0, 255, 255, 0.03) 1px,
+          transparent 1px,
+          transparent 2px
+        );
         background-attachment: fixed;
-      }
-      .dark #theme-hexo body {
-        background-color: #0f172a;
-        background-image:
-          radial-gradient(
-            at 0% 0%,
-            rgba(99, 102, 241, 0.15) 0px,
-            transparent 50%
-          ),
-          radial-gradient(
-            at 100% 0%,
-            rgba(168, 85, 247, 0.15) 0px,
-            transparent 50%
-          ),
-          radial-gradient(
-            at 100% 100%,
-            rgba(56, 189, 248, 0.15) 0px,
-            transparent 50%
-          ),
-          radial-gradient(
-            at 0% 100%,
-            rgba(236, 72, 153, 0.15) 0px,
-            transparent 50%
-          );
-        background-attachment: fixed;
+        color: var(--pixel-text);
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
       }
 
-      /* ===== 现代菜单下划线动画 - 极简版 ===== */
+      .dark #theme-hexo body {
+        background-color: var(--pixel-bg);
+      }
+
+      /* ===== 字体系统 - 像素风为主 ===== */
+      #theme-hexo h1,
+      #theme-hexo h2,
+      #theme-hexo h3,
+      #theme-hexo h4,
+      #theme-hexo h5,
+      #theme-hexo h6 {
+        font-family: var(--font-pixel-title);
+        letter-spacing: 0.05em;
+        text-shadow: 2px 2px 0px rgba(0, 255, 255, 0.3);
+      }
+
+      #theme-hexo h1 {
+        color: var(--pixel-accent);
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+
+      #theme-hexo h2 {
+        color: var(--pixel-text);
+        font-size: 1.8rem;
+      }
+
+      /* ===== 像素风菜单 - 硬朗边框 ===== */
       #theme-hexo .menu-link {
+        font-family: var(--font-pixel);
         text-decoration: none;
         position: relative;
-        color: #475569;
-        transition: color 200ms ease;
-      }
-      .dark #theme-hexo .menu-link {
-        color: #cbd5e1;
-      }
-
-      #theme-hexo .menu-link::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: var(--theme-color);
-        transition: width 200ms ease;
+        color: var(--pixel-text);
+        transition: all 100ms steps(2);
+        border: 2px solid transparent;
+        padding: 4px 8px;
+        display: inline-block;
       }
 
       #theme-hexo .menu-link:hover {
-        color: var(--theme-color);
+        color: var(--pixel-accent);
+        border: 2px solid var(--pixel-accent);
+        text-shadow:
+          0 0 8px var(--pixel-accent),
+          0 0 16px var(--pixel-accent);
+        transform: translate(1px, 1px);
       }
 
-      #theme-hexo .menu-link:hover::after {
-        width: 100%;
+      #theme-hexo .menu-link::after {
+        display: none;
       }
 
       /* 站点欢迎语 */
       #theme-hexo #typed {
-        font-family:
-          'Inter',
-          -apple-system,
-          BlinkMacSystemFont,
-          'Segoe UI',
-          sans-serif;
-        font-weight: 600;
-        letter-spacing: -0.025em;
+        font-family: var(--font-pixel-title);
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        color: var(--pixel-accent);
+        text-shadow: 0 0 10px var(--pixel-accent);
       }
 
-      /* ===== 现代卡片设计 - 极简版 ===== */
+      /* ===== 像素风卡片 - 硬朗边框设计 ===== */
       #theme-hexo .card {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.5);
+        background: var(--pixel-bg-light);
+        border: 2px solid var(--pixel-accent);
         box-shadow:
-          0 4px 6px -1px rgba(0, 0, 0, 0.05),
-          0 2px 4px -1px rgba(0, 0, 0, 0.03);
-        transition: all 200ms ease;
-        border-radius: 0.75rem;
+          4px 4px 0px rgba(0, 255, 255, 0.2),
+          8px 8px 0px rgba(255, 0, 255, 0.1);
+        transition: all 50ms steps(1);
+        border-radius: 0;
+        position: relative;
       }
 
       #theme-hexo .card:hover {
-        background: rgba(255, 255, 255, 0.9);
+        transform: translate(-2px, -2px);
         box-shadow:
-          0 10px 15px -3px rgba(0, 0, 0, 0.08),
-          0 4px 6px -2px rgba(0, 0, 0, 0.04);
-        transform: translateY(-1px);
+          6px 6px 0px rgba(0, 255, 255, 0.4),
+          10px 10px 0px rgba(255, 0, 255, 0.2);
       }
 
-      .dark #theme-hexo .card {
-        background: rgba(30, 41, 59, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+      #theme-hexo .card:active {
+        transform: translate(2px, 2px);
+        box-shadow:
+          2px 2px 0px rgba(0, 255, 255, 0.3),
+          4px 4px 0px rgba(255, 0, 255, 0.1);
       }
 
-      .dark #theme-hexo .card:hover {
-        background: rgba(30, 41, 59, 0.8);
-        border-color: rgba(255, 255, 255, 0.1);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-      }
-
-      /* ===== 文章卡片现代效果 ===== */
+      /* ===== 文章卡片 - 像素风造型 ===== */
       #theme-hexo #blog-post-card {
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-        transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+        background: var(--pixel-bg-light);
+        border: 3px solid var(--pixel-accent);
+        box-shadow:
+          4px 4px 0px rgba(0, 255, 255, 0.3),
+          -2px -2px 0px rgba(255, 0, 255, 0.2);
+        transition: all 50ms steps(1);
+        border-radius: 0;
         overflow: hidden;
+        position: relative;
       }
 
       #theme-hexo #blog-post-card::before {
         content: '';
         position: absolute;
         top: 0;
-        left: -100%;
+        left: 0;
         width: 100%;
-        height: 100%;
+        height: 2px;
         background: linear-gradient(
           90deg,
-          transparent,
-          rgba(255, 255, 255, 0.3),
-          transparent
+          var(--pixel-accent) 0%,
+          var(--pixel-secondary) 50%,
+          var(--pixel-accent) 100%
         );
-        transition: left 500ms ease;
+        animation: pixel-line-scan 3s linear infinite;
       }
 
-      #theme-hexo #blog-post-card:hover::before {
-        left: 100%;
+      @keyframes pixel-line-scan {
+        0% {
+          top: 0;
+        }
+        100% {
+          top: 100%;
+        }
       }
 
       #theme-hexo #blog-post-card:hover {
-        box-shadow: 0 16px 40px rgba(55, 88, 249, 0.15);
-        border-color: rgba(55, 88, 249, 0.2);
+        transform: translate(-2px, -2px);
+        box-shadow:
+          6px 6px 0px rgba(0, 255, 255, 0.5),
+          -4px -4px 0px rgba(255, 0, 255, 0.3);
+        border-color: var(--pixel-secondary);
+      }
+
+      #theme-hexo #blog-post-card:active {
+        transform: translate(2px, 2px);
       }
 
       .dark #theme-hexo #blog-post-card {
-        border: 1px solid rgba(107, 95, 255, 0.1);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        border-color: var(--pixel-accent);
+        background: var(--pixel-bg-light);
       }
 
-      .dark #theme-hexo #blog-post-card:hover {
-        box-shadow: 0 16px 40px rgba(55, 88, 249, 0.2);
-        border-color: rgba(55, 88, 249, 0.3);
+      /* ===== 像素风按钮 - 街机风格 ===== */
+      #theme-hexo button,
+      #theme-hexo a[class*='button'],
+      #theme-hexo [class*='btn'] {
+        font-family: var(--font-pixel);
+        border: 2px solid var(--pixel-accent);
+        background: var(--pixel-bg-light);
+        color: var(--pixel-accent);
+        transition: all 50ms steps(1);
+        border-radius: 0;
+        padding: 8px 16px;
+        position: relative;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        box-shadow: 2px 2px 0px var(--pixel-accent);
       }
 
-      /* ===== 悬浮按钮现代风格 ===== */
+      #theme-hexo button:hover,
+      #theme-hexo a[class*='button']:hover,
+      #theme-hexo [class*='btn']:hover {
+        background: var(--pixel-accent);
+        color: var(--pixel-bg);
+        text-shadow: none;
+        transform: translate(-1px, -1px);
+        box-shadow: 4px 4px 0px var(--pixel-secondary);
+      }
+
+      #theme-hexo button:active,
+      #theme-hexo a[class*='button']:active,
+      #theme-hexo [class*='btn']:active {
+        transform: translate(2px, 2px);
+        box-shadow: 0px 0px 0px var(--pixel-accent);
+      }
+
+      /* ===== 像素风浮动按钮 ===== */
       #theme-hexo .floating-button {
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        border: 2px solid var(--pixel-accent);
+        background: var(--pixel-bg-light);
+        box-shadow: 3px 3px 0px var(--pixel-accent);
+        transition: all 50ms steps(1);
+        border-radius: 0;
+        position: relative;
       }
 
       #theme-hexo .floating-button:hover {
-        box-shadow: 0 12px 48px rgba(55, 88, 249, 0.25);
-        transform: scale(1.05);
+        transform: translate(-2px, -2px);
+        box-shadow: 5px 5px 0px var(--pixel-secondary);
+        border-color: var(--pixel-secondary);
       }
 
-      /* 文章列表中标题行悬浮时的文字颜色 */
-      #theme-hexo h2:hover .menu-link {
-        color: var(--theme-color) !important;
-      }
-      .dark #theme-hexo h2:hover .menu-link {
-        color: var(--theme-color) !important;
-      }
-
-      /* ===== 主题色映射 - 下拉菜单、标签、按钮等 ===== */
-      #theme-hexo li[class*='hover:bg-indigo-500']:hover {
-        background-color: var(--theme-color) !important;
-        background-image: var(--gradient-primary) !important;
+      /* ===== 导航栏 - 像素风 ===== */
+      #theme-hexo #sticky-nav {
+        background: var(--pixel-bg);
+        border-bottom: 3px solid var(--pixel-accent);
+        box-shadow: 0 3px 0px var(--pixel-secondary);
+        transition: all 100ms steps(2);
       }
 
-      #theme-hexo a[class*='hover:bg-indigo-400']:hover,
-      #theme-hexo div[class*='hover:bg-indigo-400']:hover,
-      #theme-hexo .hover\:bg-indigo-400:hover,
-      #theme-hexo .bg-indigo-400 {
-        background-color: var(--theme-color) !important;
-        transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      #theme-hexo #sticky-nav.bg-white {
+        background: var(--pixel-bg) !important;
+        border-bottom: 3px solid var(--pixel-accent);
       }
 
-      /* 社交按钮现代悬浮效果 */
-      #theme-hexo i[class*='hover:text-indigo-600']:hover,
-      .dark #theme-hexo i[class*='dark:hover:text-indigo-400']:hover {
-        color: var(--theme-color) !important;
-        text-shadow: 0 0 12px rgba(55, 88, 249, 0.4);
+      .dark #theme-hexo #sticky-nav {
+        background: var(--pixel-bg) !important;
+        border-color: var(--pixel-accent);
       }
 
-      /* MenuGroup 现代悬浮 */
-      #theme-hexo #nav div[class*='hover:text-indigo-600']:hover,
-      .dark #theme-hexo #nav div[class*='dark:hover:text-indigo-400']:hover {
-        color: var(--theme-color) !important;
-        transition: all 300ms ease;
+      /* ===== 页脚 ===== */
+      #theme-hexo footer {
+        background: var(--pixel-bg);
+        border-top: 3px solid var(--pixel-accent);
+        color: var(--pixel-text);
       }
 
-      /* 最新发布文章悬浮 */
-      #theme-hexo div[class*='hover:text-indigo-600']:hover,
-      #theme-hexo div[class*='hover:text-indigo-400']:hover {
-        color: var(--theme-color) !important;
+      /* ===== 选中字体 - 像素风 ===== */
+      ::selection {
+        background: var(--pixel-accent);
+        color: var(--pixel-bg);
       }
 
-      /* 分页组件现代设计 */
-      #theme-hexo .text-indigo-400,
-      #theme-hexo .text-indigo-800 {
-        color: var(--theme-color) !important;
-      }
-      #theme-hexo .border-indigo-400,
-      #theme-hexo .border-indigo-800,
-      #theme-hexo .border-indigo-500 {
-        border-color: var(--theme-color) !important;
-      }
-      #theme-hexo a[class*='hover:bg-indigo-400']:hover,
-      #theme-hexo a[class*='hover:bg-indigo-600']:hover {
-        background: var(--gradient-primary) !important;
-        color: white !important;
+      /* ===== 自定义滚动条 - 像素风 ===== */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
       }
 
-      /* 右下角悬浮按钮现代风格 */
-      #theme-hexo .bg-indigo-500,
-      .dark #theme-hexo .dark\:bg-indigo-500,
-      #theme-hexo .hover\:bg-indigo-500:hover,
-      .dark #theme-hexo .dark\:hover\:bg-indigo-500:hover {
-        background: var(--gradient-primary) !important;
+      ::-webkit-scrollbar-track {
+        background: var(--pixel-bg);
       }
 
-      /* 文章浏览进度条现代渐变 */
-      #theme-hexo .bg-indigo-600 {
-        background: var(--gradient-primary) !important;
+      ::-webkit-scrollbar-thumb {
+        background: var(--pixel-accent);
+        border: 1px solid var(--pixel-secondary);
+        box-shadow: inset 0 0 0 1px var(--pixel-secondary);
       }
 
-      /* 深色模式目录和导航 */
-      .dark #theme-hexo .dark\:text-indigo-400,
-      .dark #theme-hexo .dark\:border-indigo-400 {
-        color: var(--theme-color) !important;
-        border-color: var(--theme-color) !important;
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--pixel-secondary);
       }
 
-      .dark #theme-hexo .catalog-item {
-        color: #e0e0e0 !important;
-        border-color: rgba(107, 95, 255, 0.3) !important;
-        transition: all 300ms ease;
-      }
-      .dark #theme-hexo .catalog-item:hover {
-        color: var(--theme-color) !important;
-        border-color: var(--theme-color) !important;
-        background: rgba(55, 88, 249, 0.05);
-      }
-      .dark #theme-hexo .catalog-item.font-bold {
-        border-color: var(--theme-color) !important;
-        color: var(--theme-color) !important;
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: var(--pixel-accent) var(--pixel-bg);
       }
 
-      /* 目录项悬浮效果 */
-      #theme-hexo a[class*='hover:text-indigo-800']:hover {
-        color: var(--theme-color) !important;
+      /* ===== 输入框 - 像素风 ===== */
+      #theme-hexo input,
+      #theme-hexo textarea,
+      #theme-hexo select {
+        background: var(--pixel-bg-light);
+        border: 2px solid var(--pixel-accent);
+        color: var(--pixel-text);
+        border-radius: 0;
+        padding: 8px;
+        font-family: monospace;
       }
 
-      /* 归档页面现代设计 */
-      #theme-hexo li[class*='hover:border-indigo-500']:hover,
-      .dark #theme-hexo li[class*='dark:hover:border-indigo-300']:hover {
-        border-color: var(--theme-color) !important;
-        background: rgba(55, 88, 249, 0.05);
-      }
-      .dark #theme-hexo li[class*='dark:border-indigo-400'] {
-        border-color: var(--theme-color) !important;
-      }
-      .dark #theme-hexo a[class*='dark:hover:text-indigo-300']:hover {
-        color: var(--theme-color) !important;
+      #theme-hexo input:focus,
+      #theme-hexo textarea:focus,
+      #theme-hexo select:focus {
+        outline: none;
+        border-color: var(--pixel-secondary);
+        box-shadow: inset 0 0 0 1px var(--pixel-secondary);
       }
 
-      /* 设置了从上到下的渐变黑色 */
-      #theme-hexo .header-cover::before {
+      /* ===== 标签和分类 - 像素风 ===== */
+      #theme-hexo .tag-item,
+      #theme-hexo .category-item {
+        background: var(--pixel-bg-light);
+        border: 1px solid var(--pixel-accent);
+        color: var(--pixel-accent);
+        border-radius: 0;
+        padding: 4px 8px;
+        font-family: var(--font-pixel);
+        transition: all 50ms steps(1);
+      }
+
+      #theme-hexo .tag-item:hover,
+      #theme-hexo .category-item:hover {
+        background: var(--pixel-accent);
+        color: var(--pixel-bg);
+        transform: translate(-1px, -1px);
+      }
+
+      /* ===== 图片像素化 ===== */
+      #theme-hexo img {
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+      }
+
+      /* ===== 分页 - 像素风 ===== */
+      #theme-hexo .pagination a,
+      #theme-hexo .pagination span {
+        border: 2px solid var(--pixel-accent);
+        background: var(--pixel-bg-light);
+        color: var(--pixel-accent);
+        border-radius: 0;
+        padding: 4px 12px;
+        margin: 0 2px;
+        transition: all 50ms steps(1);
+      }
+
+      #theme-hexo .pagination a:hover {
+        background: var(--pixel-accent);
+        color: var(--pixel-bg);
+        transform: translate(-1px, -1px);
+      }
+
+      #theme-hexo .pagination .active {
+        background: var(--pixel-accent);
+        color: var(--pixel-bg);
+      }
+
+      /* ===== 链接效果 - 像素风 ===== */
+      #theme-hexo a {
+        color: var(--pixel-accent);
+        text-decoration: none;
+        transition: all 100ms steps(1);
+        position: relative;
+      }
+
+      #theme-hexo a:hover {
+        text-shadow: 0 0 8px var(--pixel-accent);
+        color: var(--pixel-secondary);
+      }
+
+      /* ===== 代码块 - 像素风 ===== */
+      #theme-hexo pre,
+      #theme-hexo code {
+        background: var(--pixel-bg-light);
+        border: 1px solid var(--pixel-accent);
+        color: var(--pixel-accent);
+        font-family: 'Courier New', monospace;
+        border-radius: 0;
+      }
+
+      #theme-hexo pre {
+        padding: 12px;
+        overflow-x: auto;
+        box-shadow: 2px 2px 0px var(--pixel-accent);
+      }
+
+      /* ===== 表格 - 像素风 ===== */
+      #theme-hexo table {
+        border-collapse: collapse;
+        width: 100%;
+        border: 2px solid var(--pixel-accent);
+      }
+
+      #theme-hexo table th,
+      #theme-hexo table td {
+        border: 1px solid var(--pixel-accent);
+        padding: 8px;
+        text-align: left;
+        background: var(--pixel-bg-light);
+        color: var(--pixel-text);
+      }
+
+      #theme-hexo table th {
+        background: var(--pixel-accent);
+        color: var(--pixel-bg);
+        font-family: var(--font-pixel);
+      }
+
+      /* ===== 响应式 ===== */
+      @media (max-width: 768px) {
+        #theme-hexo h1 {
+          font-size: 1.8rem;
+        }
+
+        #theme-hexo h2 {
+          font-size: 1.4rem;
+        }
+
+        #theme-hexo #blog-post-card:hover {
+          transform: none;
+        }
+
+        #theme-hexo button,
+        #theme-hexo a[class*='button'],
+        #theme-hexo [class*='btn'] {
+          padding: 6px 12px;
+          font-size: 0.85rem;
+        }
+      }
+
+      /* ===== 8-bit 风格鼠标指针 (可选) ===== */
+      #theme-hexo * {
+        cursor: default;
+      }
+
+      #theme-hexo a,
+      #theme-hexo button,
+      #theme-hexo [class*='btn'],
+      #theme-hexo input[type='submit'],
+      #theme-hexo .clickable {
+        cursor: pointer;
+      }
+
+      /* ===== 禁用现代效果 ===== */
+      #theme-hexo * {
+        box-sizing: border-box;
+      }
+
+      /* 隐藏不需要的现代元素 */
+      .tk-footer {
+        opacity: 0;
+      }
+
+      /* ===== 复古感文章标题 ===== */
+      #theme-hexo article h1 {
+        text-shadow:
+          3px 3px 0px var(--pixel-accent),
+          6px 6px 0px var(--pixel-secondary);
+      }
+
+      /* ===== 扫描线效果 (可选) ===== */
+      #theme-hexo #blog-post-card::after {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(
-          to bottom,
-          rgba(0, 0, 0, 0.4) 0%,
-          rgba(0, 0, 0, 0.15) 15%,
-          rgba(0, 0, 0, 0) 30%,
-          rgba(0, 0, 0, 0.1) 70%,
-          rgba(0, 0, 0, 0.4) 100%
+        background: repeating-linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.15) 0px,
+          rgba(0, 0, 0, 0.15) 1px,
+          transparent 1px,
+          transparent 2px
         );
-        backdrop-filter: blur(2px);
-      }
-
-      /* 现代导航栏样式 */
-      #theme-hexo #sticky-nav {
-        backdrop-filter: blur(15px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      #theme-hexo #sticky-nav.bg-white {
-        background: rgba(255, 255, 255, 0.85) !important;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      }
-
-      .dark #theme-hexo #sticky-nav {
-        background: rgba(15, 17, 23, 0.85) !important;
-        border-color: rgba(107, 95, 255, 0.1);
-      }
-
-      /* Custem */
-      .tk-footer {
-        opacity: 0;
-      }
-
-      // 现代选中字体
-      ::selection {
-        background: color-mix(in srgb, var(--theme-color) 40%, transparent);
-        color: var(--theme-color);
-      }
-
-      // 现代自定义滚动条
-      ::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
-      }
-
-      ::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
-      ::-webkit-scrollbar-thumb {
-        background: var(--gradient-primary);
-        border-radius: 3px;
-        transition: all 300ms ease;
-      }
-
-      ::-webkit-scrollbar-thumb:hover {
-        box-shadow: 0 0 12px rgba(55, 88, 249, 0.3);
-      }
-
-      * {
-        scrollbar-width: thin;
-        scrollbar-color: var(--theme-color) transparent;
-      }
-
-      /* ===== 现代按钮样式 ===== */
-      #theme-hexo button,
-      #theme-hexo a[class*='button'],
-      #theme-hexo [class*='btn'] {
-        transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      #theme-hexo .hover\:bg-blue-600:hover {
-        background: var(--gradient-primary) !important;
-      }
-
-      /* ===== 响应式 Hover 状态禁用 ===== */
-      @media (max-width: 1024px) {
-        #theme-hexo #blog-post-card:hover {
-          transform: none;
-        }
+        pointer-events: none;
+        border-radius: 0;
       }
     `}</style>
   )

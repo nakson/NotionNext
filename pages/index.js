@@ -26,6 +26,10 @@ export async function getStaticProps(req) {
   const { locale } = req
   const from = 'index'
   const props = await fetchGlobalAllData({ from, locale })
+  if (!Array.isArray(props.categoryOptions)) props.categoryOptions = []
+  if (!Array.isArray(props.tagOptions)) props.tagOptions = []
+  if (!Array.isArray(props.customMenu)) props.customMenu = []
+  if (!Array.isArray(props.allPages)) props.allPages = []
   const POST_PREVIEW_LINES = siteConfig(
     'POST_PREVIEW_LINES',
     12,

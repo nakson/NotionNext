@@ -49,17 +49,10 @@ export async function getStaticProps({ params: { tag }, locale }) {
   }
 }
 
-/**
- * 获取所有的标签
- * @returns
- * @param tags
- */
-function getTagNames(tags) {
-  const tagNames = []
-  tags.forEach(tag => {
-    tagNames.push(tag.name)
-  })
-  return tagNames
+/** @param {unknown} tags */
+function getTagNames (tags) {
+  if (!Array.isArray(tags) || tags.length === 0) return []
+  return tags.map(t => t?.name).filter(Boolean)
 }
 
 export async function getStaticPaths() {
@@ -68,9 +61,7 @@ export async function getStaticPaths() {
   const tagNames = getTagNames(tagOptions)
 
   return {
-    paths: Object.keys(tagNames).map(index => ({
-      params: { tag: tagNames[index] }
-    })),
+    paths: tagNames.map(tag => ({ params: { tag } })),
     fallback: true
   }
 }

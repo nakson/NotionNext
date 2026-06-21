@@ -25,9 +25,9 @@ export default function SearchNav(props) {
         <SearchInput cRef={cRef} {...props} />
         {/* 分类 */}
         <Card className='w-full mt-4'>
-          <div className='dark:text-gray-200 mb-5 mx-3'>
-            <i className='mr-4 fas fa-th' />
-            {locale.COMMON.CATEGORY}:
+          <div className='mb-5 mx-3 cyber-mono text-sm text-[color:var(--cyber-text-muted)] uppercase tracking-wider'>
+            <span className='text-[color:var(--cyber-term-fg)] mr-2'>▸</span>
+            {locale.COMMON.CATEGORY}
           </div>
           <div id='category-list' className='duration-200 flex flex-wrap mx-8'>
             {categoryOptions?.map(category => {
@@ -39,9 +39,9 @@ export default function SearchNav(props) {
                   legacyBehavior>
                   <div
                     className={
-                      ' duration-300 dark:hover:text-white rounded-lg px-5 cursor-pointer py-2 hover:bg-indigo-400 hover:text-white'
+                      'duration-300 rounded border border-transparent hover:border-[color:var(--cyber-panel-border)] px-5 cursor-pointer py-2 cyber-mono text-sm text-[color:var(--cyber-text)] hover:text-[color:var(--cyber-neon-cyan)]'
                     }>
-                    <i className='mr-4 fas fa-folder' />
+                    <span className='mr-2 text-[color:var(--cyber-term-fg)]'>#</span>
                     {category.name}({category.count})
                   </div>
                 </Link>
@@ -51,9 +51,9 @@ export default function SearchNav(props) {
         </Card>
         {/* 标签 */}
         <Card className='w-full mt-4'>
-          <div className='dark:text-gray-200 mb-5 ml-4'>
-            <i className='mr-4 fas fa-tag' />
-            {locale.COMMON.TAGS}:
+          <div className='mb-5 ml-4 cyber-mono text-sm text-[color:var(--cyber-text-muted)] uppercase tracking-wider'>
+            <span className='text-[color:var(--cyber-term-fg)] mr-2'>▸</span>
+            {locale.COMMON.TAGS}
           </div>
           <div id='tags-list' className='duration-200 flex flex-wrap ml-8'>
             {tagOptions?.map(tag => {

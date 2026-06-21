@@ -13,7 +13,6 @@ export default function ButtonDarkModeFloat() {
     return <></>
   }
 
-  // 用户手动设置主题
   const handleChangeDarkMode = () => {
     const newStatus = !isDarkMode
     saveDarkModeToLocalStorage(newStatus)
@@ -26,10 +25,11 @@ export default function ButtonDarkModeFloat() {
   return (
     <div
       onClick={handleChangeDarkMode}
-      className='floating-button flex justify-center items-center w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-lg cursor-pointer hover:shadow-lg hover:shadow-amber-500/50 transform hover:scale-110 duration-200 text-white'>
+      className='floating-button fixed right-8 bottom-48 w-12 h-12 flex items-center justify-center font-mono text-[var(--pixel-accent)] hover:text-[var(--pixel-bg)] transition-all duration-100 cursor-pointer z-40'
+      title='Toggle theme'>
       <i
         id='darkModeButton'
-        className={`${isDarkMode ? 'fa-sun' : 'fa-moon'} fas text-sm`}
+        className={`${isDarkMode ? 'fa-sun' : 'fa-moon'} fas text-lg`}
       />
     </div>
   )

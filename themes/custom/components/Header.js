@@ -61,41 +61,9 @@ const Header = props => {
         header && (scrollS < 10 || scrollS < header?.clientHeight - 50)
 
       if (scrollInHeader) {
-        nav &&
-          nav.classList.remove(
-            'bg-white/30',
-            'backdrop-blur-md',
-            'dark:bg-slate-900/30',
-            'border-b',
-            'border-slate-50',
-            'dark:border-slate-900'
-          )
-        nav && nav.classList.add('bg-transparent', 'border-transparent')
+        nav && nav.classList.remove('cyber-mobile-nav--scrolled')
       } else {
-        nav && nav.classList.remove('bg-transparent', 'border-transparent')
-        nav &&
-          nav.classList.add(
-            'bg-white/30',
-            'backdrop-blur-md',
-            'dark:bg-slate-900/30',
-            'border-b',
-            'border-slate-50',
-            'dark:border-slate-900'
-          )
-      }
-
-      if (scrollInHeader) {
-        nav && nav.classList.replace('text-slate-800', 'text-black') // Assuming original was black/white change, keeping it simple for now or maybe just keep text consistent?
-        // Actually for docs style, text color usually stays consistent (dark) unless header is over a dark Hero.
-        // Let's assume consistent text color for docs style as it's cleaner.
-        // But if there is a Hero image, white text might be needed.
-        // Let's keep it simple: always dark text unless we know for sure there is a hero image behind.
-        // For now, I'll comment out color toggling to keep it consistent minimalist Slate color.
-        nav && nav.classList.remove('text-white')
-        nav && nav.classList.add('text-slate-800', 'dark:text-slate-200')
-      } else {
-        nav && nav.classList.remove('text-white')
-        nav && nav.classList.add('text-slate-800', 'dark:text-slate-200')
+        nav && nav.classList.add('cyber-mobile-nav--scrolled')
       }
 
       const showNav =
@@ -165,9 +133,9 @@ const Header = props => {
       <div
         id='sticky-nav'
         className={
-          'top-0 duration-300 transition-all fixed bg-transparent text-slate-800 dark:text-slate-200 w-full z-20 transform border-b border-transparent'
+          'cyber-mobile-nav top-0 duration-300 transition-all fixed bg-transparent w-full z-20 transform border-b border-transparent'
         }>
-        <div className='w-full flex justify-between items-center px-6 py-4 max-w-8xl mx-auto'>
+        <div className='w-full flex justify-between items-center px-6 py-3 max-w-8xl mx-auto cyber-mono text-sm border-b border-transparent'>
           <div className='flex items-center'>
             <Logo {...props} />
           </div>
@@ -180,7 +148,7 @@ const Header = props => {
             </div>
             <div
               onClick={toggleMenuOpen}
-              className='w-8 justify-center items-center h-8 cursor-pointer flex lg:hidden hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200'>
+              className='w-8 justify-center items-center h-8 cursor-pointer flex lg:hidden hover:text-[color:var(--cyber-neon-cyan)] transition-colors duration-200'>
               {isOpen ? (
                 <i className='fas fa-times text-lg' />
               ) : (

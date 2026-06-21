@@ -1,17 +1,18 @@
 const CONFIG = {
+  // ============ 像素风主题配置 ============
+  THEME_STYLE: 'pixel-cyberpunk', // 像素赛博朋克风格标识
+
   HEXO_HOME_BANNER_ENABLE: true,
   // 3.14.1以后的版本中，欢迎语在blog.config.js中配置，用英文逗号','隔开多个。
   HEXO_HOME_BANNER_GREETINGS: [
-    'Hi，我是一个程序员',
-    'Hi，我是一个打工人',
-    'Hi，我是一个干饭人',
-    '欢迎来到我的博客🎉'
-  ], // 首页大图标语文字
+    'SYSTEM INITIALIZED > 欢迎进入我的数字领地',
+    'LOADING PERSONA > 我是一个程序员',
+    'ENTERING MATRIX > 让我们一起探索代码的世界',
+    '> 访问成功！开始阅读...'
+  ], // 首页大图标语文字 - 像素风风格
 
   HEXO_HOME_NAV_BUTTONS: true, // 首页是否显示分类大图标按钮
-  // 已知未修复bug, 在移动端开启true后会加载不出图片； 暂时建议设置为false。
-  HEXO_HOME_NAV_BACKGROUND_IMG_FIXED: false, // 首页背景图滚动时是否固定，true 则滚动时图片不懂动； false则随鼠标滚动 ;
-  // 是否显示开始阅读按钮
+  HEXO_HOME_NAV_BACKGROUND_IMG_FIXED: false,
   HEXO_SHOW_START_READING: true,
 
   // 菜单配置
@@ -41,6 +42,23 @@ const CONFIG = {
   HEXO_WIDGET_DARK_MODE: true, // 夜间模式
   HEXO_WIDGET_TOC: true, // 移动端悬浮目录
 
-  HEXO_THEME_COLOR: '#3758F9' // 现代科技蓝色主题
+  /** 像素风主题色 - 霓虹青 */
+  HEXO_THEME_COLOR: '#00ffff',
+  /** 强调色 - 霓虹紫 */
+  HEXO_THEME_NEON_ACCENT: '#ff00ff',
+  /**
+   * 视觉强度：low 寂静夜景；medium 轻扫描线；high 矩阵雨 canvas
+   * @type {'low' | 'medium' | 'high'}
+   */
+  HEXO_THEME_CYBER_INTENSITY: 'medium',
+  /** 像素风背景：深蓝黑赛博朋克背景 */
+  HEXO_THEME_PIXEL_HEADER_FOOTER: false,
+  /**
+   * 像素风背景图：完整 https URL，或放在 public 下写 `/xxx.gif`
+   * 建议使用赛博朋克/霓虹/像素风格的背景图
+   */
+  HEXO_THEME_BG_PIXEL_ART_URL: '/images/bk-pixel-cyberpunk.gif',
+  /** 背景图不透明度 0–1 */
+  HEXO_THEME_BG_ART_OPACITY: 0.15
 }
 export default CONFIG

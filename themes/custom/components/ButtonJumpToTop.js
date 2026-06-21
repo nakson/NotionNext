@@ -4,11 +4,9 @@ import CONFIG from '../config'
 
 /**
  * 跳转到网页顶部
- * 当屏幕下滑500像素后会出现该控件
  * @param targetRef 关联高度的目标html标签
  * @param showPercent 是否显示百分比
  * @returns {JSX.Element}
- * @constructor
  */
 const ButtonJumpToTop = ({ showPercent = true, percent }) => {
   const { locale } = useGlobal()
@@ -18,14 +16,15 @@ const ButtonJumpToTop = ({ showPercent = true, percent }) => {
   }
   return (
     <div
-      className='floating-button flex flex-col items-center justify-center w-10 h-10 bg-gradient-to-br from-indigo-500 to-blue-500 rounded-lg cursor-pointer hover:shadow-lg hover:shadow-indigo-500/50 transform hover:scale-110 duration-200 text-white'
+      className='floating-button fixed right-8 bottom-32 w-12 h-12 flex items-center justify-center font-mono text-[var(--pixel-accent)] hover:text-[var(--pixel-bg)] z-40'
+      title={locale.POST.TOP}
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-      <div title={locale.POST.TOP}>
+      <div className='flex flex-col items-center justify-center leading-none'>
         <i className='fas fa-arrow-up text-sm' />
+        {showPercent && (
+          <div className='text-[9px] font-bold mt-1'>{percent}%</div>
+        )}
       </div>
-      {showPercent && (
-        <div className='text-[10px] font-semibold'>{percent}</div>
-      )}
     </div>
   )
 }

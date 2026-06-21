@@ -6,9 +6,9 @@ import ButtonJumpToTop from './ButtonJumpToTop'
  * 悬浮在右下角的按钮，当页面向下滚动100px时会出现
  * 当页面回到顶部时会隐藏
  * @param {*} param0
- * @returns
+ * @returns {JSX.Element}
  */
-export default function RightFloatArea({ floatSlot }) {
+export default function RightFloatArea ({ floatSlot }) {
   const [showFloatButton, switchShow] = useState(false)
 
   const scrollListener = useCallback(() => {
@@ -24,13 +24,11 @@ export default function RightFloatArea({ floatSlot }) {
 
     let per = parseFloat(((scrollY / fullHeight) * 100).toFixed(0))
 
-    // 完整的边界处理
     if (isNaN(per) || per < 0) per = 0
     if (per > 100) per = 100
 
     const shouldShow = scrollY > 100 && per > 0
 
-    // 右下角显示悬浮按钮
     if (shouldShow !== showFloatButton) {
       switchShow(shouldShow)
     }
@@ -45,7 +43,6 @@ export default function RightFloatArea({ floatSlot }) {
 
     window.addEventListener('scroll', throttledScroll)
 
-    // 初始调用一次检查初始状态
     scrollListener()
 
     return () => window.removeEventListener('scroll', throttledScroll)
@@ -55,9 +52,8 @@ export default function RightFloatArea({ floatSlot }) {
     <div
       className={
         (showFloatButton ? 'opacity-100 ' : 'invisible opacity-0') +
-        ' duration-300 transition-all bottom-16 right-4 fixed justify-end z-20 text-white flex flex-col gap-3'
+        ' duration-300 transition-all bottom-16 right-4 fixed justify-end z-20 flex flex-col gap-3'
       }>
-      {/* 浮动按钮容器 - 现代设计 */}
       <div className='flex flex-col gap-2'>
         {floatSlot}
         <ButtonDarkModeFloat />

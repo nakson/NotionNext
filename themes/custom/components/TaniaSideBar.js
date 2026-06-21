@@ -7,8 +7,7 @@ import { useGlobal } from '@/lib/global'
 import { useEffect, useState } from 'react'
 import { loadExternalResource } from '@/lib/utils'
 
-// Minimal sun icon (stroke only)
-function SunIcon(props) {
+function SunIcon (props) {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -25,8 +24,7 @@ function SunIcon(props) {
   )
 }
 
-// Minimal moon icon (stroke only)
-function MoonIcon(props) {
+function MoonIcon (props) {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -43,10 +41,16 @@ function MoonIcon(props) {
 }
 
 const TaniaSideBar = props => {
-  const { siteInfo, notices, customMenu } = props
+  const { siteInfo, customMenu } = props
   const router = useRouter()
-  const { theme, isDarkMode, toggleDarkMode } = useGlobal()
+  const { isDarkMode, toggleDarkMode } = useGlobal()
   const [typedSidebar, setTypedSidebar] = useState()
+
+  const shellHost = (siteConfig('TITLE') || 'blog')
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]/g, '')
+    .slice(0, 28) || 'blog'
 
   useEffect(() => {
     if (
@@ -77,21 +81,28 @@ const TaniaSideBar = props => {
   }, [typedSidebar])
 
   return (
-    <aside className='md:w-64 md:h-screen md:fixed md:overflow-y-auto flex flex-col py-8 px-4 border-r border-neutral-300 dark:border-slate-800'>
-      {/* Profile */}
-      <div className='mb-8 border-b border-neutral-300 dark:border-slate-800'>
-        <div className='flex items-center justify-between mb-4'>
+    <aside className='cyber-sidebar-shell md:w-64 md:h-screen md:fixed md:overflow-y-auto flex flex-col py-8 px-4'>
+      <div className='mb-6 border-b border-[color:var(--cyber-panel-border)] pb-4'>
+        <p className='cyber-mono text-[11px] leading-relaxed text-[color:var(--cyber-term-dim)] mb-3 select-none'>
+          <span className='text-[color:var(--cyber-term-fg)]'>guest</span>
+          <span className='text-[color:var(--cyber-text-muted)]'>@</span>
+          <span className='text-[color:var(--cyber-neon-cyan)]'>{shellHost}</span>
+          <span className='text-[color:var(--cyber-text-muted)]'>:~$</span>{' '}
+          <span className='opacity-70'>session — ok</span>
+        </p>
+
+        <div className='flex items-center justify-between mb-3'>
           <div
-            className='flex items-center gap-4 cursor-pointer hover:opacity-80 transition-opacity'
+            className='flex items-center gap-3 cursor-pointer hover:opacity-85 transition-opacity'
             onClick={() => void router.push('/')}>
             <LazyImage
               src={siteInfo?.icon}
-              className='rounded-full h-10 w-10 object-cover'
+              className='rounded-sm h-10 w-10 object-cover ring-1 ring-[color:var(--cyber-panel-border)]'
               width={40}
               height={40}
               alt={siteConfig('AUTHOR')}
             />
-            <h2 className='text-xl md:text-2xl font-bold dark:text-gray-100 text-gray-900 tracking-tight'>
+            <h2 className='text-lg md:text-xl font-semibold text-[color:var(--cyber-text)] tracking-tight'>
               {siteConfig('AUTHOR')}
             </h2>
           </div>
@@ -103,26 +114,20 @@ const TaniaSideBar = props => {
               e.stopPropagation()
               toggleDarkMode()
             }}
-            className='ml-1 p-2 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition-colors flex items-center justify-center'>
+            className='ml-1 p-2 rounded border border-[color:var(--cyber-panel-border)] hover:border-[color:var(--cyber-neon-cyan)] text-[color:var(--cyber-text-muted)] hover:text-[color:var(--cyber-neon-cyan)] transition-colors flex items-center justify-center'>
             {isDarkMode ? <SunIcon /> : <MoonIcon />}
           </button>
         </div>
 
-        {/* <p className='text-sm text-gray-400 leading-relaxed mb-2'>
-          {siteConfig('BIO')}
-        </p> */}
-
-        <div className='text-sm text-gray-400 leading-relaxed mb-6'>
+        <div className='text-xs text-[color:var(--cyber-text-muted)] leading-relaxed min-h-[2.5rem] cyber-mono'>
           <span id='typed-sidebar' />
         </div>
       </div>
 
-      {/* Navigation */}
       <nav className='flex-1'>
-        <ul className='space-y-3 font-medium'>
-          {/* Custom Menu */}
+        <ul className='space-y-1 cyber-mono text-sm'>
           {customMenu?.map(link => {
-            if (link.name === 'English') return null // hide English link
+            if (link.name === 'English') return null
 
             const selected =
               router.pathname === link.href ||
@@ -132,18 +137,27 @@ const TaniaSideBar = props => {
               decodeURIComponent(router.query?.category) ===
                 link.slug?.replace('/category/', '')
 
-            // console.log('>>> link', link, router, selected)
             return (
               <li
                 key={link.id}
-                className={`rounded-md transition-colors ${selected ? 'active bg-black/10 dark:bg-white/10' : 'hover:bg-black/10 dark:hover:bg-white/10'}`}>
+                className={`rounded border border-transparent transition-colors ${
+                  selected
+                    ? 'border-[color:var(--cyber-panel-border-strong)] bg-[color:var(--cyber-panel-bg)]'
+                    : 'hover:border-[color:var(--cyber-panel-border)] hover:bg-[color:var(--cyber-panel-bg)]'
+                }`}>
                 <Link
                   href={link.href || '/'}
                   target={link.target}
-                  className={`block py-1 px-3 text-base ${selected ? '!font-bold !text-gray-900 dark:!text-gray-100' : '!font-medium !text-gray-700 dark:!text-gray-300'}`}>
-                  {/* {link?.icon && <i className={link?.icon + ' mr-3'} />} */}
+                  className={`block py-2 px-2 pl-3 ${
+                    selected
+                      ? 'text-[color:var(--cyber-neon-cyan)] font-semibold'
+                      : 'text-[color:var(--cyber-text-muted)] font-medium hover:text-[color:var(--cyber-link-hover)]'
+                  }`}>
+                  <span className='text-[color:var(--cyber-term-fg)] mr-1 select-none'>
+                    {selected ? '▶' : '›'}
+                  </span>
                   {link?.pageIcon && (
-                    <span className='mr-2'>{link?.pageIcon}</span>
+                    <span className='mr-1.5'>{link?.pageIcon}</span>
                   )}
                   {link?.name}
                 </Link>
@@ -153,12 +167,11 @@ const TaniaSideBar = props => {
         </ul>
       </nav>
 
-      {/* Footer/Social */}
-      <div className='mt-8 pt-6 border-t border-neutral-300 dark:border-slate-800'>
-        <div className='flex flex-wrap gap-4 mb-4'>
+      <div className='mt-8 pt-6 border-t border-[color:var(--cyber-panel-border)]'>
+        <div className='flex flex-wrap gap-3 mb-4'>
           <SocialButton />
         </div>
-        <div className='text-xs text-gray-500'>
+        <div className='text-[10px] text-[color:var(--cyber-text-muted)] cyber-mono'>
           © {new Date().getFullYear()} {siteConfig('AUTHOR')}
         </div>
       </div>

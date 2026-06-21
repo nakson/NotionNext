@@ -18,6 +18,8 @@ export default function Category(props) {
 export async function getStaticProps({ locale }) {
   const props = await fetchGlobalAllData({ from: 'category-index-props', locale })
   delete props.allPages
+  if (!Array.isArray(props.categoryOptions)) props.categoryOptions = []
+  if (!Array.isArray(props.tagOptions)) props.tagOptions = []
   return {
     props,
     revalidate: process.env.EXPORT

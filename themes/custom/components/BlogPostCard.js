@@ -24,17 +24,17 @@ const BlogPostCard = ({ index, post, showSummary, siteInfo }) => {
       <div
         key={post.id}
         id='blog-post-card'
-        className={`game-card group md:h-56 w-full flex justify-between md:flex-row flex-col relative overflow-hidden rounded-2xl`}>
+        className={`game-card group md:h-56 w-full flex justify-between md:flex-row flex-col relative overflow-hidden`}>
         {/* 图片封面 */}
         {showPageCover && (
-          <div className='md:w-auto md:aspect-[1/1.4] md:h-full w-full h-56 overflow-hidden relative flex-shrink-0'>
+          <div className='md:w-auto md:aspect-[1/1.4] md:h-full w-full h-56 overflow-hidden relative flex-shrink-0 border-r-2 border-[var(--pixel-secondary)]'>
             <Link href={post?.href}>
               <>
                 <LazyImage
                   priority={index === 1}
                   alt={post?.title}
                   src={post?.pageCoverThumbnail}
-                  className='h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105'
+                  className='h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-95 image-rendering-pixelated'
                 />
               </>
             </Link>

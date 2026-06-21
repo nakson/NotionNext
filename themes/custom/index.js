@@ -41,6 +41,21 @@ const AlgoliaSearchModal = dynamic(
   { ssr: false }
 )
 
+const TerminalMatrixBg = dynamic(
+  () => import('./components/TerminalMatrixBg'),
+  { ssr: false }
+)
+
+/** 静态资源路径：支持 SUB_PATH 子路径部署 */
+function resolveThemeBackgroundUrl (raw, siteConfigFn) {
+  const t = String(raw ?? '').trim()
+  if (!t) return ''
+  if (/^https?:\/\//i.test(t) || t.startsWith('data:')) return t
+  const sub = String(siteConfigFn('SUB_PATH', '') || '').replace(/\/$/, '')
+  const path = t.startsWith('/') ? t : `/${t}`
+  return sub ? `${sub}${path}` : path
+}
+
 // 主题全局状态
 const ThemeGlobalHexo = createContext()
 export const useHexoGlobal = () => useContext(ThemeGlobalHexo)
@@ -56,6 +71,29 @@ const LayoutBase = props => {
   const { onLoading, fullWidth } = useGlobal()
   const router = useRouter()
   const showRandomButton = siteConfig('HEXO_MENU_RANDOM', false, CONFIG)
+  const cyberIntensity = siteConfig(
+    'HEXO_THEME_CYBER_INTENSITY',
+    'medium',
+    CONFIG
+  )
+  const neonAccent =
+    siteConfig('HEXO_THEME_NEON_ACCENT', null, CONFIG) ||
+    siteConfig('HEXO_THEME_COLOR', '#0ea5e9', CONFIG)
+  const showMatrixRain = cyberIntensity === 'high'
+  const bgArtUrl = resolveThemeBackgroundUrl(
+    siteConfig('HEXO_THEME_BG_PIXEL_ART_URL', '', CONFIG),
+    siteConfig
+  )
+  const bgArtOpacityRaw = siteConfig(
+    'HEXO_THEME_BG_ART_OPACITY',
+    0.28,
+    CONFIG
+  )
+  const bgArtOpacity = Math.min(
+    1,
+    Math.max(0, Number.parseFloat(String(bgArtOpacityRaw)) || 0.28)
+  )
+  const hasBgArt = Boolean(bgArtUrl)
 
   const headerSlot = post ? (
     <PostHero {...props} />
@@ -91,25 +129,39 @@ const LayoutBase = props => {
     <ThemeGlobalHexo.Provider value={{ searchModal }}>
       <div
         id='theme-custom'
-        className={`${siteConfig('FONT_STYLE')} bg-transparent text-gray-900 dark:text-gray-300 min-h-screen scroll-smooth flex flex-col md:flex-row`}
+        data-cyber-intensity={cyberIntensity}
+        data-bg-art={hasBgArt ? '1' : '0'}
+        className={`${siteConfig('FONT_STYLE')} relative bg-transparent min-h-screen scroll-smooth text-[color:var(--cyber-text)]`}
         style={{
           minHeight: '100vh',
           maxWidth: fullWidth ? '100%' : '1300px',
           marginLeft: 'auto',
-          marginRight: 'auto'
+          marginRight: 'auto',
+          ['--cyber-user-neon']: neonAccent,
+          ...(hasBgArt
+            ? {
+                ['--cyber-bg-art-image']: `url(${JSON.stringify(bgArtUrl)})`,
+                ['--cyber-bg-art-opacity']: String(bgArtOpacity)
+              }
+            : {})
         }}>
         <Style />
 
-        {/* Aurora Animated Background */}
-        <div className='aurora-bg' />
-
-        {/* 侧边栏 (Desktop) */}
-        <div className='hidden lg:block w-72 shrink-0 relative'>
-          <TaniaSideBar {...props} />
+        <div className='cyber-viewport-bg' aria-hidden>
+          {hasBgArt && <div className='aurora-bg-art' />}
+          <div className='aurora-bg' />
+          <div className='aurora-scanlines' />
+          {showMatrixRain && <TerminalMatrixBg />}
         </div>
 
-        {/* 主区块整体自适应包裹层 */}
-        <div className='flex-1 flex flex-col items-center w-full'>
+        <div className='relative z-10 flex min-h-screen w-full flex-1 flex-col md:flex-row'>
+          {/* 侧边栏 (Desktop) */}
+          <div className='hidden lg:block w-72 shrink-0 relative'>
+            <TaniaSideBar {...props} />
+          </div>
+
+          {/* 主区块整体自适应包裹层 */}
+          <div className='flex flex-1 flex-col items-center w-full'>
           {/* 顶部导航 (Mobile Only) */}
           <div className='lg:hidden block w-full'>
             <Header {...props} />
@@ -118,7 +170,7 @@ const LayoutBase = props => {
           {/* 主区块 */}
           <main
             id='wrapper'
-            className='w-full max-w-4xl lg:px-12 px-4 py-8 overflow-x-hidden min-h-screen relative md:my-8 md:rounded-xl'
+            className='w-full max-w-4xl lg:px-12 px-4 py-8 overflow-x-hidden min-h-screen relative md:my-8 md:rounded-lg'
             style={{ marginLeft: 'auto', marginRight: 'auto' }}>
             <Transition
               show={!onLoading}
@@ -144,10 +196,11 @@ const LayoutBase = props => {
               <Footer title={siteConfig('TITLE')} />
             </div>
           </main>
-        </div>
+          </div>
 
-        <div className='block lg:hidden'>
-          <TocDrawer post={post} cRef={drawerRight} targetRef={tocRef} />
+          <div className='block lg:hidden'>
+            <TocDrawer post={post} cRef={drawerRight} targetRef={tocRef} />
+          </div>
         </div>
 
         {/* 悬浮菜单 */}
@@ -352,14 +405,17 @@ const Layout404 = props => {
   })
   return (
     <>
-      <div className='text-black w-full h-screen text-center justify-center content-center items-center flex flex-col'>
-        <div className='dark:text-gray-200'>
-          <h2 className='inline-block border-r-2 border-gray-600 mr-2 px-3 py-2 align-top'>
+      <div className='w-full min-h-[50vh] flex flex-col items-center justify-center px-4'>
+        <div className='cyber-404-panel cyber-mono text-center max-w-lg'>
+          <div className='text-[color:var(--cyber-text-muted)] text-sm mb-2'>
+            ERR_NOT_FOUND · 0x404
+          </div>
+          <h2 className='text-4xl font-semibold mb-2 text-[color:var(--cyber-text)]'>
             404
           </h2>
-          <div className='inline-block text-left h-32 leading-10 items-center'>
-            <h2 className='m-0 p-0'>{locale.COMMON.NOT_FOUND}</h2>
-          </div>
+          <p className='text-sm text-[color:var(--cyber-text-muted)]'>
+            {locale.COMMON.NOT_FOUND}
+          </p>
         </div>
       </div>
     </>
@@ -377,8 +433,9 @@ const LayoutCategoryIndex = props => {
   return (
     <div className='mt-8'>
       <Card className='w-full min-h-screen'>
-        <div className='dark:text-gray-200 mb-5 mx-3'>
-          <i className='mr-4 fas fa-th' /> {locale.COMMON.CATEGORY}:
+        <div className='mb-5 mx-3 cyber-mono text-sm text-[color:var(--cyber-text-muted)] uppercase tracking-wider'>
+          <span className='text-[color:var(--cyber-term-fg)] mr-2'>▸</span>
+          {locale.COMMON.CATEGORY}
         </div>
         <div id='category-list' className='duration-200 flex flex-wrap mx-8'>
           {categoryOptions?.map(category => {
@@ -390,10 +447,10 @@ const LayoutCategoryIndex = props => {
                 legacyBehavior>
                 <div
                   className={
-                    ' duration-300 dark:hover:text-white px-5 cursor-pointer py-2 hover:text-indigo-400'
+                    'duration-300 px-5 cursor-pointer py-2 hover:text-[color:var(--cyber-neon-cyan)] cyber-mono text-sm text-[color:var(--cyber-text)]'
                   }>
-                  <i className='mr-4 fas fa-folder' /> {category.name}(
-                  {category.count})
+                  <span className='mr-2 text-[color:var(--cyber-term-fg)]'>#</span>
+                  {category.name}({category.count})
                 </div>
               </Link>
             )
@@ -415,8 +472,9 @@ const LayoutTagIndex = props => {
   return (
     <div className='mt-8'>
       <Card className='w-full'>
-        <div className='dark:text-gray-200 mb-5 ml-4'>
-          <i className='mr-4 fas fa-tag' /> {locale.COMMON.TAGS}:
+        <div className='mb-5 ml-4 cyber-mono text-sm text-[color:var(--cyber-text-muted)] uppercase tracking-wider'>
+          <span className='text-[color:var(--cyber-term-fg)] mr-2'>▸</span>
+          {locale.COMMON.TAGS}
         </div>
         <div id='tags-list' className='duration-200 flex flex-wrap ml-8'>
           {tagOptions.map(tag => (

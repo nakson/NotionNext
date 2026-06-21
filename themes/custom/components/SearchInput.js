@@ -24,17 +24,14 @@ const SearchInput = props => {
       router.push({ pathname: '/search/' + key }).then(r => {
         setLoadingState(false)
       })
-      // location.href = '/search/' + key
     } else {
       router.push({ pathname: '/' }).then(r => {})
     }
   }
   const handleKeyUp = e => {
     if (e.keyCode === 13) {
-      // 回车
       handleSearch(searchInputRef.current.value)
     } else if (e.keyCode === 27) {
-      // ESC
       cleanSearch()
     }
   }
@@ -64,13 +61,16 @@ const SearchInput = props => {
   }
 
   return (
-    <div className={'flex w-full rounded-lg ' + className}>
+    <div className={'cyber-search-input-wrap flex w-full items-stretch ' + (className || '')}>
+      <span
+        className='pl-3 flex items-center text-[color:var(--cyber-term-fg)] cyber-mono text-sm select-none shrink-0'
+        aria-hidden>
+        &gt;
+      </span>
       <input
         ref={searchInputRef}
-        type="text"
-        className={
-          'outline-none w-full text-sm pl-5 rounded-lg transition focus:shadow-lg dark:text-gray-300 font-light leading-10 text-black bg-gray-100 dark:bg-gray-500'
-        }
+        type='text'
+        className='outline-none flex-1 text-sm py-2.5 pr-2 min-w-0 leading-normal'
         onKeyUp={handleKeyUp}
         onCompositionStart={lockSearchInput}
         onCompositionUpdate={lockSearchInput}
@@ -81,20 +81,19 @@ const SearchInput = props => {
       />
 
       <div
-        className="-ml-8 cursor-pointer  float-right items-center justify-center py-2"
-        onClick={handleSearch}
-      >
+        className='shrink-0 px-3 cursor-pointer flex items-center justify-center'
+        onClick={handleSearch}>
         <i
-          className={`hover:text-black transform duration-200 text-gray-500 dark:text-gray-200 cursor-pointer fas ${
+          className={`hover:text-[color:var(--cyber-neon-cyan)] transform duration-200 text-[color:var(--cyber-text-muted)] cursor-pointer fas ${
             onLoading ? 'fa-spinner animate-spin' : 'fa-search'
           }`}
         />
       </div>
 
       {showClean && (
-        <div className="-ml-12 cursor-pointer float-right items-center justify-center py-2">
+        <div className='shrink-0 pr-2 flex items-center justify-center'>
           <i
-            className="hover:text-black transform duration-200 text-gray-400 dark:text-gray-300 cursor-pointer fas fa-times"
+            className='hover:text-[color:var(--cyber-neon-cyan)] transform duration-200 text-[color:var(--cyber-text-muted)] cursor-pointer fas fa-times'
             onClick={cleanSearch}
           />
         </div>

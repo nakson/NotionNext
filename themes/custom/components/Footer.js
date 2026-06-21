@@ -1,7 +1,7 @@
 import { BeiAnGongAn } from '@/components/BeiAnGongAn'
 import BeiAnSite from '@/components/BeiAnSite'
-import PoweredBy from '@/components/PoweredBy'
 import { siteConfig } from '@/lib/config'
+import CONFIG from '../config'
 
 const Footer = ({ title }) => {
   const d = new Date()
@@ -9,49 +9,56 @@ const Footer = ({ title }) => {
   const since = siteConfig('SINCE')
   const copyrightDate =
     parseInt(since) < currentYear ? since + '-' + currentYear : currentYear
+  const pixelEdge = siteConfig('HEXO_THEME_PIXEL_HEADER_FOOTER', true, CONFIG)
 
   return (
-    <footer className='relative z-10 flex-shrink-0 justify-center text-center m-auto w-full leading-8 text-slate-600 dark:text-slate-400 text-sm p-8 border-t border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm'>
-      {/* 版权和作者信息 */}
+    <footer className='relative z-10 flex-shrink-0 justify-center text-center m-auto w-full leading-7 text-[var(--pixel-text-muted)] text-xs p-8 border-t-4 border-[var(--pixel-accent)] bg-[var(--pixel-bg)] font-mono'>
+      {pixelEdge && <div className='cyber-footer-pixel-edge' aria-hidden />}
       <div className='max-w-5xl mx-auto'>
-        <div className='flex items-center justify-center gap-2 mb-3'>
-          <i className='fas fa-copyright text-indigo-500' />
-          <span>{`${copyrightDate}`}</span>
-          <span className='text-slate-300 dark:text-slate-700'>·</span>
+        <div className='flex items-center justify-center gap-2 mb-3 text-[var(--pixel-text)]'>
+          <span className='text-[var(--pixel-accent)] select-none animate-pulse'>
+            &gt;&gt;
+          </span>
+          <span className='font-bold'>{`${copyrightDate}`}</span>
+          <span className='text-[var(--pixel-secondary)]'>|</span>
           <a
             href={siteConfig('LINK')}
-            className='font-semibold hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors'>
+            className='font-semibold text-[var(--pixel-accent)] hover:text-[var(--pixel-secondary)] transition-colors duration-100 hover:drop-shadow-lg'>
             {siteConfig('AUTHOR')}
           </a>
         </div>
 
-        {/* 备案信息 */}
-        <div className='text-xs text-gray-500 dark:text-gray-400 mb-3'>
+        <div className='text-[11px] mb-3 opacity-90'>
           <BeiAnSite />
           <BeiAnGongAn />
         </div>
 
-        {/* 统计信息 */}
-        <div className='flex justify-center items-center gap-4 mb-4 text-xs'>
+        <div className='flex justify-center items-center gap-4 mb-4 text-[11px]'>
           <span className='hidden busuanzi_container_site_pv'>
-            <i className='fas fa-eye text-indigo-500' />
-            <span className='px-1 busuanzi_value_site_pv ml-1'> </span>
+            <span className='text-[var(--pixel-accent)]'>&lt;pv&gt;</span>
+            <span className='px-1 busuanzi_value_site_pv ml-1 font-mono'>
+              {' '}
+            </span>
           </span>
           <span className='hidden busuanzi_container_site_uv'>
-            <i className='fas fa-users text-indigo-500' />
-            <span className='px-1 busuanzi_value_site_uv ml-1'> </span>
+            <span className='text-[var(--pixel-secondary)]'>&lt;uv&gt;</span>
+            <span className='px-1 busuanzi_value_site_uv ml-1 font-mono'>
+              {' '}
+            </span>
           </span>
         </div>
 
-        {/* 网站描述 */}
-        <div className='text-xs text-gray-500 dark:text-gray-400 leading-relaxed'>
+        <div className='text-[11px] opacity-85 leading-relaxed border-t-2 border-dashed border-[var(--pixel-secondary)] pt-3'>
           {title}
           {siteConfig('BIO') && (
             <>
-              <span className='mx-2'>|</span>
+              <span className='mx-2 text-[var(--pixel-secondary)]'>|</span>
               {siteConfig('BIO')}
             </>
           )}
+          <div className='mt-2 text-[var(--pixel-accent)]'>
+            🎮 Built with Pixel Art Style 🎮
+          </div>
         </div>
       </div>
     </footer>

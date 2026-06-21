@@ -2,21 +2,19 @@ import LazyImage from '@/components/LazyImage'
 import NotionIcon from '@/components/NotionIcon'
 import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
-import { formatDateFmt } from '@/lib/utils/formatDate'
 import Link from 'next/link'
 import TagItemMini from './TagItemMini'
 
 /**
  * 文章详情页的Hero块
  */
-export default function PostHero({ post, siteInfo }) {
+export default function PostHero ({ post, siteInfo }) {
   const { locale, fullWidth } = useGlobal()
 
   if (!post) {
     return <></>
   }
 
-  // 文章全屏隐藏标头
   if (fullWidth) {
     return <div className='my-8' />
   }
@@ -26,39 +24,39 @@ export default function PostHero({ post, siteInfo }) {
   return (
     <div id='header' className='w-full relative z-10 md:pt-12 pt-12 pb-8'>
       <header className='w-full max-w-5xl mx-auto px-4'>
-        {/* 文章分类与日期 */}
-        <div className='flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400 mb-6'>
+        <div className='flex flex-wrap items-center gap-x-4 gap-y-2 text-xs cyber-mono text-[color:var(--cyber-text-muted)] mb-6 uppercase tracking-wider border-b border-[color:var(--cyber-panel-border)] pb-3'>
           {post.category && (
             <Link
               href={`/category/${post.category}`}
-              className='font-medium text-indigo-600 dark:text-indigo-400 hover:underline'>
+              className='font-medium text-[color:var(--cyber-term-fg)] hover:text-[color:var(--cyber-neon-cyan)] transition-colors normal-case'>
+              <span className='text-[color:var(--cyber-text-muted)] mr-1'>
+                #
+              </span>
               {post.category}
             </Link>
           )}
 
           {post?.type !== 'Page' && (
-            <span className='flex items-center'>
+            <span className='flex items-center normal-case tracking-normal'>
               <time>{post?.publishDay}</time>
             </span>
           )}
 
           {JSON.parse(siteConfig('ANALYTICS_BUSUANZI_ENABLE')) && (
-            <div className='busuanzi_container_page_pv font-light'>
+            <div className='busuanzi_container_page_pv font-light normal-case tracking-normal'>
               <span className='mr-1 busuanzi_value_page_pv' />
               {locale.COMMON.VIEWS}
             </div>
           )}
         </div>
 
-        {/* 文章Title */}
-        <h1 className='text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 mb-8 leading-tight'>
+        <h1 className='cyber-post-title text-4xl md:text-5xl font-extrabold tracking-tight text-[color:var(--cyber-text)] mb-8 leading-tight'>
           {siteConfig('POST_TITLE_ICON') && (
             <NotionIcon icon={post.pageIcon} className='mr-3 inline-block' />
           )}
           {post.title}
         </h1>
 
-        {/* 标签 */}
         <div className='mb-8'>
           {post.tagItems && (
             <div className='flex flex-wrap gap-2'>
@@ -69,9 +67,8 @@ export default function PostHero({ post, siteInfo }) {
           )}
         </div>
 
-        {/* 封面图 - 如果有，则以圆角矩形展示，不再作为背景 */}
         {headerImage && (
-          <div className='w-full h-64 md:h-96 relative rounded-2xl overflow-hidden shadow-lg border border-slate-200 dark:border-slate-800 mb-8'>
+          <div className='cyber-post-cover w-full h-64 md:h-96 relative overflow-hidden shadow-lg mb-8'>
             <LazyImage
               priority={true}
               src={headerImage}

@@ -23,7 +23,7 @@ export const getThemeConfig = async themeQuery => {
     if (themeName !== BLOG.THEME) {
       try {
         // 动态导入主题配置
-        const THEME_CONFIG = await import(`@/themes/${themeName}`)
+        const THEME_CONFIG = await import(`@/themes/${themeName}/index.js`)
           .then(m => m.THEME_CONFIG)
           .catch(err => {
             console.error(`Failed to load theme ${themeName}:`, err)
@@ -65,7 +65,7 @@ export const getBaseLayoutByTheme = theme => {
   const isDefaultTheme = !theme || theme === BLOG.THEME
   if (!isDefaultTheme) {
     return dynamic(
-      () => import(`@/themes/${theme}`).then(m => m['LayoutBase']),
+      () => import(`@/themes/${theme}/index.js`).then(m => m['LayoutBase']),
       { ssr: true }
     )
   }
@@ -107,7 +107,7 @@ export const useLayoutByTheme = ({ layoutName, theme }) => {
       return components
     }
     return dynamic(
-      () => import(`@/themes/${themeQuery}`).then(m => loadThemeComponents(m)),
+      () => import(`@/themes/${themeQuery}/index.js`).then(m => loadThemeComponents(m)),
       { ssr: true }
     )
   }
