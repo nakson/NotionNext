@@ -8,40 +8,59 @@ const Style = () => {
     <style jsx global>{`
       @import url('https://fonts.googleapis.com/css2?family=Domine:wght@600;700&family=JetBrains+Mono:wght@400;600&family=Work+Sans:wght@400;500;600&display=swap');
 
-      /* --- Design tokens (light default on #theme-custom) --- */
+      /* --- Design tokens (light — soft neutral blog) --- */
       #theme-custom {
-        /* 兼容仍引用 --pixel-* 的旧组件 */
-        --pixel-accent: var(--cyber-link);
-        --pixel-secondary: var(--cyber-neon-cyan);
+        --text-primary: #3c3836;
+        --text-secondary: #7c6f64;
+        --text-tertiary: #a89984;
+        --accent-primary: #d79921;
+        --accent-primary-muted: color-mix(in srgb, #d79921 22%, transparent);
+        --link: #076678;
+        --link-hover: #427b58;
+        --link-active: #689d6a;
+        --title-link: var(--text-primary);
+        --title-link-hover: var(--accent-primary);
+        --nav-default: var(--text-secondary);
+        --nav-hover: #5c4f44;
+        --nav-active: color-mix(in srgb, var(--link) 72%, var(--text-primary));
+        --nav-marker: var(--text-tertiary);
+        --nav-marker-active: var(--nav-active);
+        --nav-prefix: #98971a;
+        --heading-1: #d79921;
+        --heading-2: #3c3836;
+        --heading-3: #5c4f44;
+        --heading-4: #7c6f64;
+
+        --pixel-accent: var(--title-link);
+        --pixel-secondary: var(--title-link-hover);
         --pixel-bg: var(--cyber-bg-deep);
         --pixel-bg-light: var(--cyber-panel-bg-solid);
-        --pixel-text: var(--cyber-text);
-        --pixel-text-muted: var(--cyber-text-muted);
+        --pixel-text: var(--text-primary);
+        --pixel-text-muted: var(--text-secondary);
 
-        --cyber-user-neon: #0ea5e9;
-        --cyber-bg-base: #f4f4f5;
-        --cyber-bg-deep: #e4e4e7;
-        --cyber-panel-bg: rgba(255, 255, 255, 0.48);
-        --cyber-panel-bg-solid: rgba(250, 250, 250, 0.82);
-        --cyber-panel-border: rgba(24, 24, 27, 0.1);
-        --cyber-panel-border-strong: rgba(24, 24, 27, 0.16);
-        --cyber-text: #18181b;
-        --cyber-text-muted: #71717a;
-        --cyber-term-fg: #15803d;
-        --cyber-term-dim: #3f6212;
-        --cyber-neon-cyan: var(--cyber-user-neon, #0ea5e9);
-        --cyber-neon-magenta: #7c3aed;
-        --cyber-grid-line: rgba(24, 24, 27, 0.05);
+        --cyber-user-neon: #fabd2f;
+        --cyber-bg-base: #faf8f5;
+        --cyber-bg-deep: #f0ece6;
+        --cyber-panel-bg-solid: rgba(250, 248, 245, 0.92);
+        --cyber-panel-border: rgba(60, 56, 54, 0.12);
+        --cyber-panel-border-strong: rgba(60, 56, 54, 0.2);
+        --cyber-text: var(--text-primary);
+        --cyber-text-muted: var(--text-secondary);
+        --cyber-term-fg: var(--nav-prefix);
+        --cyber-term-dim: #79740e;
+        --cyber-neon-cyan: var(--accent-primary);
+        --cyber-neon-magenta: #8f3f71;
+        --cyber-grid-line: rgba(60, 56, 54, 0.06);
         --cyber-grid-size: 16px;
-        --cyber-link: #0369a1;
-        --cyber-link-hover: var(--cyber-user-neon, #0284c7);
-        --cyber-link-active: #075985;
-        --cyber-selection-bg: rgba(14, 165, 233, 0.2);
-        --cyber-selection-fg: #18181b;
-        --cyber-scrollbar-track: #e4e4e7;
-        --cyber-scrollbar-thumb: #a1a1aa;
+        --cyber-link: var(--link);
+        --cyber-link-hover: var(--link-hover);
+        --cyber-link-active: var(--link-active);
+        --cyber-selection-bg: var(--accent-primary-muted);
+        --cyber-selection-fg: var(--text-primary);
+        --cyber-scrollbar-track: #f0ece6;
+        --cyber-scrollbar-thumb: #bdae93;
         --cyber-scanline-opacity: 0.018;
-        --cyber-float-shadow: 0 4px 20px rgba(24, 24, 27, 0.08);
+        --cyber-float-shadow: 0 4px 20px rgba(60, 56, 54, 0.08);
         --cyber-bg-art-opacity: 0.28;
 
         /* Liquid Glass 材质（亮色） */
@@ -51,13 +70,34 @@ const Style = () => {
         --glass-saturate: 1.5;
         --glass-border: rgba(255, 255, 255, 0.45);
         --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.55);
-        --glass-shadow: 0 8px 32px rgba(24, 24, 27, 0.08);
+        --glass-shadow: 0 8px 32px rgba(60, 56, 54, 0.08);
         --glass-radius: 12px;
         --cyber-panel-bg: var(--glass-fill);
       }
 
       .dark #theme-custom {
-        /* Gruvbox Dark — 对齐 elmc.at */
+        --text-primary: #ebdbb2;
+        --text-secondary: #a89984;
+        --text-tertiary: #7c6f64;
+        --accent-primary: #fabd2f;
+        --accent-primary-muted: color-mix(in srgb, #fabd2f 22%, transparent);
+        --link: #83a598;
+        --link-hover: #8ec07c;
+        --link-active: #458588;
+        --title-link: var(--text-primary);
+        --title-link-hover: var(--accent-primary);
+        --nav-default: var(--text-secondary);
+        --nav-hover: #bdae93;
+        --nav-active: color-mix(in srgb, var(--link) 68%, var(--text-primary));
+        --nav-marker: var(--text-tertiary);
+        --nav-marker-active: var(--nav-active);
+        --nav-prefix: #98971a;
+        --heading-1: #fabd2f;
+        --heading-2: #ebdbb2;
+        --heading-3: #d5c4a1;
+        --heading-4: #a89984;
+
+        /* Gruvbox Dark */
         --cyber-bg-base: #1d2021;
         --cyber-bg-deep: #282828;
         --cyber-panel-bg-solid: rgba(40, 40, 40, 0.78);
@@ -74,19 +114,21 @@ const Style = () => {
         --cyber-panel-bg: var(--glass-fill);
         --cyber-panel-border: #3c3836;
         --cyber-panel-border-strong: #504945;
-        --cyber-text: #ebdbb2;
-        --cyber-text-muted: #a89984;
-        --cyber-term-fg: #98971a;
+        --cyber-text: var(--text-primary);
+        --cyber-text-muted: var(--text-secondary);
+        --cyber-term-fg: var(--nav-prefix);
         --cyber-term-dim: #bdae93;
-        --cyber-neon-cyan: var(--cyber-user-neon, #fabd2f);
+        --cyber-neon-cyan: var(--accent-primary);
         --cyber-neon-magenta: #d3869b;
         --cyber-grid-line: rgba(168, 153, 132, 0.04);
         --cyber-grid-size: 16px;
-        --cyber-link: #83a598;
-        --cyber-link-hover: #8ec07c;
-        --cyber-link-active: #458588;
-        --cyber-selection-bg: rgba(131, 165, 152, 0.25);
-        --cyber-selection-fg: #ebdbb2;
+        --cyber-link: var(--link);
+        --cyber-link-hover: var(--link-hover);
+        --cyber-link-active: var(--link-active);
+        --pixel-accent: var(--title-link);
+        --pixel-secondary: var(--title-link-hover);
+        --cyber-selection-bg: var(--accent-primary-muted);
+        --cyber-selection-fg: var(--text-primary);
         --cyber-scrollbar-track: #1d2021;
         --cyber-scrollbar-thumb: #3c3836;
         --cyber-scanline-opacity: 0.012;
@@ -128,18 +170,15 @@ const Style = () => {
       #theme-custom a {
         color: var(--cyber-link);
         text-decoration: none;
-        transition:
-          color 0.2s,
-          background-color 0.2s;
+        transition: color 0.2s;
       }
       #theme-custom a:hover {
         color: var(--cyber-link-hover);
+        text-decoration: none;
       }
-      /* 正文内链 elmc.at 式 hover 高亮 */
-      .dark #theme-custom .notion a:hover,
-      .dark #theme-custom #wrapper p a:hover {
-        background-color: var(--cyber-link);
-        color: var(--cyber-bg-deep);
+      #theme-custom .cyber-title-link:hover,
+      #theme-custom a.no-underline-hover:hover {
+        text-decoration: none;
       }
       #theme-custom a.active,
       #theme-custom a[aria-current='page'],
@@ -183,9 +222,43 @@ const Style = () => {
         letter-spacing: -0.005em;
       }
 
+      #theme-custom h1,
+      #theme-custom .notion-h1,
+      #theme-custom .notion-h.notion-h1 {
+        color: var(--heading-1);
+      }
+      #theme-custom h2,
+      #theme-custom .notion-h2,
+      #theme-custom .notion-h.notion-h2 {
+        color: var(--heading-2);
+      }
+      #theme-custom h3,
+      #theme-custom .notion-h3,
+      #theme-custom .notion-h.notion-h3 {
+        color: var(--heading-3);
+      }
+      #theme-custom h4,
+      #theme-custom h5,
+      #theme-custom h6,
+      #theme-custom .notion-h4,
+      #theme-custom .notion-h5,
+      #theme-custom .notion-h6 {
+        color: var(--heading-4);
+      }
+
+      /* 卡片可点击标题：中性 → accent 黄 */
+      #theme-custom .cyber-title-link {
+        color: var(--title-link);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      #theme-custom .cyber-title-link:hover {
+        color: var(--title-link-hover);
+      }
+
       /* Typed.js */
       #theme-custom .typed-cursor {
-        color: var(--cyber-neon-cyan);
+        color: var(--accent-primary);
       }
 
       /* --- Mono UI utility --- */
@@ -360,7 +433,7 @@ const Style = () => {
 
       /* --- Notion article readability --- */
       #theme-custom .notion {
-        color: var(--cyber-text-muted);
+        color: var(--text-secondary);
         font-family:
           'Work Sans',
           -apple-system,

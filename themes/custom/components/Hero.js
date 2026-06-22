@@ -39,7 +39,7 @@ const Hero = () => {
       </div>
       <div className='cyber-hero-body'>
         <div className='text-center cyber-mono text-lg md:text-xl min-h-[4rem] flex items-center justify-center px-4'>
-          <span id='typed' className='text-[color:var(--cyber-neon-cyan)]' />
+          <span id='typed' className='text-[color:var(--accent-primary)]' />
         </div>
       </div>
     </header>

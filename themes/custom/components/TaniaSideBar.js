@@ -117,7 +117,7 @@ const TaniaSideBar = props => {
               e.stopPropagation()
               toggleDarkMode()
             }}
-            className='ml-1 p-2 rounded border border-[color:var(--cyber-panel-border)] hover:border-[color:var(--cyber-link)] text-[color:var(--cyber-text-muted)] hover:text-[color:var(--cyber-link)] transition-colors flex items-center justify-center'>
+            className='ml-1 p-2 rounded border border-[color:var(--cyber-panel-border)] hover:border-[color:var(--nav-hover)] text-[color:var(--cyber-text-muted)] hover:text-[color:var(--nav-hover)] transition-colors flex items-center justify-center'>
             {isDarkMode ? <SunIcon /> : <MoonIcon />}
           </button>
         </div>
@@ -145,18 +145,23 @@ const TaniaSideBar = props => {
                 key={link.id}
                 className={`rounded border border-transparent transition-colors ${
                   selected
-                    ? 'border-[color:var(--cyber-panel-border-strong)]'
+                    ? 'border-[color:var(--cyber-panel-border)]'
                     : 'hover:border-[color:var(--cyber-panel-border)]'
                 }`}>
                 <Link
                   href={link.href || '/'}
                   target={link.target}
-                  className={`block py-2 px-2 pl-3 ${
+                  className={`block py-2 px-2 pl-3 font-medium ${
                     selected
-                      ? 'text-[color:var(--cyber-neon-cyan)] font-semibold'
-                      : 'text-[color:var(--cyber-text-muted)] font-medium hover:text-[color:var(--cyber-link-hover)]'
+                      ? 'text-[color:var(--nav-active)]'
+                      : 'text-[color:var(--nav-default)] hover:text-[color:var(--nav-hover)]'
                   }`}>
-                  <span className='text-[color:var(--cyber-term-fg)] mr-1 select-none'>
+                  <span
+                    className={`mr-1 select-none ${
+                      selected
+                        ? 'text-[color:var(--nav-marker-active)]'
+                        : 'text-[color:var(--nav-marker)]'
+                    }`}>
                     {selected ? '▶' : '›'}
                   </span>
                   {link?.pageIcon && (

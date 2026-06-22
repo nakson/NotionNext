@@ -28,7 +28,7 @@ export default function PostHero ({ post, siteInfo }) {
           {post.category && (
             <Link
               href={`/category/${post.category}`}
-              className='font-medium text-[color:var(--cyber-term-fg)] hover:text-[color:var(--cyber-neon-cyan)] transition-colors normal-case'>
+              className='font-medium text-[color:var(--link)] hover:text-[color:var(--link-hover)] transition-colors normal-case'>
               <span className='text-[color:var(--cyber-text-muted)] mr-1'>
                 #
               </span>
@@ -50,7 +50,7 @@ export default function PostHero ({ post, siteInfo }) {
           )}
         </div>
 
-        <h1 className='cyber-post-title text-4xl md:text-5xl font-extrabold tracking-tight text-[color:var(--cyber-text)] mb-8 leading-tight'>
+        <h1 className='cyber-post-title text-4xl md:text-5xl font-extrabold tracking-tight text-[color:var(--heading-1)] mb-8 leading-tight'>
           {siteConfig('POST_TITLE_ICON') && (
             <NotionIcon icon={post.pageIcon} className='mr-3 inline-block' />
           )}

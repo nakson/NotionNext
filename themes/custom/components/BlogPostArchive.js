@@ -14,7 +14,7 @@ const BlogPostArchive = ({ posts = [], archiveTitle }) => {
     return (
       <div>
         <div
-          className='pt-16 pb-4 text-3xl dark:text-gray-300'
+          className='pt-16 pb-4 text-3xl text-[color:var(--heading-2)]'
           id={archiveTitle}>
           {archiveTitle}
         </div>
@@ -23,14 +23,16 @@ const BlogPostArchive = ({ posts = [], archiveTitle }) => {
             return (
               <li
                 key={post.id}
-                className='border-l-2 p-1 text-xs md:text-base items-center  hover:scale-x-105 hover:border-indigo-500 dark:hover:border-indigo-300 dark:border-indigo-400 transform duration-500'>
+                className='border-l-2 border-[color:var(--link)] p-1 text-xs md:text-base items-center hover:scale-x-105 hover:border-[color:var(--link-hover)] transform duration-500'>
                 <div id={post?.publishDay}>
-                  <span className='text-gray-400'>{post.date?.start_date}</span>{' '}
+                  <span className='text-[color:var(--text-tertiary)]'>
+                    {post.date?.start_date}
+                  </span>{' '}
                   &nbsp;
                   <Link
                     href={post?.href}
                     passHref
-                    className='dark:text-gray-400  dark:hover:text-indigo-300 overflow-x-hidden hover:underline cursor-pointer text-gray-600'>
+                    className='text-[color:var(--text-secondary)] hover:text-[color:var(--link-hover)] overflow-x-hidden cursor-pointer'>
                     {post.title}
                   </Link>
                 </div>

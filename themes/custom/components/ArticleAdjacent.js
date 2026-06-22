@@ -16,7 +16,7 @@ export default function ArticleAdjacent ({ prev, next }) {
       <Link
         href={`/${prev.slug}`}
         passHref
-        className='py-1  cursor-pointer hover:underline justify-start items-center dark:text-white flex w-full h-full duration-200'>
+        className='py-1  cursor-pointer justify-start items-center dark:text-white flex w-full h-full duration-200'>
 
         <i className='mr-1 fas fa-angle-left' />{prev.title}
 
@@ -24,7 +24,7 @@ export default function ArticleAdjacent ({ prev, next }) {
       <Link
         href={`/${next.slug}`}
         passHref
-        className='py-1 cursor-pointer hover:underline justify-end items-center dark:text-white flex w-full h-full duration-200'>
+        className='py-1 cursor-pointer justify-end items-center dark:text-white flex w-full h-full duration-200'>
         {next.title}
         <i className='ml-1 my-1 fas fa-angle-right' />
 

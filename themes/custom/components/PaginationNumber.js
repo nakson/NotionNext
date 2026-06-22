@@ -19,9 +19,11 @@ const PaginationNumber = ({ page, totalPage }) => {
     .replace('.html', '')
   const pages = generatePages(pagePrefix, page, currentPage, totalPage)
 
+  const navBtnClass =
+    'px-3 py-2 rounded-lg text-[color:var(--cyber-text-muted)] hover:text-[color:var(--link-hover)] hover:bg-[color:var(--glass-fill)] text-center cursor-pointer duration-200 transition-all'
+
   return (
-    <div className='mt-10 mb-5 flex justify-center items-center font-semibold text-gray-600 dark:text-gray-300 duration-300 py-4 space-x-1'>
-      {/* 上一页 */}
+    <div className='mt-10 mb-5 flex justify-center items-center font-semibold text-[color:var(--cyber-text-muted)] duration-300 py-4 space-x-1'>
       <Link
         href={{
           pathname:
@@ -31,33 +33,25 @@ const PaginationNumber = ({ page, totalPage }) => {
           query: router.query.s ? { s: router.query.s } : {}
         }}
         rel='prev'
-        className={`${currentPage === 1 ? 'invisible' : 'block'} px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-indigo-500 hover:to-blue-500 hover:text-white text-center cursor-pointer duration-200 transition-all hover:scale-105`}>
+        className={`${currentPage === 1 ? 'invisible' : 'block'} ${navBtnClass}`}>
         <i className='fas fa-chevron-left' />
       </Link>
 
       {pages}
 
-      {/* 下一页 */}
       <Link
         href={{
           pathname: `${pagePrefix}/page/${currentPage + 1}`,
           query: router.query.s ? { s: router.query.s } : {}
         }}
         rel='next'
-        className={`${+showNext ? 'block' : 'invisible'} px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-indigo-500 hover:to-blue-500 hover:text-white text-center cursor-pointer duration-200 transition-all hover:scale-105`}>
+        className={`${+showNext ? 'block' : 'invisible'} ${navBtnClass}`}>
         <i className='fas fa-chevron-right' />
       </Link>
     </div>
   )
 }
 
-/**
- * 获取页码
- * @param {*} page
- * @param {*} currentPage
- * @param {*} pagePrefix
- * @returns
- */
 function getPageElement(page, currentPage, pagePrefix) {
   const selected = page + '' === currentPage + ''
   return (
@@ -67,12 +61,9 @@ function getPageElement(page, currentPage, pagePrefix) {
       passHref
       className={`${
         selected
-          ? 'font-bold bg-indigo-400 hover:bg-indigo-600 dark:bg-indigo-500 text-white'
-          : 'border-b border-indigo-400 text-indigo-400 hover:border-indigo-400 hover:bg-indigo-400'
-      }
-      duration-500  hover:font-bold hover:text-white
-      cursor-pointer pb-0.5 w-6 text-center
-      `}>
+          ? 'font-bold text-[color:var(--accent-primary)] bg-[color:var(--glass-fill)]'
+          : 'border-b border-[color:var(--link)] text-[color:var(--link)] hover:text-[color:var(--link-hover)] hover:border-[color:var(--link-hover)]'
+      } duration-200 cursor-pointer pb-0.5 w-6 text-center rounded-sm no-underline-hover`}>
       {page}
     </Link>
   )
@@ -80,7 +71,7 @@ function getPageElement(page, currentPage, pagePrefix) {
 
 function generatePages(pagePrefix, page, currentPage, totalPage) {
   const pages = []
-  const groupCount = 7 // 最多显示页签数
+  const groupCount = 7
   if (totalPage <= groupCount) {
     for (let i = 1; i <= totalPage; i++) {
       pages.push(getPageElement(i, page, pagePrefix))

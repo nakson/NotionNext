@@ -42,9 +42,9 @@ const CONFIG = {
   HEXO_WIDGET_DARK_MODE: true,
   HEXO_WIDGET_TOC: true,
 
-  /** Gruvbox 链接色 */
+  /** 正文链接色（暗 #83a598 / 亮 #076678） */
   HEXO_THEME_COLOR: '#83a598',
-  /** Gruvbox 标题金 */
+  /** Accent 主色 — 黄/金（h1、选中、标题 hover） */
   HEXO_THEME_NEON_ACCENT: '#fabd2f',
   /**
    * 视觉强度：low 寂静氛围；medium 轻扫描线；high 矩阵雨 canvas

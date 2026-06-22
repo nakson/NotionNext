@@ -449,7 +449,7 @@ const LayoutCategoryIndex = props => {
                 legacyBehavior>
                 <div
                   className={
-                    'duration-300 px-5 cursor-pointer py-2 hover:text-[color:var(--cyber-neon-cyan)] cyber-mono text-sm text-[color:var(--cyber-text)]'
+                    'duration-300 px-5 cursor-pointer py-2 hover:text-[color:var(--link-hover)] cyber-mono text-sm text-[color:var(--cyber-text)]'
                   }>
                   <span className='mr-2 text-[color:var(--cyber-term-fg)]'>#</span>
                   {category.name}({category.count})

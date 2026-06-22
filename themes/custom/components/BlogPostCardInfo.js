@@ -27,12 +27,9 @@ export const BlogPostCardInfo = ({
             <Link
               href={post?.href}
               passHref
-              className={`line-clamp-2 replace cursor-pointer text-xl font-semibold text-[var(--pixel-accent)] transition-all duration-100 hover:text-[var(--pixel-secondary)] hover:drop-shadow-lg ${
+              className={`cyber-title-link line-clamp-2 replace cursor-pointer text-xl font-semibold ${
                 showPreview ? 'text-center' : ''
-              }`}
-              style={{
-                textShadow: '2px 2px 0px rgba(0,255,255,0.3)'
-              }}>
+              }`}>
               {siteConfig('POST_TITLE_ICON') && (
                 <NotionIcon icon={post.pageIcon} />
               )}
@@ -49,13 +46,13 @@ export const BlogPostCardInfo = ({
               <Link
                 href={`/category/${post.category}`}
                 passHref
-                className='cursor-pointer font-medium text-xs px-2 py-1 border-2 border-[var(--pixel-accent)] bg-[var(--pixel-bg-light)] text-[var(--pixel-accent)] transition-all duration-100 hover:bg-[var(--pixel-accent)] hover:text-[var(--pixel-bg)] hover:translate-x-[-1px] hover:translate-y-[-1px]'>
+                className='cursor-pointer font-medium text-xs px-2 py-1 rounded border border-[color:var(--link)] text-[color:var(--link)] transition-colors duration-200 hover:text-[color:var(--link-hover)] hover:border-[color:var(--link-hover)]'>
                 <span className='mr-1'>#</span>
                 {post.category}
               </Link>
 
               <TwikooCommentCount
-                className='text-xs text-[var(--pixel-text-muted)] hover:text-[var(--pixel-accent)] transition-colors'
+                className='text-xs text-[color:var(--cyber-text-muted)] hover:text-[color:var(--link-hover)] transition-colors'
                 post={post}
               />
             </div>
@@ -92,7 +89,7 @@ export const BlogPostCardInfo = ({
           <Link
             href={`/archive#${formatDateFmt(post?.publishDate, 'yyyy-MM')}`}
             passHref
-            className='font-light cursor-pointer leading-4 mr-3 border-b-2 border-[var(--pixel-accent)] pb-1 hover:text-[var(--pixel-accent)] transition-all duration-100'>
+            className='font-light cursor-pointer leading-4 mr-3 border-b border-[color:var(--link)] pb-1 text-[color:var(--cyber-text-muted)] hover:text-[color:var(--link-hover)] transition-colors duration-200'>
             <span className='mr-1 opacity-70'>@</span>
             {post?.publishDay || post.lastEditedDay}
           </Link>

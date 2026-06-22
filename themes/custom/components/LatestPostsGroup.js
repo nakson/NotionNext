@@ -1,6 +1,5 @@
 import LazyImage from '@/components/LazyImage'
 import { useGlobal } from '@/lib/global'
-// import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -11,7 +10,6 @@ import { useRouter } from 'next/router'
  * @constructor
  */
 const LatestPostsGroup = ({ latestPosts, siteInfo }) => {
-  // 获取当前路径
   const currentPath = useRouter().asPath
   const { locale } = useGlobal()
 
@@ -39,7 +37,7 @@ const LatestPostsGroup = ({ latestPosts, siteInfo }) => {
             title={post.title}
             href={post?.href}
             passHref
-            className={'my-3 flex'}>
+            className='my-3 flex no-underline-hover'>
             <div className='w-20 h-14 overflow-hidden relative'>
               <LazyImage
                 alt={post?.title}
@@ -48,14 +46,16 @@ const LatestPostsGroup = ({ latestPosts, siteInfo }) => {
               />
             </div>
             <div
-              className={
-                (selected ? ' text-indigo-400 ' : 'dark:text-gray-400 ') +
-                ' text-sm overflow-x-hidden hover:text-indigo-600 px-2 duration-200 w-full rounded ' +
-                ' hover:text-indigo-400 cursor-pointer items-center flex'
-              }>
+              className={`text-sm overflow-x-hidden px-2 duration-200 w-full rounded cursor-pointer items-center flex ${
+                selected
+                  ? 'text-[color:var(--accent-primary)]'
+                  : 'text-[color:var(--text-secondary)] hover:text-[color:var(--link-hover)]'
+              }`}>
               <div>
                 <div className='line-clamp-2 menu-link'>{post.title}</div>
-                <div className='text-gray-500'>{post.lastEditedDay}</div>
+                <div className='text-[color:var(--text-tertiary)]'>
+                  {post.lastEditedDay}
+                </div>
               </div>
             </div>
           </Link>

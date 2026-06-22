@@ -80,7 +80,7 @@ const BlogCard = ({ showAnimate, post, showSummary }) => {
               <TagItemMini key={tag.name} tag={tag} />
             ))}
           </div>
-          <Link href={post?.href || ''} className=' hover:underline'>
+          <Link href={post?.href || ''}>
             Read more →
           </Link>
         </footer>

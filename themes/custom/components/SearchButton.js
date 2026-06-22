@@ -26,7 +26,7 @@ export default function SearchButton(props) {
         onClick={handleSearch}
         title={locale.NAV.SEARCH}
         alt={locale.NAV.SEARCH}
-        className='cursor-pointer text-[color:var(--cyber-text-muted)] hover:text-[color:var(--cyber-neon-cyan)] border border-transparent hover:border-[color:var(--cyber-panel-border)] rounded w-10 h-10 flex justify-center items-center duration-200 transition-all hover:scale-105'>
+        className='cursor-pointer text-[color:var(--cyber-text-muted)] hover:text-[color:var(--nav-hover)] border border-transparent hover:border-[color:var(--cyber-panel-border)] rounded w-10 h-10 flex justify-center items-center duration-200 transition-all hover:scale-105'>
         <i title={locale.NAV.SEARCH} className='fa-solid fa-magnifying-glass' />
       </div>
     </>
