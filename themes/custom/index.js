@@ -26,13 +26,14 @@ import Hero from './components/Hero'
 import PostHero from './components/PostHero'
 import RightFloatArea from './components/RightFloatArea'
 import SearchNav from './components/SearchNav'
-import SearchInput from './components/SearchInput'
 import SideRight from './components/SideRight'
-import SlotBar from './components/SlotBar'
 import TagItemMini from './components/TagItemMini'
 import TaniaSideBar from './components/TaniaSideBar'
 import TocDrawer from './components/TocDrawer'
 import TocDrawerButton from './components/TocDrawerButton'
+import CategoryPostList from './category/CategoryPostList'
+import FineDiningSearchOverlay from './category/components/FineDiningSearchOverlay'
+import { FineDiningSearchProvider } from './category/FineDiningSearchContext'
 import CONFIG from './config'
 import { Style } from './style_tania'
 
@@ -128,6 +129,7 @@ const LayoutBase = props => {
 
   return (
     <ThemeGlobalHexo.Provider value={{ searchModal }}>
+      <FineDiningSearchProvider>
       <div
         id='theme-custom'
         data-cyber-intensity={cyberIntensity}
@@ -208,9 +210,12 @@ const LayoutBase = props => {
         {/* 悬浮菜单 */}
         <RightFloatArea floatSlot={floatSlot} />
 
+        <FineDiningSearchOverlay />
+
         {/* 全文搜索 */}
         <AlgoliaSearchModal cRef={searchModal} {...props} />
       </div>
+      </FineDiningSearchProvider>
     </ThemeGlobalHexo.Provider>
   )
 }
@@ -235,19 +240,7 @@ const LayoutIndex = props => {
  * @returns
  */
 const LayoutPostList = props => {
-  return (
-    <div className='pt-8 overflow-hidden'>
-      <SlotBar {...props} />
-      <div className='mt-4 mb-8 pr-24'>
-        <SearchInput {...props} />
-      </div>
-      {siteConfig('POST_LIST_STYLE') === 'page' ? (
-        <BlogPostListPage {...props} />
-      ) : (
-        <BlogPostListScroll {...props} />
-      )}
-    </div>
-  )
+  return <CategoryPostList {...props} />
 }
 
 /**

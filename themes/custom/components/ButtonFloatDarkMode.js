@@ -4,9 +4,9 @@ import { saveDarkModeToLocalStorage } from '@/themes/theme'
 import CONFIG from '../config'
 
 /**
- * 深色模式按钮
+ * 深色模式悬浮按钮
  */
-export default function ButtonDarkModeFloat() {
+export default function ButtonDarkModeFloat () {
   const { isDarkMode, updateDarkMode } = useGlobal()
 
   if (!siteConfig('HEXO_WIDGET_DARK_MODE', null, CONFIG)) {
@@ -23,14 +23,16 @@ export default function ButtonDarkModeFloat() {
   }
 
   return (
-    <div
+    <button
+      type='button'
       onClick={handleChangeDarkMode}
-      className='floating-button fixed right-8 bottom-48 w-12 h-12 flex items-center justify-center font-mono text-[var(--pixel-accent)] hover:text-[var(--pixel-bg)] transition-all duration-100 cursor-pointer z-40'
-      title='Toggle theme'>
+      className='cyber-float-btn cyber-mono'
+      title='Toggle theme'
+      aria-label='Toggle theme'>
       <i
         id='darkModeButton'
-        className={`${isDarkMode ? 'fa-sun' : 'fa-moon'} fas text-lg`}
+        className={`${isDarkMode ? 'fa-sun' : 'fa-moon'} fas text-sm`}
       />
-    </div>
+    </button>
   )
 }

@@ -629,7 +629,283 @@ const Style = () => {
         text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
       }
 
-      /* --- Search input --- */
+      /* --- 分类视图：高档餐厅菜单（料理食谱） --- */
+      #theme-custom .fine-dining-menu {
+        --menu-ink: var(--text-primary);
+        --menu-ink-muted: var(--text-secondary);
+        --menu-ink-faint: var(--text-tertiary);
+        --menu-rule: color-mix(in srgb, var(--text-tertiary) 35%, transparent);
+        max-width: 36rem;
+        margin: 0 auto;
+        padding: 2rem 0 4rem;
+      }
+
+      #theme-custom .fine-dining-menu__hero {
+        padding: 2.5rem 1rem 0;
+      }
+
+      #theme-custom .fine-dining-menu__hero-wrap {
+        position: relative;
+        padding-bottom: 3.5rem;
+      }
+
+      #theme-custom .fine-dining-menu__search-hint {
+        font-size: 0.82rem;
+        letter-spacing: 0.12em;
+        color: var(--menu-ink-faint);
+        max-width: 22rem;
+        margin: 0 auto;
+        font-weight: 400;
+      }
+
+      #theme-custom .fine-dining-menu__eyebrow {
+        font-family: 'Domine', Georgia, serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.38em;
+        text-transform: uppercase;
+        color: var(--menu-ink-faint);
+        margin-bottom: 1.25rem;
+      }
+
+      #theme-custom .fine-dining-menu__title {
+        font-family: 'Domine', Georgia, serif;
+        font-size: clamp(1.75rem, 4vw, 2.25rem);
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--menu-ink);
+        line-height: 1.2;
+        margin: 0;
+      }
+
+      #theme-custom .fine-dining-menu__ornament {
+        width: 2.5rem;
+        height: 1px;
+        background: var(--menu-rule);
+        margin: 1.75rem auto;
+      }
+
+      #theme-custom .fine-dining-menu__lede {
+        font-size: 0.9rem;
+        line-height: 1.75;
+        color: var(--menu-ink-muted);
+        max-width: 22rem;
+        margin: 0 auto;
+        font-weight: 400;
+      }
+
+      #theme-custom .fine-dining-menu__list {
+        padding: 0 0.5rem;
+      }
+
+      #theme-custom .fine-dining-menu__item {
+        border-bottom: 1px solid var(--menu-rule);
+        padding: 2.25rem 0;
+      }
+
+      #theme-custom .fine-dining-menu__item:first-child {
+        border-top: 1px solid var(--menu-rule);
+      }
+
+      #theme-custom .fine-dining-menu__item-inner {
+        display: grid;
+        grid-template-columns: 2.5rem 1fr auto;
+        gap: 1rem 1.25rem;
+        align-items: start;
+      }
+
+      #theme-custom .fine-dining-menu__ordinal {
+        font-family: 'Domine', Georgia, serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+        color: var(--menu-ink-faint);
+        padding-top: 0.35rem;
+      }
+
+      #theme-custom .fine-dining-menu__item-title {
+        font-family: 'Domine', Georgia, serif;
+        font-size: 1.2rem;
+        font-weight: 600;
+        line-height: 1.35;
+        margin: 0 0 0.65rem;
+        letter-spacing: 0.02em;
+      }
+
+      #theme-custom .fine-dining-menu__item-link {
+        color: var(--menu-ink);
+        text-decoration: none;
+        transition: color 0.25s ease;
+      }
+
+      #theme-custom .fine-dining-menu__item-link:hover {
+        color: var(--link);
+      }
+
+      #theme-custom .fine-dining-menu__item-desc {
+        font-size: 0.92rem;
+        line-height: 1.75;
+        color: var(--menu-ink-muted);
+        margin: 0;
+        font-weight: 400;
+      }
+
+      #theme-custom .fine-dining-menu__item-meta {
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--menu-ink-faint);
+        margin: 1rem 0 0;
+      }
+
+      #theme-custom .fine-dining-menu__item-mark {
+        font-family: 'Domine', Georgia, serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.2em;
+        color: var(--menu-ink-faint);
+        opacity: 0;
+        padding-top: 0.4rem;
+        transition: opacity 0.25s ease;
+      }
+
+      #theme-custom .fine-dining-menu__item:hover .fine-dining-menu__item-mark,
+      #theme-custom .fine-dining-menu__item:focus-within .fine-dining-menu__item-mark {
+        opacity: 1;
+      }
+
+      #theme-custom .fine-dining-menu__pagination {
+        margin-top: 2rem;
+      }
+
+      @media (max-width: 640px) {
+        #theme-custom .fine-dining-menu__item-inner {
+          grid-template-columns: 2rem 1fr;
+        }
+        #theme-custom .fine-dining-menu__item-mark {
+          display: none;
+        }
+      }
+
+      /* --- 料理食谱搜索模态 --- */
+      #theme-custom .fine-dining-search-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 32vh 1.25rem 1.25rem;
+      }
+
+      #theme-custom .fine-dining-search-backdrop {
+        position: absolute;
+        inset: 0;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        /* 适度遮罩：保留页面轮廓，不过分虚化 */
+        background: color-mix(
+          in srgb,
+          var(--cyber-bg-base) 72%,
+          transparent
+        );
+        backdrop-filter: blur(8px) saturate(1.05);
+        -webkit-backdrop-filter: blur(8px) saturate(1.05);
+      }
+
+      .dark #theme-custom .fine-dining-search-backdrop {
+        background: color-mix(
+          in srgb,
+          var(--cyber-bg-base) 78%,
+          transparent
+        );
+      }
+
+      #theme-custom .fine-dining-search-dialog {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 28rem;
+      }
+
+      #theme-custom
+        .fine-dining-search-dialog
+        .cyber-search-input-wrap--minimal {
+        border: 1px solid var(--cyber-panel-border-strong);
+        border-radius: var(--glass-radius);
+        background: var(--cyber-panel-bg-solid);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: var(--glass-highlight), var(--glass-shadow);
+        padding: 0 0.15rem 0 0.75rem;
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      #theme-custom
+        .fine-dining-search-dialog
+        .cyber-search-input-wrap--minimal:focus-within {
+        border-color: color-mix(
+          in srgb,
+          var(--link) 42%,
+          var(--cyber-panel-border-strong)
+        );
+        box-shadow:
+          var(--glass-highlight),
+          0 10px 36px rgba(60, 56, 54, 0.1);
+      }
+
+      .dark
+        #theme-custom
+        .fine-dining-search-dialog
+        .cyber-search-input-wrap--minimal:focus-within {
+        box-shadow:
+          var(--glass-highlight),
+          0 12px 40px rgba(0, 0, 0, 0.28);
+      }
+
+      #theme-custom
+        .fine-dining-search-dialog
+        .cyber-search-input-wrap--minimal
+        input {
+        font-family:
+          'Work Sans',
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          sans-serif;
+        font-size: 1.05rem;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        padding-top: 0.9rem;
+        padding-bottom: 0.9rem;
+        color: var(--text-primary) !important;
+        caret-color: var(--link);
+      }
+
+      #theme-custom
+        .fine-dining-search-dialog
+        .cyber-search-input-wrap--minimal
+        input::placeholder {
+        color: var(--text-tertiary);
+        font-weight: 400;
+      }
+
+      #theme-custom
+        .fine-dining-search-dialog
+        .cyber-search-input-wrap--minimal
+        i {
+        color: var(--text-secondary) !important;
+        transition: color 0.2s ease;
+      }
+
+      #theme-custom
+        .fine-dining-search-dialog
+        .cyber-search-input-wrap--minimal
+        i:hover {
+        color: var(--link-hover) !important;
+      }
+
+      /* --- Post hero --- */
       .cyber-search-input-wrap {
         border: 1px solid var(--glass-border);
         border-radius: calc(var(--glass-radius) - 4px);
@@ -670,16 +946,20 @@ const Style = () => {
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        padding: 0;
+        appearance: none;
         transition:
           transform 0.2s,
           border-color 0.2s,
-          box-shadow 0.2s;
+          box-shadow 0.2s,
+          color 0.2s;
       }
       .dark #theme-custom .cyber-float-btn {
         color: var(--cyber-neon-cyan);
       }
       #theme-custom .cyber-float-btn:hover {
         transform: translateY(-1px);
+        color: var(--link-hover);
         background: var(--glass-fill-hover);
         border-color: color-mix(
           in srgb,

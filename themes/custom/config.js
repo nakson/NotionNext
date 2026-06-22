@@ -59,6 +59,20 @@ const CONFIG = {
    */
   HEXO_THEME_BG_PIXEL_ART_URL: '',
   /** 背景图不透明度 0–1 */
-  HEXO_THEME_BG_ART_OPACITY: 0.08
+  HEXO_THEME_BG_ART_OPACITY: 0.08,
+
+  /**
+   * 分类专属列表视图（分类名 → viewId）
+   * - fine-dining-menu：料理食谱高档菜单风
+   * - 未列出的分类保持默认卡片列表
+   */
+  CATEGORY_VIEW_MAP: {
+    料理食谱: 'fine-dining-menu'
+  },
+
+  /** 分类内搜索框 placeholder（分类名 → 文案） */
+  CATEGORY_SEARCH_CONFIG: {
+    料理食谱: '搜索食谱'
+  }
 }
 export default CONFIG

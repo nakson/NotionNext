@@ -4,9 +4,6 @@ import CONFIG from '../config'
 
 /**
  * 跳转到网页顶部
- * @param targetRef 关联高度的目标html标签
- * @param showPercent 是否显示百分比
- * @returns {JSX.Element}
  */
 const ButtonJumpToTop = ({ showPercent = true, percent }) => {
   const { locale } = useGlobal()
@@ -15,9 +12,11 @@ const ButtonJumpToTop = ({ showPercent = true, percent }) => {
     return <></>
   }
   return (
-    <div
-      className='floating-button fixed right-8 bottom-32 w-12 h-12 flex items-center justify-center font-mono text-[var(--pixel-accent)] hover:text-[var(--pixel-bg)] z-40'
+    <button
+      type='button'
+      className='cyber-float-btn cyber-mono'
       title={locale.POST.TOP}
+      aria-label={locale.POST.TOP}
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
       <div className='flex flex-col items-center justify-center leading-none'>
         <i className='fas fa-arrow-up text-sm' />
@@ -25,7 +24,7 @@ const ButtonJumpToTop = ({ showPercent = true, percent }) => {
           <div className='text-[9px] font-bold mt-1'>{percent}%</div>
         )}
       </div>
-    </div>
+    </button>
   )
 }
 

@@ -4,39 +4,42 @@ import { fetchGlobalAllData } from '@/lib/db/SiteDataApi'
 import { filterPostsByKeyword } from '@/lib/search/filterPostsByKeyword'
 import { DynamicLayout } from '@/themes/theme'
 
-const Index = props => {
-  const { keyword } = props
-  props = { ...props, currentSearch: keyword }
-
+/**
+ * 分类内搜索 — 分页
+ */
+export default function CategorySearchPage (props) {
   const theme = siteConfig('THEME', BLOG.THEME, props.NOTION_CONFIG)
-  return <DynamicLayout theme={theme} layoutName='LayoutSearch' {...props} />
+  return <DynamicLayout theme={theme} layoutName='LayoutPostList' {...props} />
 }
 
-/**
- * 服务端搜索
- * @param {*} param0
- * @returns
- */
-export async function getStaticProps ({ params: { keyword, page }, locale }) {
+export async function getStaticProps ({
+  params: { category, keyword, page },
+  locale
+}) {
   const props = await fetchGlobalAllData({
-    from: 'search-props',
-    pageType: ['Post'],
+    from: 'category-search-page-props',
     locale
   })
-  const { allPages } = props
-  const allPosts = allPages?.filter(
+  const allPosts = props.allPages?.filter(
     page => page.type === 'Post' && page.status === 'Published'
   )
-  props.posts = await filterPostsByKeyword(allPosts, keyword)
+  const categoryPosts = allPosts?.filter(
+    post => post && post.category && post.category.includes(category)
+  )
+  props.posts = await filterPostsByKeyword(categoryPosts, keyword)
   props.postCount = props.posts.length
+
   const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', 12, props?.NOTION_CONFIG)
   props.posts = props.posts.slice(
     POSTS_PER_PAGE * (page - 1),
     POSTS_PER_PAGE * page
   )
-  props.keyword = keyword
-  props.page = page
+
   delete props.allPages
+  props.keyword = keyword
+  props.category = category
+  props.page = page
+
   return {
     props,
     revalidate: process.env.EXPORT
@@ -51,9 +54,7 @@ export async function getStaticProps ({ params: { keyword, page }, locale }) {
 
 export function getStaticPaths () {
   return {
-    paths: [{ params: { keyword: 'NotionNext', page: '1' } }],
+    paths: [{ params: { category: '料理食谱', keyword: 'NotionNext', page: '1' } }],
     fallback: true
   }
 }
-
-export default Index
