@@ -2,14 +2,14 @@ import { isBrowser } from '@/lib/utils'
 import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import SearchInput from '../../components/SearchInput'
-import { useFineDiningSearch } from '../FineDiningSearchContext'
+import { useCategorySearch } from '../CategorySearchContext'
 import { getCategorySearchPlaceholder } from '../registry'
 
 /**
- * 料理食谱 — 全屏虚化背景 + 居中搜索模态
+ * 分类页 — 全屏虚化背景 + 居中搜索模态（所有 category 通用）
  */
-export default function FineDiningSearchOverlay () {
-  const ctx = useFineDiningSearch()
+export default function CategorySearchOverlay () {
+  const ctx = useCategorySearch()
   const inputRef = useRef(null)
 
   useEffect(() => {

@@ -11,7 +11,7 @@ export default function FineDiningMenuHero ({ category, keyword }) {
         <p className='fine-dining-menu__search-hint'>搜寻 · {keyword}</p>
       ) : (
         <p className='fine-dining-menu__lede'>
-          以文字勾勒风味与层次。真正的惊艳，留到上桌那一刻。
+          世界上最简单却最好味的地方之一。
         </p>
       )}
     </header>

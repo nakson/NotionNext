@@ -21,10 +21,11 @@ const BUILTIN_CATEGORY_SEARCH_PLACEHOLDER = {
 
 export function getCategorySearchPlaceholder (category) {
   const normalized = decodeURIComponent(String(category || '')).trim()
+  if (!normalized) return '搜索'
   return (
     CONFIG.CATEGORY_SEARCH_CONFIG?.[normalized] ||
     BUILTIN_CATEGORY_SEARCH_PLACEHOLDER[normalized] ||
-    '搜索'
+    `搜索${normalized}`
   )
 }
 

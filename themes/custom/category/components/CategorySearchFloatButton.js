@@ -1,11 +1,11 @@
 import { getCategorySearchPlaceholder } from '../registry'
-import { useFineDiningSearch } from '../FineDiningSearchContext'
+import { useCategorySearch } from '../CategorySearchContext'
 
 /**
- * 料理食谱 — 右下角搜索浮钮
+ * 分类页 — 右下角搜索浮钮（所有 category 通用）
  */
-export default function FineDiningSearchFloatButton () {
-  const ctx = useFineDiningSearch()
+export default function CategorySearchFloatButton () {
+  const ctx = useCategorySearch()
   if (!ctx?.active) return null
 
   const placeholder = getCategorySearchPlaceholder(ctx.category)

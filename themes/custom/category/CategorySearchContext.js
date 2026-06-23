@@ -1,16 +1,21 @@
 import { useRouter } from 'next/router'
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { resolveCategoryViewId } from './registry'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
 
-const FineDiningSearchContext = createContext(null)
+const CategorySearchContext = createContext(null)
 
-function parseFineDiningRoute (router) {
+function parseCategoryRoute (router) {
   const { pathname, query } = router
   const categoryRaw = query?.category
   if (!categoryRaw) return null
 
   const category = decodeURIComponent(String(categoryRaw))
-  if (resolveCategoryViewId(category) !== 'fine-dining-menu') return null
 
   const isCategoryRoute =
     pathname === '/category/[category]' ||
@@ -28,10 +33,10 @@ function parseFineDiningRoute (router) {
   return { category, keyword }
 }
 
-export function FineDiningSearchProvider ({ children }) {
+export function CategorySearchProvider ({ children }) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
-  const routeInfo = parseFineDiningRoute(router)
+  const routeInfo = parseCategoryRoute(router)
 
   useEffect(() => {
     setOpen(false)
@@ -62,12 +67,12 @@ export function FineDiningSearchProvider ({ children }) {
   )
 
   return (
-    <FineDiningSearchContext.Provider value={value}>
+    <CategorySearchContext.Provider value={value}>
       {children}
-    </FineDiningSearchContext.Provider>
+    </CategorySearchContext.Provider>
   )
 }
 
-export function useFineDiningSearch () {
-  return useContext(FineDiningSearchContext)
+export function useCategorySearch () {
+  return useContext(CategorySearchContext)
 }

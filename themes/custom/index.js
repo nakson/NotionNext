@@ -32,8 +32,8 @@ import TaniaSideBar from './components/TaniaSideBar'
 import TocDrawer from './components/TocDrawer'
 import TocDrawerButton from './components/TocDrawerButton'
 import CategoryPostList from './category/CategoryPostList'
-import FineDiningSearchOverlay from './category/components/FineDiningSearchOverlay'
-import { FineDiningSearchProvider } from './category/FineDiningSearchContext'
+import CategorySearchOverlay from './category/components/CategorySearchOverlay'
+import { CategorySearchProvider } from './category/CategorySearchContext'
 import CONFIG from './config'
 import { Style } from './style_tania'
 
@@ -129,7 +129,7 @@ const LayoutBase = props => {
 
   return (
     <ThemeGlobalHexo.Provider value={{ searchModal }}>
-      <FineDiningSearchProvider>
+      <CategorySearchProvider>
       <div
         id='theme-custom'
         data-cyber-intensity={cyberIntensity}
@@ -210,12 +210,12 @@ const LayoutBase = props => {
         {/* 悬浮菜单 */}
         <RightFloatArea floatSlot={floatSlot} />
 
-        <FineDiningSearchOverlay />
+        <CategorySearchOverlay />
 
         {/* 全文搜索 */}
         <AlgoliaSearchModal cRef={searchModal} {...props} />
       </div>
-      </FineDiningSearchProvider>
+      </CategorySearchProvider>
     </ThemeGlobalHexo.Provider>
   )
 }

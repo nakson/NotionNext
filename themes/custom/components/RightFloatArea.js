@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import FineDiningSearchFloatButton from '../category/components/FineDiningSearchFloatButton'
+import CategorySearchFloatButton from '../category/components/CategorySearchFloatButton'
 import ButtonDarkModeFloat from './ButtonFloatDarkMode'
 import ButtonJumpToTop from './ButtonJumpToTop'
 
@@ -56,7 +56,7 @@ export default function RightFloatArea ({ floatSlot }) {
         ' duration-300 transition-all bottom-16 right-4 fixed justify-end z-20 flex flex-col gap-3'
       }>
       <div className='flex flex-col gap-2'>
-        <FineDiningSearchFloatButton />
+        <CategorySearchFloatButton />
         {floatSlot}
         <ButtonDarkModeFloat />
         <ButtonJumpToTop />

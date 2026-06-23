@@ -70,7 +70,7 @@ const CONFIG = {
     料理食谱: 'fine-dining-menu'
   },
 
-  /** 分类内搜索框 placeholder（分类名 → 文案） */
+  /** 分类内搜索框 placeholder（分类名 → 文案；未配置则默认「搜索{分类名}」） */
   CATEGORY_SEARCH_CONFIG: {
     料理食谱: '搜索食谱'
   }
