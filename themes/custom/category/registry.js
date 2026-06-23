@@ -8,7 +8,9 @@ import CONFIG from '../config'
  * 未注册的分类走 default，保持现有列表 UI。
  */
 const BUILTIN_CATEGORY_VIEW_MAP = {
-  料理食谱: 'fine-dining-menu'
+  料理食谱: 'fine-dining-menu',
+  随想录: 'essay-index',
+  阅读记录: 'reading-poster-gallery'
 }
 
 /** 预留：后续可在此登记固定分类，便于检索与文档化 */

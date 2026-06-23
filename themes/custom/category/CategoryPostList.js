@@ -5,9 +5,13 @@ import SearchInput from '../components/SearchInput'
 import SlotBar from '../components/SlotBar'
 import { resolveCategoryViewId } from './registry'
 import FineDiningMenuCategoryView from './views/FineDiningMenuCategoryView'
+import EssayIndexCategoryView from './views/EssayIndexCategoryView'
+import ReadingGalleryCategoryView from './views/ReadingGalleryCategoryView'
 
 const CATEGORY_VIEW_COMPONENTS = {
-  'fine-dining-menu': FineDiningMenuCategoryView
+  'fine-dining-menu': FineDiningMenuCategoryView,
+  'essay-index': EssayIndexCategoryView,
+  'reading-poster-gallery': ReadingGalleryCategoryView
 }
 
 /**

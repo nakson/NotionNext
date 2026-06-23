@@ -784,6 +784,274 @@ const Style = () => {
         }
       }
 
+      /* --- 分类视图：随想录行列表（essay-index） --- */
+      #theme-custom .essay-index {
+        --essay-ink: var(--text-primary);
+        --essay-ink-muted: var(--text-secondary);
+        --essay-ink-faint: var(--text-tertiary);
+        --essay-rule: color-mix(in srgb, var(--text-tertiary) 35%, transparent);
+        max-width: 40rem;
+        margin: 0 auto;
+        padding: 1rem 0 3rem;
+      }
+
+      #theme-custom .essay-index__hero {
+        padding: 1.5rem 0.25rem 1rem;
+      }
+
+      #theme-custom .essay-index__title-heading {
+        font-family: 'Domine', Georgia, serif;
+        font-size: 1.65rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        color: var(--essay-ink);
+        margin: 0;
+        line-height: 1.25;
+      }
+
+      #theme-custom .essay-index__hero-rule {
+        height: 1px;
+        width: 2.5rem;
+        margin-top: 0.85rem;
+        background: var(--essay-rule);
+      }
+
+      #theme-custom .essay-index__search-hint {
+        margin: 0.75rem 0 0;
+        font-size: 0.78rem;
+        letter-spacing: 0.1em;
+        color: var(--essay-ink-faint);
+      }
+
+      #theme-custom .essay-index__list {
+        padding: 0 0.25rem;
+      }
+
+      #theme-custom .essay-index__row {
+        border-bottom: 1px solid var(--essay-rule);
+      }
+
+      #theme-custom .essay-index__row:first-child {
+        border-top: 1px solid var(--essay-rule);
+      }
+
+      #theme-custom .essay-index__row-link {
+        display: block;
+        padding: 0.7rem 0.35rem;
+        border-radius: 2px;
+        transition: background 0.2s ease;
+      }
+
+      #theme-custom .essay-index__row-link:hover {
+        background: color-mix(in srgb, var(--link) 4%, transparent);
+      }
+
+      #theme-custom .essay-index__row-inner {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem 1.25rem;
+      }
+
+      #theme-custom .essay-index__title {
+        flex: 1;
+        min-width: 0;
+        margin: 0;
+        font-size: 0.94rem;
+        font-weight: 500;
+        line-height: 1.45;
+        letter-spacing: 0.01em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      #theme-custom .essay-index__tags {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 0.35rem 0.65rem;
+        flex-shrink: 0;
+        max-width: 42%;
+      }
+
+      #theme-custom .essay-index__tag {
+        font-size: 0.72rem;
+        letter-spacing: 0.02em;
+        color: var(--essay-ink-faint);
+        transition: color 0.2s ease;
+        white-space: nowrap;
+      }
+
+      #theme-custom .essay-index__tag:hover {
+        color: var(--link-hover);
+      }
+
+      #theme-custom .essay-index__pagination {
+        margin-top: 1.75rem;
+      }
+
+      @media (max-width: 640px) {
+        #theme-custom .essay-index__row-inner {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.4rem;
+        }
+        #theme-custom .essay-index__title {
+          white-space: normal;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
+        #theme-custom .essay-index__tags {
+          max-width: 100%;
+          justify-content: flex-start;
+        }
+      }
+
+      /* --- 阅读记录海报画廊 --- */
+      #theme-custom .reading-gallery {
+        --reading-ink: var(--text-primary);
+        --reading-ink-muted: var(--text-secondary);
+        --reading-ink-faint: var(--text-tertiary);
+        --reading-rule: var(--glass-border);
+        padding: 2rem 0 2.5rem;
+        max-width: 56rem;
+        margin: 0 auto;
+      }
+
+      #theme-custom .reading-gallery__hero {
+        padding: 0 0.25rem 1.75rem;
+      }
+
+      #theme-custom .reading-gallery__title-heading {
+        font-family: 'Domine', Georgia, serif;
+        font-size: 1.65rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        color: var(--reading-ink);
+        margin: 0;
+        line-height: 1.25;
+      }
+
+      #theme-custom .reading-gallery__hero-rule {
+        height: 1px;
+        width: 2.5rem;
+        margin-top: 0.85rem;
+        background: var(--reading-rule);
+      }
+
+      #theme-custom .reading-gallery__search-hint {
+        margin: 0.75rem 0 0;
+        font-size: 0.78rem;
+        letter-spacing: 0.1em;
+        color: var(--reading-ink-faint);
+      }
+
+      #theme-custom .reading-gallery__groups {
+        display: flex;
+        flex-direction: column;
+        gap: 2.25rem;
+      }
+
+      #theme-custom .reading-gallery__group-title {
+        font-family: 'Domine', Georgia, serif;
+        font-size: 1.15rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        color: var(--reading-ink);
+        margin: 0 0 1rem;
+        padding-bottom: 0.55rem;
+        border-bottom: 1px solid var(--reading-rule);
+      }
+
+      #theme-custom .reading-gallery__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 1rem 0.75rem;
+      }
+
+      @media (min-width: 768px) {
+        #theme-custom .reading-gallery__grid {
+          grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+          gap: 1.15rem 0.9rem;
+        }
+      }
+
+      #theme-custom .reading-gallery__item {
+        transition: transform 0.35s ease, box-shadow 0.35s ease;
+      }
+
+      #theme-custom .reading-gallery__item-link {
+        display: block;
+      }
+
+      #theme-custom .reading-gallery__poster {
+        aspect-ratio: 2 / 3;
+        overflow: hidden;
+        border-radius: 6px;
+        box-shadow: 0 4px 14px color-mix(in srgb, var(--reading-ink) 12%, transparent);
+        background: color-mix(in srgb, var(--reading-ink-faint) 8%, transparent);
+        transition: box-shadow 0.35s ease;
+      }
+
+      #theme-custom .reading-gallery__poster-img,
+      #theme-custom .reading-gallery__poster-fallback {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      #theme-custom .reading-gallery__poster-fallback {
+        display: block;
+        background: color-mix(in srgb, var(--reading-ink-faint) 15%, transparent);
+      }
+
+      #theme-custom .reading-gallery__item-title {
+        margin: 0.5rem 0 0;
+        font-size: 0.8rem;
+        font-weight: 500;
+        line-height: 1.4;
+        letter-spacing: 0.01em;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        transition: color 0.25s ease;
+      }
+
+      #theme-custom .reading-gallery__summary {
+        margin: 0.25rem 0 0;
+        font-size: 0.7rem;
+        line-height: 1.45;
+        color: var(--reading-ink-faint);
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      #theme-custom .reading-gallery__item:hover {
+        transform: translateY(-4px);
+      }
+
+      #theme-custom .reading-gallery__item:hover .reading-gallery__poster {
+        box-shadow: 0 10px 28px color-mix(in srgb, var(--reading-ink) 18%, transparent);
+      }
+
+      #theme-custom .reading-gallery__item:hover .reading-gallery__poster-img {
+        transform: scale(1.03);
+      }
+
+      #theme-custom .reading-gallery__item:hover .reading-gallery__item-title {
+        color: var(--link-hover);
+      }
+
+      #theme-custom .reading-gallery__pagination {
+        margin-top: 2rem;
+      }
+
       /* --- 料理食谱搜索模态 --- */
       #theme-custom .fine-dining-search-overlay {
         position: fixed;

@@ -64,10 +64,14 @@ const CONFIG = {
   /**
    * 分类专属列表视图（分类名 → viewId）
    * - fine-dining-menu：料理食谱高档菜单风
+   * - essay-index：随想录简约行列表
+   * - reading-poster-gallery：阅读记录海报画廊
    * - 未列出的分类保持默认卡片列表
    */
   CATEGORY_VIEW_MAP: {
-    料理食谱: 'fine-dining-menu'
+    料理食谱: 'fine-dining-menu',
+    随想录: 'essay-index',
+    阅读记录: 'reading-poster-gallery'
   },
 
   /** 分类内搜索框 placeholder（分类名 → 文案；未配置则默认「搜索{分类名}」） */
