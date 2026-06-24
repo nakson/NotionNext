@@ -1052,6 +1052,249 @@ const Style = () => {
         margin-top: 2rem;
       }
 
+      /* --- 音乐手记歌单画廊 --- */
+      #theme-custom .music-notes {
+        --music-ink: var(--text-primary);
+        --music-ink-muted: var(--text-secondary);
+        --music-ink-faint: var(--text-tertiary);
+        --music-rule: var(--glass-border);
+        padding: 2rem 0 2.5rem;
+        max-width: 56rem;
+        margin: 0 auto;
+      }
+
+      #theme-custom .music-notes__hero {
+        padding: 0 0.25rem 1.25rem;
+      }
+
+      #theme-custom .music-notes__title-heading {
+        font-family: 'Domine', Georgia, serif;
+        font-size: 1.65rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        color: var(--music-ink);
+        margin: 0;
+        line-height: 1.25;
+      }
+
+      #theme-custom .music-notes__hero-rule {
+        height: 1px;
+        width: 2.5rem;
+        margin-top: 0.85rem;
+        background: var(--music-rule);
+      }
+
+      #theme-custom .music-notes__search-hint {
+        margin: 0.75rem 0 0;
+        font-size: 0.78rem;
+        letter-spacing: 0.1em;
+        color: var(--music-ink-faint);
+      }
+
+      #theme-custom .music-notes__filters {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 0.5rem;
+        padding: 0 0.25rem 1.5rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      #theme-custom .music-notes__filters::-webkit-scrollbar {
+        display: none;
+      }
+
+      #theme-custom .music-notes__filter {
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        padding: 0.2rem 0.8rem;
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        color: var(--music-ink-muted);
+        border: 1px solid var(--music-rule);
+        border-radius: 999px;
+        background: transparent;
+        transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      }
+
+      #theme-custom .music-notes__filter:hover {
+        color: var(--link-hover);
+        border-color: var(--link-hover);
+      }
+
+      #theme-custom .music-notes__filter--active {
+        font-weight: 700 !important;
+        color: var(--accent-primary) !important;
+        background: color-mix(in srgb, var(--accent-primary) 18%, transparent);
+        border-color: color-mix(in srgb, var(--accent-primary) 45%, transparent);
+      }
+
+      #theme-custom .music-notes__filter--active:hover {
+        color: var(--link-hover);
+        background: color-mix(in srgb, var(--link-hover) 12%, transparent);
+        border-color: var(--link-hover);
+      }
+
+      #theme-custom .music-notes__grid-wrap {
+        position: relative;
+        min-height: 12rem;
+      }
+
+      #theme-custom .music-notes__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 1.25rem 1rem;
+        transition: opacity 0.25s ease;
+      }
+
+      #theme-custom .music-notes__grid--dimmed {
+        opacity: 0.45;
+        pointer-events: none;
+      }
+
+      #theme-custom .music-notes__loading {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      #theme-custom .music-notes__loading-icon {
+        font-size: 1.75rem;
+        color: var(--accent-primary);
+      }
+
+      @media (min-width: 768px) {
+        #theme-custom .music-notes__grid {
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+          gap: 1.5rem 1.25rem;
+        }
+      }
+
+      #theme-custom .music-notes__item-link {
+        display: block;
+      }
+
+      #theme-custom .music-notes__cover-wrap {
+        position: relative;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 4px 14px color-mix(in srgb, var(--music-ink) 12%, transparent);
+        background: color-mix(in srgb, var(--music-ink-faint) 8%, transparent);
+      }
+
+      #theme-custom .music-notes__cover-img,
+      #theme-custom .music-notes__cover-fallback {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.45s ease;
+      }
+
+      #theme-custom .music-notes__cover-fallback {
+        display: block;
+        background: color-mix(in srgb, var(--music-ink-faint) 15%, transparent);
+      }
+
+      #theme-custom .music-notes__overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: flex-end;
+        padding: 0.65rem 0.7rem;
+        background: linear-gradient(
+          to top,
+          color-mix(in srgb, #000 78%, transparent) 0%,
+          color-mix(in srgb, #000 35%, transparent) 55%,
+          transparent 100%
+        );
+        transform: translateY(100%);
+        transition: transform 0.35s ease;
+      }
+
+      #theme-custom .music-notes__overlay-text {
+        margin: 0;
+        font-size: 0.72rem;
+        line-height: 1.45;
+        color: rgba(255, 255, 255, 0.92);
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      #theme-custom .music-notes__item:hover .music-notes__cover-img,
+      #theme-custom .music-notes__item:focus-within .music-notes__cover-img {
+        transform: scale(1.04);
+      }
+
+      #theme-custom .music-notes__item:hover .music-notes__overlay,
+      #theme-custom .music-notes__item:focus-within .music-notes__overlay {
+        transform: translateY(0);
+      }
+
+      #theme-custom .music-notes__title {
+        margin: 0.6rem 0 0;
+        font-size: 0.85rem;
+        font-weight: 500;
+        line-height: 1.4;
+        letter-spacing: 0.01em;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.3rem;
+        transition: color 0.25s ease;
+      }
+
+      #theme-custom .music-notes__title-icon {
+        flex-shrink: 0;
+        line-height: 1;
+        margin-top: 0.1rem;
+      }
+
+      #theme-custom .music-notes__title-icon img {
+        width: 0.95rem !important;
+        height: 0.95rem !important;
+        margin: 0 !important;
+        display: block;
+      }
+
+      #theme-custom .music-notes__title-icon span {
+        font-size: 0.85rem;
+        margin: 0 !important;
+      }
+
+      #theme-custom .music-notes__title-text {
+        flex: 1;
+        min-width: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      #theme-custom .music-notes__item:hover .music-notes__title,
+      #theme-custom .music-notes__item:focus-within .music-notes__title {
+        color: var(--link-hover);
+      }
+
+      #theme-custom .music-notes__empty-hint {
+        margin: 2rem 0.25rem;
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--music-ink-faint);
+      }
+
+      #theme-custom .music-notes__pagination {
+        margin-top: 2rem;
+      }
+
       /* --- 料理食谱搜索模态 --- */
       #theme-custom .fine-dining-search-overlay {
         position: fixed;

@@ -20,11 +20,14 @@ function parseCategoryRoute (router) {
   const isCategoryRoute =
     pathname === '/category/[category]' ||
     pathname === '/category/[category]/page/[page]'
+  const isTagRoute =
+    pathname === '/category/[category]/tag/[tag]' ||
+    pathname === '/category/[category]/tag/[tag]/page/[page]'
   const isSearchRoute =
     pathname === '/category/[category]/search/[keyword]' ||
     pathname === '/category/[category]/search/[keyword]/page/[page]'
 
-  if (!isCategoryRoute && !isSearchRoute) return null
+  if (!isCategoryRoute && !isTagRoute && !isSearchRoute) return null
 
   const keyword = query?.keyword
     ? decodeURIComponent(String(query.keyword))

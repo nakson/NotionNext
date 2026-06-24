@@ -66,12 +66,20 @@ const CONFIG = {
    * - fine-dining-menu：料理食谱高档菜单风
    * - essay-index：随想录简约行列表
    * - reading-poster-gallery：阅读记录海报画廊
+   * - music-notes：音乐手记歌单画廊
    * - 未列出的分类保持默认卡片列表
    */
   CATEGORY_VIEW_MAP: {
     料理食谱: 'fine-dining-menu',
     随想录: 'essay-index',
-    阅读记录: 'reading-poster-gallery'
+    阅读记录: 'reading-poster-gallery',
+    音乐: 'music-notes'
+  },
+
+  /** 音乐手记页配置 */
+  MUSIC_NOTES_CONFIG: {
+    title: '音乐手记',
+    tagFilters: ['全部', '原创音乐', 'AI写歌', '私人歌单']
   },
 
   /** 分类内搜索框 placeholder（分类名 → 文案；未配置则默认「搜索{分类名}」） */

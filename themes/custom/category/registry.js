@@ -10,7 +10,8 @@ import CONFIG from '../config'
 const BUILTIN_CATEGORY_VIEW_MAP = {
   料理食谱: 'fine-dining-menu',
   随想录: 'essay-index',
-  阅读记录: 'reading-poster-gallery'
+  阅读记录: 'reading-poster-gallery',
+  音乐: 'music-notes'
 }
 
 /** 预留：后续可在此登记固定分类，便于检索与文档化 */
