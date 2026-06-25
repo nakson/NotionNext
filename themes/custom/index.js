@@ -1,7 +1,6 @@
 import Comment from '@/components/Comment'
 import replaceSearchResult from '@/components/Mark'
 import NotionPage from '@/components/NotionPage'
-import ShareBar from '@/components/ShareBar'
 import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
 import { isBrowser } from '@/lib/utils'
@@ -13,7 +12,6 @@ import { createContext, useContext, useEffect, useRef } from 'react'
 import ArticleAdjacent from './components/ArticleAdjacent'
 import ArticleCopyright from './components/ArticleCopyright'
 import { ArticleLock } from './components/ArticleLock'
-import ArticleRecommend from './components/ArticleRecommend'
 import BlogPostArchive from './components/BlogPostArchive'
 import BlogPostListPage from './components/BlogPostListPage'
 import BlogPostListScroll from './components/BlogPostListScroll'
@@ -351,12 +349,10 @@ const LayoutSlug = props => {
                 {post && <NotionPage post={post} />}
               </section>
 
-              {/* 分享 */}
-              <ShareBar post={post} />
+              {/* 版权与内联分享 */}
               {post?.type === 'Post' && (
                 <>
-                  <ArticleCopyright {...props} />
-                  <ArticleRecommend {...props} />
+                  <ArticleCopyright post={post} />
                   <ArticleAdjacent {...props} />
                 </>
               )}

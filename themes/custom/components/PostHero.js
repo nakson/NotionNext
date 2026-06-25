@@ -1,9 +1,11 @@
 import LazyImage from '@/components/LazyImage'
-import NotionIcon from '@/components/NotionIcon'
 import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
 import Link from 'next/link'
 import TagItemMini from './TagItemMini'
+
+/** 仅阅读记录、音乐分类显示文章封面 */
+const COVER_CATEGORIES = ['阅读记录', '音乐']
 
 /**
  * 文章详情页的Hero块
@@ -19,12 +21,14 @@ export default function PostHero ({ post, siteInfo }) {
     return <div className='my-8' />
   }
 
-  const headerImage = post?.pageCover ? post.pageCover : siteInfo?.pageCover
+  const shouldShowCover = COVER_CATEGORIES.includes(post.category)
+  const isReadingRecord = post.category === '阅读记录'
+  const headerImage = post?.pageCover || (shouldShowCover ? siteInfo?.pageCover : null)
 
   return (
-    <div id='header' className='w-full relative z-10 md:pt-12 pt-12 pb-8'>
+    <div id='header' className='w-full relative z-10 pt-5 md:pt-6 pb-4'>
       <header className='w-full max-w-5xl mx-auto px-4'>
-        <div className='flex flex-wrap items-center gap-x-4 gap-y-2 text-xs cyber-mono text-[color:var(--cyber-text-muted)] mb-6 uppercase tracking-wider border-b border-[color:var(--cyber-panel-border)] pb-3'>
+        <div className='flex flex-wrap items-center gap-x-4 gap-y-2 text-xs cyber-mono text-[color:var(--cyber-text-muted)] mb-4 uppercase tracking-wider border-b border-[color:var(--cyber-panel-border)] pb-2'>
           {post.category && (
             <Link
               href={`/category/${post.category}`}
@@ -50,14 +54,11 @@ export default function PostHero ({ post, siteInfo }) {
           )}
         </div>
 
-        <h1 className='cyber-post-title text-4xl md:text-5xl font-extrabold tracking-tight text-[color:var(--heading-1)] mb-8 leading-tight'>
-          {siteConfig('POST_TITLE_ICON') && (
-            <NotionIcon icon={post.pageIcon} className='mr-3 inline-block' />
-          )}
+        <h1 className='cyber-post-title font-bold text-[color:var(--heading-1)] mb-5 leading-snug'>
           {post.title}
         </h1>
 
-        <div className='mb-8'>
+        <div className='mb-5'>
           {post.tagItems && (
             <div className='flex flex-wrap gap-2'>
               {post.tagItems.map(tag => (
@@ -67,10 +68,21 @@ export default function PostHero ({ post, siteInfo }) {
           )}
         </div>
 
-        {headerImage && (
+        {shouldShowCover && headerImage && isReadingRecord && (
+          <div className='cyber-post-cover--natural mb-8 flex justify-center'>
+            <LazyImage
+              priority
+              src={headerImage}
+              alt={post.title}
+              className='cyber-post-cover--natural-img'
+            />
+          </div>
+        )}
+
+        {shouldShowCover && headerImage && !isReadingRecord && (
           <div className='cyber-post-cover w-full h-64 md:h-96 relative overflow-hidden shadow-lg mb-8'>
             <LazyImage
-              priority={true}
+              priority
               src={headerImage}
               className='w-full h-full object-cover'
             />

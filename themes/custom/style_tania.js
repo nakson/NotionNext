@@ -138,12 +138,13 @@ const Style = () => {
 
       body:has(#theme-custom) {
         font-family:
-          'Work Sans',
           -apple-system,
           BlinkMacSystemFont,
           'Segoe UI',
-          Roboto,
-          Helvetica,
+          'Microsoft YaHei',
+          'PingFang SC',
+          'Hiragino Sans GB',
+          'Noto Sans CJK SC',
           Arial,
           sans-serif;
         background: var(--cyber-bg-base);
@@ -435,12 +436,23 @@ const Style = () => {
       #theme-custom .notion {
         color: var(--text-secondary);
         font-family:
-          'Work Sans',
           -apple-system,
           BlinkMacSystemFont,
           'Segoe UI',
-          Roboto,
+          'Microsoft YaHei',
+          'PingFang SC',
+          'Hiragino Sans GB',
+          'Noto Sans CJK SC',
+          Arial,
           sans-serif;
+      }
+      /* Notion 正文段落块（.notion-text），需 !important 覆盖 notion.css 默认 1px margin */
+      #theme-custom .notion .notion-text {
+        margin-top: 0.5em !important;
+        margin-bottom: 0.5em !important;
+        padding-top: 0.2em !important;
+        padding-bottom: 0.2em !important;
+        line-height: 1.6 !important;
       }
       #theme-custom .notion code,
       #theme-custom .notion .notion-inline-code {
@@ -469,17 +481,24 @@ const Style = () => {
         background: #282828 !important;
       }
       #theme-custom .notion .notion-quote,
-      #theme-custom .notion blockquote.notion-quote {
-        border-left: 3px solid #8ec07c;
-        background: color-mix(
-          in srgb,
-          #689d6a 8%,
-          transparent
-        );
+      #theme-custom .notion blockquote.notion-quote,
+      #theme-custom .notion .custom-quote {
+        margin: 1.25rem 0;
+        padding: 0.85rem 1rem 0.85rem 1.1rem;
+        border: 1px solid var(--glass-border);
+        border-left: 3px solid color-mix(in srgb, var(--link) 55%, transparent);
+        border-radius: 8px;
+        background: color-mix(in srgb, var(--glass-fill) 28%, transparent);
+        color: var(--text-secondary);
+        font-size: 0.95em;
+        line-height: 1.65;
+        box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 4%, transparent);
       }
       .dark #theme-custom .notion .notion-quote,
-      .dark #theme-custom .notion blockquote.notion-quote {
-        color: #689d6a;
+      .dark #theme-custom .notion blockquote.notion-quote,
+      .dark #theme-custom .notion .custom-quote {
+        color: var(--text-secondary);
+        background: color-mix(in srgb, var(--cyber-bg-deep) 16%, transparent);
       }
       #theme-custom .notion .notion-callout {
         border: 1px solid var(--cyber-panel-border-strong);
@@ -623,10 +642,89 @@ const Style = () => {
         box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
       }
       .cyber-post-title {
+        font-size: 30px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
         text-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
       }
       .dark .cyber-post-title {
         text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+      }
+
+      /* 阅读记录：原图比例居中封面 */
+      #theme-custom .cyber-post-cover--natural {
+        width: 100%;
+      }
+      #theme-custom .cyber-post-cover--natural-img {
+        display: block;
+        max-width: 30%;
+        width: auto;
+        height: auto;
+        margin: 0 auto;
+        border-radius: 8px;
+        border: 1px solid var(--cyber-panel-border);
+        box-shadow: 0 8px 28px color-mix(in srgb, var(--text-primary) 10%, transparent);
+      }
+
+      /* --- 文章底部版权与内联分享 --- */
+      #theme-custom .article-copyright {
+        margin: 2rem 0.25rem 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--glass-border);
+        font-size: 0.68rem;
+        line-height: 1.55;
+        color: var(--text-tertiary);
+      }
+      #theme-custom .article-copyright__line {
+        margin: 0.2rem 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.25rem 0.4rem;
+      }
+      #theme-custom .article-copyright__line--url {
+        align-items: flex-start;
+      }
+      #theme-custom .article-copyright__label {
+        flex-shrink: 0;
+        color: var(--text-tertiary);
+        opacity: 0.85;
+      }
+      #theme-custom .article-copyright__value {
+        color: var(--text-tertiary);
+        word-break: break-all;
+      }
+      #theme-custom .article-copyright__link {
+        color: var(--text-tertiary);
+        text-decoration: none;
+      }
+      #theme-custom .article-copyright__link:hover {
+        color: var(--link-hover);
+      }
+      #theme-custom .article-copyright__share {
+        display: inline-flex;
+        align-items: center;
+        margin-left: 0.15rem;
+      }
+      #theme-custom .article-share-group {
+        display: inline-flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.15rem;
+      }
+      #theme-custom .article-share-btn {
+        width: 1.35rem;
+        height: 1.35rem;
+        border-radius: 999px;
+        border: 1px solid var(--glass-border);
+        background: color-mix(in srgb, var(--glass-fill) 80%, transparent);
+        color: var(--text-tertiary);
+        transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      }
+      #theme-custom .article-share-btn:hover {
+        color: var(--link-hover);
+        border-color: color-mix(in srgb, var(--link-hover) 45%, transparent);
+        background: color-mix(in srgb, var(--link-hover) 8%, transparent);
       }
 
       /* --- 分类视图：高档餐厅菜单（料理食谱） --- */

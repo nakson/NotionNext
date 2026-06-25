@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react'
 const QrCode = dynamic(() => import('@/components/QrCode'), { ssr: false })
 const BASE_BUTTON_CLASS =
   'cursor-pointer rounded-full mx-1 w-8 h-8 flex items-center justify-center text-white'
+const COMPACT_BUTTON_CLASS =
+  'article-share-btn cursor-pointer inline-flex items-center justify-center'
 
 const SHARE_ICON_CLASS = {
   facebook: 'fab fa-facebook-f',
@@ -64,7 +66,7 @@ const SHARE_BG_CLASS = {
  * @param {*} param0
  * @returns
  */
-const ShareButtons = ({ post }) => {
+const ShareButtons = ({ post, servicesOverride, variant = 'default' }) => {
   const router = useRouter()
   const [shareUrl, setShareUrl] = useState(siteConfig('LINK') + router.asPath)
   const title = post?.title || siteConfig('TITLE')
@@ -74,7 +76,10 @@ const ShareButtons = ({ post }) => {
   const body =
     post?.title + ' | ' + title + ' ' + shareUrl + ' ' + post?.summary
 
-  const services = siteConfig('POSTS_SHARE_SERVICES').split(',')
+  const services = servicesOverride?.length
+    ? servicesOverride
+    : siteConfig('POSTS_SHARE_SERVICES').split(',')
+  const isCompact = variant === 'compact'
   const titleWithSiteInfo = title + ' | ' + siteConfig('TITLE')
   const { locale } = useGlobal()
   const [qrCodeShow, setQrCodeShow] = useState(false)
@@ -172,9 +177,14 @@ const ShareButtons = ({ post }) => {
       <button
         aria-label={service}
         key={service}
+        type='button'
         onClick={() => openShareWindow(shareLink)}
-        className={`${BASE_BUTTON_CLASS} ${bgClass}`}>
-        <i className={`${iconClass} text-sm`} />
+        className={
+          isCompact
+            ? `${COMPACT_BUTTON_CLASS} article-share-btn--${service}`
+            : `${BASE_BUTTON_CLASS} ${bgClass}`
+        }>
+        <i className={`${iconClass} ${isCompact ? 'text-xs' : 'text-sm'}`} />
       </button>
     )
   }
@@ -183,7 +193,7 @@ const ShareButtons = ({ post }) => {
   }, [])
 
   return (
-    <>
+    <div className={isCompact ? 'article-share-group' : undefined}>
       {services.map(singleService => {
         switch (singleService) {
           case 'facebook':
@@ -213,7 +223,12 @@ const ShareButtons = ({ post }) => {
             return (
               <button
                 key={singleService}
-                className='cursor-pointer bg-blue-600 text-white rounded-full mx-1'>
+                type='button'
+                className={
+                  isCompact
+                    ? `${COMPACT_BUTTON_CLASS} article-share-btn--qq`
+                    : 'cursor-pointer bg-blue-600 text-white rounded-full mx-1'
+                }>
                 <a
                   target='_blank'
                   rel='noreferrer'
@@ -226,13 +241,18 @@ const ShareButtons = ({ post }) => {
           case 'wechat':
             return (
               <button
+                type='button'
                 onMouseEnter={openPopover}
                 onMouseLeave={closePopover}
                 aria-label={singleService}
                 key={singleService}
-                className='cursor-pointer bg-green-600 text-white rounded-full mx-1'>
+                className={
+                  isCompact
+                    ? `${COMPACT_BUTTON_CLASS} article-share-btn--wechat relative`
+                    : 'cursor-pointer bg-green-600 text-white rounded-full mx-1'
+                }>
                 <div id='wechat-button'>
-                  <i className='fab fa-weixin w-8' />
+                  <i className={`fab fa-weixin ${isCompact ? 'text-xs' : 'w-8'}`} />
                 </div>
                 <div className='absolute'>
                   <div
@@ -256,9 +276,14 @@ const ShareButtons = ({ post }) => {
               <button
                 aria-label={singleService}
                 key={singleService}
-                className='cursor-pointer bg-yellow-500 text-white rounded-full mx-1'>
+                type='button'
+                className={
+                  isCompact
+                    ? `${COMPACT_BUTTON_CLASS} article-share-btn--link`
+                    : 'cursor-pointer bg-yellow-500 text-white rounded-full mx-1'
+                }>
                 <div alt={locale.COMMON.URL_COPIED} onClick={copyUrl}>
-                  <i className='fas fa-link w-8' />
+                  <i className={`fas fa-link ${isCompact ? 'text-xs' : 'w-8'}`} />
                 </div>
               </button>
             )
@@ -307,7 +332,7 @@ const ShareButtons = ({ post }) => {
             return <></>
         }
       })}
-    </>
+    </div>
   )
 }
 
