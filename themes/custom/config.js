@@ -85,6 +85,40 @@ const CONFIG = {
   /** 分类内搜索框 placeholder（分类名 → 文案；未配置则默认「搜索{分类名}」） */
   CATEGORY_SEARCH_CONFIG: {
     料理食谱: '搜索食谱'
-  }
+  },
+
+  /**
+   * 首页 Bento 世界观模块（顺序即展示顺序）
+   * category 须与 Notion 分类名一致，点击进入对应分类专属视图
+   * 设计文档：docs/developer/themes/custom/HOME_DASHBOARD.md
+   */
+  HOME_BENTO_MODULES: [
+    {
+      category: '阅读记录',
+      title: '阅读记录',
+      description: '书籍摘抄与阅读笔记'
+    },
+    {
+      category: '音乐',
+      title: '音乐手记',
+      description: '原创、歌单与 AI 写歌'
+    },
+    {
+      category: '随想录',
+      title: '随想录',
+      description: '随笔与刹那想法'
+    },
+    {
+      category: '料理食谱',
+      title: '料理食谱',
+      description: '厨房实验笔记'
+    }
+  ],
+
+  /** 首页「stdout · 最近更新」条数 */
+  HOME_RECENT_LOG_COUNT: 5,
+
+  /** 首页 Hero 命令框占位（未来接入 Agent） */
+  HOME_AGENT_COMMAND_ENABLED: true
 }
 export default CONFIG

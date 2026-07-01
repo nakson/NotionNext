@@ -68,6 +68,9 @@ export async function getStaticProps(req) {
     page => page.type === 'Post' && page.status === 'Published'
   )
 
+  // 首页 Dashboard 需要全量文章做 Bento 聚合，在分页截断前保留副本
+  props.homePosts = [...(props.posts || [])]
+
   // 处理分页
   if (siteConfig('POST_LIST_STYLE') === 'scroll') {
     // 滚动列表默认给前端返回所有数据
@@ -122,6 +125,7 @@ export async function getStaticProps(req) {
 
   if (!POST_LIST_PREVIEW) {
     props.posts = cleanPostSummaries(props.posts)
+    props.homePosts = cleanPostSummaries(props.homePosts)
   }
   props.latestPosts = cleanPostSummaries(props.latestPosts)
   delete props.allPages

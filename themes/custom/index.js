@@ -21,6 +21,7 @@ import Card from './components/Card'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import Hero from './components/Hero'
+import HomeDashboard from './components/home/HomeDashboard'
 import PostHero from './components/PostHero'
 import RightFloatArea from './components/RightFloatArea'
 import SearchNav from './components/SearchNav'
@@ -227,7 +228,7 @@ const LayoutBase = props => {
 const LayoutIndex = props => {
   return (
     <div className='overflow-hidden'>
-      <LayoutPostList {...props} className='pt-8' />
+      <HomeDashboard {...props} />
     </div>
   )
 }
