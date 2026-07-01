@@ -35,9 +35,9 @@ export default function CategoryPostList (props) {
   }
 
   return (
-    <div className='pt-8 overflow-hidden'>
+    <div className='pt-2 lg:pt-8 overflow-hidden'>
       <SlotBar {...props} />
-      <div className='mt-4 mb-8 pr-24'>
+      <div className='mt-4 mb-8 max-lg:pr-14 lg:pr-24'>
         <SearchInput {...props} />
       </div>
       {siteConfig('POST_LIST_STYLE') === 'page' ? (

@@ -134,6 +134,8 @@ const Style = () => {
         --cyber-scanline-opacity: 0.012;
         --cyber-float-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
         --cyber-bg-art-opacity: 0.08;
+        /* 移动端 fixed 顶栏高度（与 Header py-3 + Logo 对齐） */
+        --cyber-mobile-nav-height: 3.25rem;
       }
 
       body:has(#theme-custom) {
@@ -561,12 +563,24 @@ const Style = () => {
           border-color 0.25s,
           backdrop-filter 0.25s;
       }
+      /* fixed 导航占位，避免主内容被顶栏遮挡 */
+      #theme-custom .cyber-mobile-nav-spacer {
+        height: var(--cyber-mobile-nav-height);
+        flex-shrink: 0;
+        pointer-events: none;
+      }
       #theme-custom .cyber-mobile-nav--scrolled {
-        background: transparent !important;
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
+        background: color-mix(
+          in srgb,
+          var(--glass-fill) 94%,
+          transparent
+        ) !important;
+        backdrop-filter: blur(var(--glass-blur))
+          saturate(var(--glass-saturate));
+        -webkit-backdrop-filter: blur(var(--glass-blur))
+          saturate(var(--glass-saturate));
         border-bottom-color: var(--cyber-panel-border) !important;
-        box-shadow: none;
+        box-shadow: var(--glass-shadow);
       }
 
       /* --- Search drawer --- */
@@ -1907,6 +1921,106 @@ const Style = () => {
         }
         .game-card {
           transition: none;
+        }
+      }
+
+      /* --- 窄屏布局与阅读体验 --- */
+      @media (max-width: 1023px) {
+        body:has(#theme-custom) {
+          scroll-padding-top: var(--cyber-mobile-nav-height);
+        }
+
+        #theme-custom #wrapper {
+          padding-left: max(1rem, env(safe-area-inset-left));
+          padding-right: max(1rem, env(safe-area-inset-right));
+        }
+
+        #theme-custom .cyber-float-area {
+          bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+          right: calc(0.75rem + env(safe-area-inset-right, 0px));
+        }
+
+        #theme-custom .cyber-float-btn {
+          width: 2.75rem;
+          height: 2.75rem;
+        }
+
+        #theme-custom .cyber-post-title {
+          font-size: clamp(1.35rem, 5.2vw, 1.85rem);
+          line-height: 1.35;
+        }
+
+        #theme-custom .cyber-hero-terminal {
+          min-height: auto;
+        }
+        #theme-custom .cyber-hero-body {
+          min-height: 18vh;
+          padding: 1.25rem 0.75rem 1.75rem;
+        }
+
+        /* 分类页：全局占位后收紧顶部留白 */
+        #theme-custom .fine-dining-menu {
+          padding-top: 0.25rem;
+        }
+        #theme-custom .fine-dining-menu__hero {
+          padding-top: 0.75rem;
+        }
+        #theme-custom .fine-dining-menu__hero-wrap {
+          padding-bottom: 2rem;
+        }
+        #theme-custom .essay-index {
+          padding-top: 0.25rem;
+        }
+        #theme-custom .reading-gallery,
+        #theme-custom .music-notes {
+          padding-top: 0.25rem;
+        }
+
+        /* 正文：代码块/表格横向滚动 */
+        #theme-custom .notion pre,
+        #theme-custom .notion .notion-code {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          max-width: 100%;
+        }
+        #theme-custom .notion .notion-table,
+        #theme-custom .notion table {
+          display: block;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          max-width: 100%;
+        }
+        #theme-custom .notion .notion-text {
+          line-height: 1.72 !important;
+        }
+
+        /* 音乐 tag 筛选：右侧渐隐提示可横向滑动 */
+        #theme-custom .music-notes__filters {
+          mask-image: linear-gradient(
+            to right,
+            #000 0%,
+            #000 calc(100% - 1.5rem),
+            transparent 100%
+          );
+          -webkit-mask-image: linear-gradient(
+            to right,
+            #000 0%,
+            #000 calc(100% - 1.5rem),
+            transparent 100%
+          );
+          padding-bottom: 1.25rem;
+        }
+      }
+
+      /* xs 超窄屏：阅读记录 / 音乐手记主区顶部再多一点呼吸感 */
+      @media (max-width: 539px) {
+        #theme-custom .reading-gallery,
+        #theme-custom .music-notes {
+          padding-top: 0.75rem;
+        }
+        #theme-custom .reading-gallery__hero,
+        #theme-custom .music-notes__hero {
+          padding-top: 0.35rem;
         }
       }
     `}</style>

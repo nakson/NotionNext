@@ -53,7 +53,7 @@ export default function RightFloatArea ({ floatSlot }) {
     <div
       className={
         (showFloatButton ? 'opacity-100 ' : 'invisible opacity-0') +
-        ' duration-300 transition-all bottom-16 right-4 fixed justify-end z-20 flex flex-col gap-3'
+        ' cyber-float-area duration-300 transition-all fixed justify-end z-20 flex flex-col gap-3'
       }>
       <div className='flex flex-col gap-2'>
         <CategorySearchFloatButton />

@@ -161,6 +161,9 @@ const Header = props => {
         </div>
       </div>
 
+      {/* fixed 导航不占文档流，用占位撑开主内容区 */}
+      <div className='cyber-mobile-nav-spacer' aria-hidden='true' />
+
       {/* 折叠侧边栏 */}
       <SideBarDrawer isOpen={isOpen} onClose={toggleSideBarClose}>
         <SideBar {...props} />

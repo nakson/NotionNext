@@ -20,9 +20,9 @@ const Logo = props => {
           {' '}
           {siteInfo?.title || siteConfig('TITLE')}
         </div>
-        <div className='text-xs text-[var(--pixel-secondary)] font-mono opacity-75'>
+        {/* <div className='text-xs text-[var(--pixel-secondary)] font-mono opacity-75'>
           &gt; LOADING SYSTEM...
-        </div>
+        </div> */}
       </div>
     </Link>
   )

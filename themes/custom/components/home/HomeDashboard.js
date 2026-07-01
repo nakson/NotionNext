@@ -9,7 +9,7 @@ const HomeDashboard = ({ homePosts, posts }) => {
   const sourcePosts = homePosts?.length ? homePosts : posts
 
   return (
-    <div className='home-dashboard pt-4 pb-8'>
+    <div className='home-dashboard pt-2 pb-8 lg:pt-4'>
       <HomeBentoGrid homePosts={sourcePosts} />
       <HomeRecentLogs homePosts={sourcePosts} />
     </div>

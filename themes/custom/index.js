@@ -173,7 +173,7 @@ const LayoutBase = props => {
           {/* 主区块 */}
           <main
             id='wrapper'
-            className='w-full max-w-3xl lg:px-12 px-4 py-8 overflow-x-hidden min-h-screen relative md:my-8'
+            className='w-full max-w-3xl lg:px-12 px-4 pt-5 pb-8 lg:py-8 overflow-x-hidden min-h-screen relative md:my-8'
             style={{ marginLeft: 'auto', marginRight: 'auto' }}>
             <Transition
               show={!onLoading}

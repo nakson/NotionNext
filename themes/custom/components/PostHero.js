@@ -26,7 +26,7 @@ export default function PostHero ({ post, siteInfo }) {
   const headerImage = post?.pageCover || (shouldShowCover ? siteInfo?.pageCover : null)
 
   return (
-    <div id='header' className='w-full relative z-10 pt-5 md:pt-6 pb-4'>
+    <div id='header' className='w-full relative z-10 pt-2 md:pt-6 pb-4'>
       <header className='w-full max-w-5xl mx-auto px-4'>
         <div className='flex flex-wrap items-center gap-x-4 gap-y-2 text-xs cyber-mono text-[color:var(--cyber-text-muted)] mb-4 uppercase tracking-wider border-b border-[color:var(--cyber-panel-border)] pb-2'>
           {post.category && (
