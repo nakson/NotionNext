@@ -1,5 +1,5 @@
 import { siteConfig } from '@/lib/config'
-import { compressImage, mapImgUrl } from '@/lib/db/notion/mapImage'
+import { compressImage, isAnimatedImageUrl, mapImgUrl } from '@/lib/db/notion/mapImage'
 import NotionLink from '@/components/NotionLink'
 import NotionQuote from '@/components/NotionQuote'
 import { isBrowser, loadExternalResource } from '@/lib/utils'
@@ -67,13 +67,15 @@ const NotionPage = ({ post, className }) => {
           if (mutation.target.classList.contains('medium-zoom-image--opened')) {
             // 等待动画完成后替换为更高清的图像
             setTimeout(() => {
-              // 获取该元素的 src 属性
               const src = mutation?.target?.getAttribute('src')
-              //   替换为更高清的图像
-              mutation?.target?.setAttribute(
-                'src',
-                compressImage(src, IMAGE_ZOOM_IN_WIDTH)
-              )
+              if (!src) {
+                return
+              }
+              // 动图放大时保持原 URL，避免 width 参数破坏 GIF
+              const zoomSrc = isAnimatedImageUrl(src)
+                ? src
+                : compressImage(src, IMAGE_ZOOM_IN_WIDTH)
+              mutation?.target?.setAttribute('src', zoomSrc)
             }, 800)
           }
         }

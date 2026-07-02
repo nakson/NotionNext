@@ -508,6 +508,15 @@ const Style = () => {
         background: var(--cyber-panel-bg);
       }
 
+      /* 文章内嵌图：懒加载完成后确保可见；GIF 用 contain 保留完整画面 */
+      #theme-custom .notion .lazy-image-wrapper img.lazy-image-real {
+        object-fit: contain;
+      }
+      #theme-custom .notion .lazy-image-wrapper.lazy-image-loaded .lazy-image-real,
+      #theme-custom .notion .lazy-image-wrapper img.lazy-image-real[complete] {
+        opacity: 1;
+      }
+
       /* --- Card panels (category / tag / sidebar cards) --- */
       #theme-custom .card {
         background: var(--glass-fill);
