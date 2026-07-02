@@ -1869,11 +1869,49 @@ const Style = () => {
 
       /* --- Loading --- */
       #theme-custom #loading-cover.cyber-loading-cover {
-        background: color-mix(
-          in srgb,
-          var(--cyber-bg-deep) 92%,
-          transparent
-        );
+        position: fixed;
+        inset: 0;
+        z-index: 60;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+        background: color-mix(in srgb, var(--glass-fill) 75%, transparent);
+        backdrop-filter: blur(6px) saturate(1.1);
+        -webkit-backdrop-filter: blur(6px) saturate(1.1);
+        animation: cyber-loading-fade-in 0.25s ease-out;
+      }
+      #theme-custom .cyber-loading-cover__panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+      }
+      #theme-custom .cyber-loading-cover__rabbit {
+        display: block;
+        width: 40px;
+        height: auto;
+        max-width: 40px;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+      }
+      #theme-custom .cyber-loading-cover__label {
+        margin: 0;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        color: var(--cyber-term-dim);
+      }
+      @keyframes cyber-loading-fade-in {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
       }
       .cyber-boot-bar {
         width: min(280px, 70vw);
@@ -1930,6 +1968,9 @@ const Style = () => {
         }
         .game-card {
           transition: none;
+        }
+        #theme-custom #loading-cover.cyber-loading-cover {
+          animation: none;
         }
       }
 

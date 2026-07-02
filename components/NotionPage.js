@@ -9,6 +9,8 @@ import dynamic from 'next/dynamic'
 import { useEffect, useRef } from 'react'
 import { NotionRenderer } from 'react-notion-x'
 
+const NOTION_RENDER_FAILSAFE_MS = 8000
+
 /**
  * 整个站点的核心组件
  * 将Notion数据渲染成网页
@@ -93,6 +95,53 @@ const NotionPage = ({ post, className }) => {
       observer.disconnect()
     }
   }, [post])
+
+  // Notion 正文 DOM 稳定后通知过场层关闭（供 custom LoadingCover 使用）
+  useEffect(() => {
+    if (!isBrowser) {
+      return
+    }
+
+    const postId = post?.id
+    if (!postId) {
+      return
+    }
+
+    const notifyReady = () => {
+      window.dispatchEvent(
+        new CustomEvent('notion-page-ready', { detail: { postId } })
+      )
+    }
+
+    if (!post?.blockMap) {
+      notifyReady()
+      return
+    }
+
+    const root = document.getElementById('notion-article')
+    if (!root) {
+      notifyReady()
+      return
+    }
+
+    let debounceTimer = null
+    const scheduleReady = () => {
+      clearTimeout(debounceTimer)
+      debounceTimer = setTimeout(notifyReady, 200)
+    }
+
+    const observer = new MutationObserver(scheduleReady)
+    observer.observe(root, { childList: true, subtree: true })
+    scheduleReady()
+
+    const maxTimer = setTimeout(notifyReady, NOTION_RENDER_FAILSAFE_MS)
+
+    return () => {
+      observer.disconnect()
+      clearTimeout(debounceTimer)
+      clearTimeout(maxTimer)
+    }
+  }, [post?.id, post?.blockMap])
 
   useEffect(() => {
     // Spoiler文本功能

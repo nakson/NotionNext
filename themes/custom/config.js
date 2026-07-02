@@ -119,6 +119,10 @@ const CONFIG = {
   HOME_RECENT_LOG_COUNT: 5,
 
   /** 首页 Hero 命令框占位（未来接入 Agent） */
-  HOME_AGENT_COMMAND_ENABLED: true
+  HOME_AGENT_COMMAND_ENABLED: true,
+
+  /** 路由/Notion 渲染等待时的全屏过场动画 */
+  HEXO_LOADING_COVER: true,
+  HEXO_LOADING_COVER_GIF: '/images/jump-d.gif'
 }
 export default CONFIG

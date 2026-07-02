@@ -22,6 +22,7 @@ import Footer from './components/Footer'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import HomeDashboard from './components/home/HomeDashboard'
+import LoadingCover from './components/LoadingCover'
 import PostHero from './components/PostHero'
 import RightFloatArea from './components/RightFloatArea'
 import SearchNav from './components/SearchNav'
@@ -213,6 +214,10 @@ const LayoutBase = props => {
 
         {/* 全文搜索 */}
         <AlgoliaSearchModal cRef={searchModal} {...props} />
+
+        {siteConfig('HEXO_LOADING_COVER', true, CONFIG) && (
+          <LoadingCover post={post} />
+        )}
       </div>
       </CategorySearchProvider>
     </ThemeGlobalHexo.Provider>
