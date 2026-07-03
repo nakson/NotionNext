@@ -10,11 +10,20 @@ import { groupPostsByTag } from '../utils/groupPostsByTag'
  * 阅读记录 — 电影海报风画廊（按 tag 分组）
  */
 export default function ReadingGalleryCategoryView (props) {
-  const { page = 1, posts = [], postCount, category, keyword, siteInfo } = props
+  const {
+    page = 1,
+    posts = [],
+    postCount,
+    totalPage: totalPageProp,
+    category,
+    keyword,
+    siteInfo
+  } = props
   const { NOTION_CONFIG } = useGlobal()
   const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', null, NOTION_CONFIG)
-  const totalPage = Math.ceil(postCount / POSTS_PER_PAGE)
-  const showPagination = postCount >= POSTS_PER_PAGE
+  const totalPage =
+    totalPageProp ?? Math.ceil(postCount / POSTS_PER_PAGE)
+  const showPagination = totalPage > 1
   const groupedPosts = groupPostsByTag(posts)
 
   if (!posts?.length || page > totalPage) {

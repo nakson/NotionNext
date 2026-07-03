@@ -1,6 +1,11 @@
 import BLOG from '@/blog.config'
 import { siteConfig } from '@/lib/config'
 import { fetchGlobalAllData } from '@/lib/db/SiteDataApi'
+import { resolveCategoryViewId } from '@/themes/custom/category/registry'
+import {
+  getPostsForTagGroupPage,
+  getTagGroupPageCount
+} from '@/themes/custom/category/utils/paginateByTagGroup'
 import { DynamicLayout } from '@/themes/theme'
 
 /**
@@ -22,20 +27,27 @@ export async function getStaticProps({ params: { category }, locale }) {
     page => page.type === 'Post' && page.status === 'Published'
   )
   // 处理过滤
-  props.posts = props.posts.filter(
+  const categoryPosts = props.posts.filter(
     post => post && post.category && post.category.includes(category)
   )
 
-  // 处理文章页数
-  props.postCount = props.posts.length
+  props.postCount = categoryPosts.length
+  const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', 12, props?.NOTION_CONFIG)
+  const isReadingGallery =
+    resolveCategoryViewId(category) === 'reading-poster-gallery'
+
   // 处理分页
   if (siteConfig('POST_LIST_STYLE') === 'scroll') {
-    // 滚动列表 给前端返回所有数据
+    props.posts = categoryPosts
   } else if (siteConfig('POST_LIST_STYLE') === 'page') {
-    props.posts = props.posts?.slice(
-      0,
-      siteConfig('POSTS_PER_PAGE', 12, props?.NOTION_CONFIG)
-    )
+    if (isReadingGallery) {
+      props.totalPage = getTagGroupPageCount(categoryPosts, POSTS_PER_PAGE)
+      props.posts = getPostsForTagGroupPage(categoryPosts, 1, POSTS_PER_PAGE)
+    } else {
+      props.posts = categoryPosts?.slice(0, POSTS_PER_PAGE)
+    }
+  } else {
+    props.posts = categoryPosts
   }
 
   delete props.allPages

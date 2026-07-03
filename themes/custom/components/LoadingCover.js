@@ -11,7 +11,7 @@ const FAILSAFE_MS = 8000
 /** 静态资源路径：支持 SUB_PATH 子路径部署 */
 function resolveLoadingGifUrl (raw, siteConfigFn) {
   const t = String(raw ?? '').trim()
-  if (!t) return '/images/jump-d.gif'
+  if (!t) return '/images/jump-e.gif'
   if (/^https?:\/\//i.test(t) || t.startsWith('data:')) return t
   const sub = String(siteConfigFn('SUB_PATH', '') || '').replace(/\/$/, '')
   const path = t.startsWith('/') ? t : `/${t}`
@@ -32,7 +32,7 @@ export default function LoadingCover ({ post }) {
   const gifUrl = useMemo(
     () =>
       resolveLoadingGifUrl(
-        siteConfig('HEXO_LOADING_COVER_GIF', '/images/jump-d.gif', CONFIG),
+        siteConfig('HEXO_LOADING_COVER_GIF', '/images/jump-e.gif', CONFIG),
         siteConfig
       ),
     []

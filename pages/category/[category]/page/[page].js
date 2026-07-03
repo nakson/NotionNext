@@ -1,6 +1,11 @@
 import BLOG from '@/blog.config'
 import { siteConfig } from '@/lib/config'
 import { fetchGlobalAllData } from '@/lib/db/SiteDataApi'
+import { resolveCategoryViewId } from '@/themes/custom/category/registry'
+import {
+  getPostsForTagGroupPage,
+  getTagGroupPageCount
+} from '@/themes/custom/category/utils/paginateByTagGroup'
 import { DynamicLayout } from '@/themes/theme'
 
 /**
@@ -17,24 +22,35 @@ export default function Category(props) {
 export async function getStaticProps({ params: { category, page } }) {
   const from = 'category-page-props'
   let props = await fetchGlobalAllData({ from })
+  const pageNum = Number(page) || 1
 
-  // 过滤状态类型
-  props.posts = props.allPages
-    ?.filter(page => page.type === 'Post' && page.status === 'Published')
+  const categoryPosts = props.allPages
+    ?.filter(p => p.type === 'Post' && p.status === 'Published')
     .filter(post => post && post.category && post.category.includes(category))
-  // 处理文章页数
-  props.postCount = props.posts.length
+
+  props.postCount = categoryPosts.length
   const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', 12, props?.NOTION_CONFIG)
-  // 处理分页
-  props.posts = props.posts.slice(
-    POSTS_PER_PAGE * (page - 1),
-    POSTS_PER_PAGE * page
-  )
+  const isReadingGallery =
+    resolveCategoryViewId(category) === 'reading-poster-gallery'
+
+  if (isReadingGallery) {
+    props.totalPage = getTagGroupPageCount(categoryPosts, POSTS_PER_PAGE)
+    props.posts = getPostsForTagGroupPage(
+      categoryPosts,
+      pageNum,
+      POSTS_PER_PAGE
+    )
+  } else {
+    props.posts = categoryPosts.slice(
+      POSTS_PER_PAGE * (pageNum - 1),
+      POSTS_PER_PAGE * pageNum
+    )
+  }
 
   delete props.allPages
-  props.page = page
+  props.page = pageNum
 
-  props = { ...props, category, page }
+  props = { ...props, category, page: pageNum }
 
   return {
     props,
@@ -64,9 +80,11 @@ export async function getStaticPaths() {
       )
     // 处理文章页数
     const postCount = categoryPosts.length
-    const totalPages = Math.ceil(
-      postCount / siteConfig('POSTS_PER_PAGE', null, NOTION_CONFIG)
-    )
+    const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', null, NOTION_CONFIG)
+    const totalPages =
+      resolveCategoryViewId(category.name) === 'reading-poster-gallery'
+        ? getTagGroupPageCount(categoryPosts, POSTS_PER_PAGE)
+        : Math.ceil(postCount / POSTS_PER_PAGE)
     if (totalPages > 1) {
       for (let i = 1; i <= totalPages; i++) {
         paths.push({ params: { category: category.name, page: '' + i } })

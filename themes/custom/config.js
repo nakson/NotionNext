@@ -123,6 +123,6 @@ const CONFIG = {
 
   /** 路由/Notion 渲染等待时的全屏过场动画 */
   HEXO_LOADING_COVER: true,
-  HEXO_LOADING_COVER_GIF: '/images/jump-d.gif'
+  HEXO_LOADING_COVER_GIF: '/images/jump-e.gif'
 }
 export default CONFIG
