@@ -47,3 +47,24 @@ export function resolveCategoryViewId (category) {
 export function hasCustomCategoryView (category) {
   return resolveCategoryViewId(category) !== 'default'
 }
+
+/** 文章详情页专属版式（分类名 → layoutId） */
+const BUILTIN_ARTICLE_LAYOUT_MAP = {
+  料理食谱: 'recipe-step'
+}
+
+/**
+ * @param {string | undefined | null} category
+ * @returns {'default' | 'recipe-step' | string}
+ */
+export function resolveArticleLayoutId (category) {
+  if (!category) return 'default'
+  const normalized = decodeURIComponent(String(category)).trim()
+  const fromConfig = CONFIG.ARTICLE_LAYOUT_MAP?.[normalized]
+  const fromBuiltin = BUILTIN_ARTICLE_LAYOUT_MAP[normalized]
+  return fromConfig || fromBuiltin || 'default'
+}
+
+export function hasCustomArticleLayout (category) {
+  return resolveArticleLayoutId(category) !== 'default'
+}

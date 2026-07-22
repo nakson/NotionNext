@@ -517,6 +517,136 @@ const Style = () => {
         opacity: 1;
       }
 
+      /* --- 料理食谱文章：Cookpad 式 Hero 1:1 + 步骤方图 + 连图网格 --- */
+      /* 仅窄屏显示封面；宽屏隐藏 */
+      #theme-custom .recipe-hero {
+        position: relative;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        background: color-mix(in srgb, var(--glass-fill) 40%, transparent);
+        width: 100vw;
+        max-width: 100vw;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+      }
+
+      @media (min-width: 640px) {
+        #theme-custom .recipe-hero {
+          display: none !important;
+        }
+      }
+
+      #theme-custom .recipe-hero__img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      #theme-custom .recipe-hero__img--animated {
+        object-fit: contain;
+        background: color-mix(in srgb, var(--cyber-bg-deep) 12%, transparent);
+      }
+
+      /* 窄屏：正文首图已提升为 Hero，正文内隐藏；宽屏无 Hero，恢复显示 */
+      #theme-custom .recipe-article .recipe-hero-source,
+      #theme-custom .recipe-article .notion-asset-wrapper-image[data-recipe-hero='true'] {
+        display: none !important;
+      }
+
+      @media (min-width: 640px) {
+        #theme-custom .recipe-article .recipe-hero-source,
+        #theme-custom .recipe-article
+          .notion-asset-wrapper-image[data-recipe-hero='true'] {
+          display: block !important;
+        }
+      }
+
+      /* 步骤连图：2 张两列 / 3+ 张三列；移动端仍多列（Cookpad 密度） */
+      #theme-custom .recipe-article .recipe-step-grid {
+        display: grid;
+        gap: 0.5rem;
+        margin: 0.85rem 0 1.25rem;
+      }
+
+      #theme-custom .recipe-article .recipe-step-grid--2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      #theme-custom .recipe-article .recipe-step-grid--3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      /* 兼容旧 class */
+      #theme-custom .recipe-article .recipe-prep-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.5rem;
+        margin: 0.85rem 0 1.25rem;
+      }
+
+      #theme-custom .recipe-article .recipe-step-photo {
+        margin: 1.1rem 0;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--glass-border);
+        background: color-mix(in srgb, var(--glass-fill) 24%, transparent);
+      }
+
+      #theme-custom .recipe-article .recipe-step-photo--grid-cell {
+        margin: 0;
+        border-radius: 6px;
+      }
+
+      #theme-custom .recipe-article .recipe-step-photo > div {
+        aspect-ratio: 1 / 1 !important;
+        height: auto !important;
+        max-height: none !important;
+      }
+
+      #theme-custom .recipe-article .recipe-step-photo img,
+      #theme-custom .recipe-article .recipe-step-photo .lazy-image-real {
+        width: 100% !important;
+        height: 100% !important;
+        max-height: none !important;
+        object-fit: cover;
+        margin: 0;
+        border-radius: 0;
+      }
+
+      #theme-custom .recipe-article .recipe-step-photo--animated img,
+      #theme-custom .recipe-article .recipe-step-photo--animated .lazy-image-real {
+        object-fit: contain;
+      }
+
+      #theme-custom .recipe-article .recipe-step-photo .notion-asset-caption {
+        padding: 0.45rem 0.65rem 0.55rem;
+        font-size: 0.78rem;
+        line-height: 1.4;
+        text-align: center;
+        color: var(--text-tertiary);
+        letter-spacing: 0.02em;
+      }
+
+      /* 食谱分区节奏：标题 / 列表略增间距 */
+      #theme-custom .recipe-article .notion-h1,
+      #theme-custom .recipe-article .notion-h2,
+      #theme-custom .recipe-article .notion-h3 {
+        margin-top: 1.75rem !important;
+        margin-bottom: 0.65rem !important;
+      }
+
+      #theme-custom .recipe-article .notion-list {
+        margin: 0.5rem 0 1rem !important;
+      }
+
+      #theme-custom .recipe-article .notion-text {
+        margin: 0.35rem 0 !important;
+      }
+
       /* --- Card panels (category / tag / sidebar cards) --- */
       #theme-custom .card {
         background: var(--glass-fill);

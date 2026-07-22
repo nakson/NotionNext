@@ -2,6 +2,9 @@ import LazyImage from '@/components/LazyImage'
 import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
 import Link from 'next/link'
+import { useEffect, useMemo, useState } from 'react'
+import { RECIPE_INLINE_HERO_EVENT } from './RecipeNotionPage'
+import { getFirstImageFromPost } from '../utils/recipeImageUtils'
 import TagItemMini from './TagItemMini'
 
 /** 仅阅读记录、音乐分类显示文章封面 */
@@ -12,6 +15,36 @@ const COVER_CATEGORIES = ['阅读记录', '音乐']
  */
 export default function PostHero ({ post, siteInfo }) {
   const { locale, fullWidth } = useGlobal()
+  const [inlineHero, setInlineHero] = useState(null)
+
+  const isRecipe = post?.category === '料理食谱'
+  const blockMapHero = useMemo(
+    () => (isRecipe && !post?.pageCover ? getFirstImageFromPost(post) : null),
+    [isRecipe, post]
+  )
+
+  useEffect(() => {
+    if (!isRecipe || post?.pageCover) {
+      setInlineHero(null)
+      return
+    }
+
+    const onInlineHero = event => {
+      if (event.detail?.postId !== post?.id) {
+        return
+      }
+      setInlineHero({
+        src: event.detail.src,
+        alt: event.detail.alt || post.title,
+        isAnimated: event.detail.isAnimated
+      })
+    }
+
+    window.addEventListener(RECIPE_INLINE_HERO_EVENT, onInlineHero)
+    return () => {
+      window.removeEventListener(RECIPE_INLINE_HERO_EVENT, onInlineHero)
+    }
+  }, [isRecipe, post?.id, post?.pageCover, post?.title])
 
   if (!post) {
     return <></>
@@ -24,6 +57,9 @@ export default function PostHero ({ post, siteInfo }) {
   const shouldShowCover = COVER_CATEGORIES.includes(post.category)
   const isReadingRecord = post.category === '阅读记录'
   const headerImage = post?.pageCover || (shouldShowCover ? siteInfo?.pageCover : null)
+  const recipeHeroSrc = post?.pageCover || inlineHero?.src || blockMapHero?.src
+  const recipeHeroAlt = inlineHero?.alt || blockMapHero?.alt || post.title
+  const recipeHeroAnimated = inlineHero?.isAnimated ?? blockMapHero?.isAnimated
 
   return (
     <div id='header' className='w-full relative z-10 pt-2 md:pt-6 pb-4'>
@@ -67,6 +103,17 @@ export default function PostHero ({ post, siteInfo }) {
             </div>
           )}
         </div>
+
+        {isRecipe && recipeHeroSrc && (
+          <div className='recipe-hero mb-8'>
+            <LazyImage
+              priority
+              src={recipeHeroSrc}
+              alt={recipeHeroAlt}
+              className={`recipe-hero__img${recipeHeroAnimated ? ' recipe-hero__img--animated' : ''}`}
+            />
+          </div>
+        )}
 
         {shouldShowCover && headerImage && isReadingRecord && (
           <div className='cyber-post-cover--natural mb-8 flex justify-center'>

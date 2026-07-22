@@ -24,6 +24,7 @@ import Hero from './components/Hero'
 import HomeDashboard from './components/home/HomeDashboard'
 import LoadingCover from './components/LoadingCover'
 import PostHero from './components/PostHero'
+import RecipeNotionPage from './components/RecipeNotionPage'
 import RightFloatArea from './components/RightFloatArea'
 import SearchNav from './components/SearchNav'
 import SideRight from './components/SideRight'
@@ -34,6 +35,7 @@ import TocDrawerButton from './components/TocDrawerButton'
 import CategoryPostList from './category/CategoryPostList'
 import CategorySearchOverlay from './category/components/CategorySearchOverlay'
 import { CategorySearchProvider } from './category/CategorySearchContext'
+import { hasCustomArticleLayout } from './category/registry'
 import CONFIG from './config'
 import { Style } from './style_tania'
 
@@ -321,6 +323,8 @@ const LayoutSlug = props => {
   const { post, lock, validPassword } = props
   const router = useRouter()
   const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000
+  const isRecipeArticle =
+    post?.category && hasCustomArticleLayout(post.category)
   useEffect(() => {
     // 404
     if (!post) {
@@ -349,10 +353,20 @@ const LayoutSlug = props => {
               id='article-wrapper'
               itemScope
               itemType='https://schema.org/Movie'
-              className='subpixel-antialiased overflow-y-hidden'>
-              {/* Notion文章主体 */}
-              <section className='px-5 justify-center mx-auto max-w-2xl lg:max-w-full'>
-                {post && <NotionPage post={post} />}
+              className={`subpixel-antialiased overflow-y-hidden${isRecipeArticle ? ' recipe-article' : ''}`}>
+              {/* Notion文章主体：食谱窄栏居中（Cookpad 式） */}
+              <section
+                className={
+                  isRecipeArticle
+                    ? 'recipe-article__body justify-center mx-auto max-w-xl px-4 sm:px-5'
+                    : 'px-5 justify-center mx-auto max-w-2xl lg:max-w-full'
+                }>
+                {post &&
+                  (isRecipeArticle ? (
+                    <RecipeNotionPage post={post} />
+                  ) : (
+                    <NotionPage post={post} />
+                  ))}
               </section>
 
               {/* 版权与内联分享 */}

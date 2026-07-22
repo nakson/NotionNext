@@ -76,6 +76,11 @@ const CONFIG = {
     音乐: 'music-notes'
   },
 
+  /** 文章详情页专属版式（分类名 → layoutId） */
+  ARTICLE_LAYOUT_MAP: {
+    料理食谱: 'recipe-step'
+  },
+
   /** 音乐手记页配置 */
   MUSIC_NOTES_CONFIG: {
     title: '音乐手记',
