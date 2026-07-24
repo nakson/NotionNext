@@ -59,7 +59,7 @@ export async function getStaticProps ({ params: { category, tag }, locale }) {
 
 export function getStaticPaths () {
   return {
-    paths: [{ params: { category: '音乐', tag: '原创音乐' } }],
+    paths: [{ params: { category: '音律轩', tag: '原创音乐' } }],
     fallback: true
   }
 }

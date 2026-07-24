@@ -1,3 +1,5 @@
+import { CATEGORY } from '../category/catalog'
+
 /** 取文章排序用时间戳，优先 publishDate */
 function getPostTimestamp(post) {
   if (post?.publishDate) {
@@ -49,7 +51,7 @@ export function buildHomeSystemStatus(homePosts = []) {
   ).length
 
   const readingPosts = sortPostsByDateDesc(
-    homePosts.filter(p => p.category === '阅读记录')
+    homePosts.filter(p => p.category === CATEGORY.reading)
   )
 
   return {

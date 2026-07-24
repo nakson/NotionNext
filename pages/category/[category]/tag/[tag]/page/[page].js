@@ -55,7 +55,7 @@ export async function getStaticProps ({
 
 export function getStaticPaths () {
   return {
-    paths: [{ params: { category: '音乐', tag: '原创音乐', page: '1' } }],
+    paths: [{ params: { category: '音律轩', tag: '原创音乐', page: '1' } }],
     fallback: true
   }
 }

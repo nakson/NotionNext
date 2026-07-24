@@ -1,10 +1,11 @@
 import CONFIG from '../../config'
+import { CATEGORY } from '../catalog'
 
 /**
- * 音乐手记 — 页眉（固定标题「音乐手记」）
+ * 音律轩 — 页眉（标题来自 MUSIC_NOTES_CONFIG / catalog）
  */
 export default function MusicNotesHero ({ keyword }) {
-  const title = CONFIG.MUSIC_NOTES_CONFIG?.title || '音乐手记'
+  const title = CONFIG.MUSIC_NOTES_CONFIG?.title || CATEGORY.music
 
   return (
     <header className='music-notes__hero'>

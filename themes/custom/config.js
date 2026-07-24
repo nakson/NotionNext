@@ -1,3 +1,11 @@
+import {
+  buildArticleLayoutMap,
+  buildCategoryViewMap,
+  buildHomeBentoModules,
+  buildSearchPlaceholderMap,
+  CATEGORY
+} from './category/catalog'
+
 const CONFIG = {
   // ============ Gruvbox 阅读风主题配置 ============
   THEME_STYLE: 'gruvbox-reading',
@@ -62,63 +70,29 @@ const CONFIG = {
   HEXO_THEME_BG_ART_OPACITY: 0.08,
 
   /**
-   * 分类专属列表视图（分类名 → viewId）
-   * - fine-dining-menu：料理食谱高档菜单风
-   * - essay-index：随想录简约行列表
-   * - reading-poster-gallery：阅读记录海报画廊
-   * - music-notes：音乐手记歌单画廊
+   * 分类专属列表视图（由 catalog.js 生成）
+   * - fine-dining-menu / essay-index / reading-poster-gallery / music-notes
    * - 未列出的分类保持默认卡片列表
    */
-  CATEGORY_VIEW_MAP: {
-    料理食谱: 'fine-dining-menu',
-    随想录: 'essay-index',
-    阅读记录: 'reading-poster-gallery',
-    音乐: 'music-notes'
-  },
+  CATEGORY_VIEW_MAP: buildCategoryViewMap(),
 
-  /** 文章详情页专属版式（分类名 → layoutId） */
-  ARTICLE_LAYOUT_MAP: {
-    料理食谱: 'recipe-step'
-  },
+  /** 文章详情页专属版式（由 catalog.js 生成） */
+  ARTICLE_LAYOUT_MAP: buildArticleLayoutMap(),
 
-  /** 音乐手记页配置 */
+  /** 音律轩页配置 */
   MUSIC_NOTES_CONFIG: {
-    title: '音乐手记',
+    title: CATEGORY.music,
     tagFilters: ['全部', '原创音乐', 'AI写歌', '私人歌单']
   },
 
-  /** 分类内搜索框 placeholder（分类名 → 文案；未配置则默认「搜索{分类名}」） */
-  CATEGORY_SEARCH_CONFIG: {
-    料理食谱: '搜索食谱'
-  },
+  /** 分类内搜索框 placeholder（由 catalog.js 生成；未配置则默认「搜索{分类名}」） */
+  CATEGORY_SEARCH_CONFIG: buildSearchPlaceholderMap(),
 
   /**
-   * 首页 Bento 世界观模块（顺序即展示顺序）
+   * 首页 Bento 世界观模块（由 catalog.js BENTO_ORDER 生成）
    * category 须与 Notion 分类名一致，点击进入对应分类专属视图
-   * 设计文档：docs/developer/themes/custom/HOME_DASHBOARD.md
    */
-  HOME_BENTO_MODULES: [
-    {
-      category: '阅读记录',
-      title: '阅读记录',
-      description: '书籍摘抄与阅读笔记'
-    },
-    {
-      category: '音乐',
-      title: '音乐手记',
-      description: '原创、歌单与 AI 写歌'
-    },
-    {
-      category: '随想录',
-      title: '随想录',
-      description: '随笔与刹那想法'
-    },
-    {
-      category: '料理食谱',
-      title: '料理食谱',
-      description: '厨房实验笔记'
-    }
-  ],
+  HOME_BENTO_MODULES: buildHomeBentoModules(),
 
   /** 首页「stdout · 最近更新」条数 */
   HOME_RECENT_LOG_COUNT: 5,

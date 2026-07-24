@@ -54,7 +54,7 @@ export async function getStaticProps ({
 
 export function getStaticPaths () {
   return {
-    paths: [{ params: { category: '料理食谱', keyword: 'NotionNext', page: '1' } }],
+    paths: [{ params: { category: '食味斋', keyword: 'NotionNext', page: '1' } }],
     fallback: true
   }
 }

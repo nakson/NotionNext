@@ -7,6 +7,7 @@ import { useGlobal } from '@/lib/global'
 import { useEffect } from 'react'
 import { loadExternalResource } from '@/lib/utils'
 import CONFIG from '../config'
+import MenuIcon from './MenuIcon'
 
 function resolveGreetingWords () {
   const raw = siteConfig('GREETING_WORDS', null, CONFIG)
@@ -164,9 +165,7 @@ const TaniaSideBar = props => {
                     }`}>
                     {selected ? '▶' : '›'}
                   </span>
-                  {link?.pageIcon && (
-                    <span className='mr-1.5'>{link?.pageIcon}</span>
-                  )}
+                  <MenuIcon icon={link?.icon} pageIcon={link?.pageIcon} />
                   {link?.name}
                 </Link>
               </li>

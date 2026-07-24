@@ -1,4 +1,10 @@
 import CONFIG from '../config'
+import {
+  buildArticleLayoutMap,
+  buildCategoryViewMap,
+  buildSearchPlaceholderMap,
+  CATEGORY_CATALOG
+} from './catalog'
 
 /**
  * 分类专属视图注册表
@@ -7,20 +13,15 @@ import CONFIG from '../config'
  *
  * 未注册的分类走 default，保持现有列表 UI。
  */
-const BUILTIN_CATEGORY_VIEW_MAP = {
-  料理食谱: 'fine-dining-menu',
-  随想录: 'essay-index',
-  阅读记录: 'reading-poster-gallery',
-  音乐: 'music-notes'
-}
+const BUILTIN_CATEGORY_VIEW_MAP = buildCategoryViewMap()
 
-/** 预留：后续可在此登记固定分类，便于检索与文档化 */
-export const KNOWN_CATEGORIES = Object.keys(BUILTIN_CATEGORY_VIEW_MAP)
+/** 已知分类名（来自 catalog） */
+export const KNOWN_CATEGORIES = Object.values(CATEGORY_CATALOG).map(
+  def => def.name
+)
 
 /** 分类内搜索 placeholder（可扩展至 config.CATEGORY_SEARCH_CONFIG） */
-const BUILTIN_CATEGORY_SEARCH_PLACEHOLDER = {
-  料理食谱: '搜索食谱'
-}
+const BUILTIN_CATEGORY_SEARCH_PLACEHOLDER = buildSearchPlaceholderMap()
 
 export function getCategorySearchPlaceholder (category) {
   const normalized = decodeURIComponent(String(category || '')).trim()
@@ -49,9 +50,7 @@ export function hasCustomCategoryView (category) {
 }
 
 /** 文章详情页专属版式（分类名 → layoutId） */
-const BUILTIN_ARTICLE_LAYOUT_MAP = {
-  料理食谱: 'recipe-step'
-}
+const BUILTIN_ARTICLE_LAYOUT_MAP = buildArticleLayoutMap()
 
 /**
  * @param {string | undefined | null} category

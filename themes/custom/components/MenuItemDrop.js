@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { useState } from 'react'
+import MenuIcon from './MenuIcon'
 /**
  * 支持二级展开的菜单
  * @param {*} param0
@@ -21,16 +22,18 @@ export const MenuItemDrop = ({ link }) => {
         <Link
           href={link?.href}
           target={link?.target}
-          className='menu-link px-3 py-2 no-underline tracking-wider font-mono text-[var(--pixel-text)] hover:text-[var(--pixel-accent)] border-2 border-transparent hover:border-[var(--pixel-accent)] transition-all duration-100 inline-block'>
-          {link?.icon && <i className={link?.icon} />} {link?.name}
+          className='menu-link px-3 py-2 no-underline tracking-wider font-mono text-[var(--pixel-text)] hover:text-[var(--pixel-accent)] border-2 border-transparent hover:border-[var(--pixel-accent)] transition-all duration-100 inline-flex items-center'>
+          <MenuIcon icon={link?.icon} pageIcon={link?.pageIcon} />
+          {link?.name}
           {hasSubMenu && <i className='px-2 fa fa-angle-down'></i>}
         </Link>
       )}
 
       {hasSubMenu && (
         <>
-          <div className='cursor-pointer menu-link px-3 py-2 no-underline tracking-wider font-mono text-[var(--pixel-text)] hover:text-[var(--pixel-accent)] border-2 border-transparent hover:border-[var(--pixel-accent)] relative transition-all duration-100 inline-block'>
-            {link?.icon && <i className={link?.icon} />} {link?.name}
+          <div className='cursor-pointer menu-link px-3 py-2 no-underline tracking-wider font-mono text-[var(--pixel-text)] hover:text-[var(--pixel-accent)] border-2 border-transparent hover:border-[var(--pixel-accent)] relative transition-all duration-100 inline-flex items-center'>
+            <MenuIcon icon={link?.icon} pageIcon={link?.pageIcon} />
+            {link?.name}
             <i
               className={`px-2 fa fa-angle-down transition-transform duration-300 inline-block ${show ? 'rotate-180' : 'rotate-0'}`}></i>
             {/* 主菜单下方的安全区域 */}
@@ -54,8 +57,8 @@ export const MenuItemDrop = ({ link }) => {
                 key={index}
                 className='cursor-pointer hover:bg-[var(--pixel-accent)] hover:text-[var(--pixel-bg)] tracking-wide transition-all duration-100 border-b border-[var(--pixel-accent)] py-2 pr-6 pl-3 font-mono text-sm hover:translate-x-1'>
                 <Link href={sLink.href} target={link?.target}>
-                  <span className='text-nowrap font-semibold'>
-                    {sLink?.icon && <i className={sLink?.icon}> &nbsp; </i>}
+                  <span className='text-nowrap font-semibold inline-flex items-center'>
+                    <MenuIcon icon={sLink?.icon} pageIcon={sLink?.pageIcon} />
                     {sLink.title}
                   </span>
                 </Link>

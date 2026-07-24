@@ -3,12 +3,17 @@ import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
 import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
+import {
+  getCoverCategoryNames,
+  isNaturalCoverCategory,
+  isRecipeCategory
+} from '../category/catalog'
 import { RECIPE_INLINE_HERO_EVENT } from './RecipeNotionPage'
 import { getFirstImageFromPost } from '../utils/recipeImageUtils'
 import TagItemMini from './TagItemMini'
 
-/** 仅阅读记录、音乐分类显示文章封面 */
-const COVER_CATEGORIES = ['阅读记录', '音乐']
+/** 需显示文章封面的分类（由 catalog 生成） */
+const COVER_CATEGORIES = getCoverCategoryNames()
 
 /**
  * 文章详情页的Hero块
@@ -17,7 +22,7 @@ export default function PostHero ({ post, siteInfo }) {
   const { locale, fullWidth } = useGlobal()
   const [inlineHero, setInlineHero] = useState(null)
 
-  const isRecipe = post?.category === '料理食谱'
+  const isRecipe = isRecipeCategory(post?.category)
   const blockMapHero = useMemo(
     () => (isRecipe && !post?.pageCover ? getFirstImageFromPost(post) : null),
     [isRecipe, post]
@@ -55,7 +60,7 @@ export default function PostHero ({ post, siteInfo }) {
   }
 
   const shouldShowCover = COVER_CATEGORIES.includes(post.category)
-  const isReadingRecord = post.category === '阅读记录'
+  const isReadingRecord = isNaturalCoverCategory(post.category)
   const headerImage = post?.pageCover || (shouldShowCover ? siteInfo?.pageCover : null)
   const recipeHeroSrc = post?.pageCover || inlineHero?.src || blockMapHero?.src
   const recipeHeroAlt = inlineHero?.alt || blockMapHero?.alt || post.title
