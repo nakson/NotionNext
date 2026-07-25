@@ -21,7 +21,12 @@ const PrefixSlug = props => {
 export async function getStaticPaths() {
   return getStaticPathsBase({
     from: 'slug-paths',
-    filterFn: row => checkSlugHasOneSlash(row),
+    // wedding/* 由 pages/wedding/[slug].js 独占，避免重复路径
+    filterFn: row => {
+      if (!checkSlugHasOneSlash(row)) return false
+      const slug = String(row.slug || '').replace(/^\//, '')
+      return !slug.startsWith('wedding/')
+    },
     mapPageToParams: row => ({
       params: {
         prefix: row.slug.split('/')[0],

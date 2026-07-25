@@ -102,6 +102,17 @@ const CONFIG = {
 
   /** 路由/Notion 渲染等待时的全屏过场动画 */
   HEXO_LOADING_COVER: true,
-  HEXO_LOADING_COVER_GIF: '/images/jump-e.gif'
+  HEXO_LOADING_COVER_GIF: '/images/jump-e.gif',
+
+  /** 婚礼请柬页（/wedding/[slug]） */
+  WEDDING_ENABLE: true,
+  WEDDING_CONTENT_MAX_WIDTH: 480,
+  WEDDING_MUSIC_VOLUME: 0.35,
+  WEDDING_AUTO_SCROLL: true,
+  WEDDING_AUTO_SCROLL_SPEED: 72,
+  WEDDING_AUTO_SCROLL_RESUME_DELAY: 2000,
+  WEDDING_REVEAL_ANIMATION: true,
+  WEDDING_TEXT_COLOR: '#3d342b',
+  WEDDING_MUTED_COLOR: ''
 }
 export default CONFIG

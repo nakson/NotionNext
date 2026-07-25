@@ -1,0 +1,3 @@
+# 婚礼请柬静态资源目录
+# 每篇请柬建议：public/wedding/{slug}/bgm.mp3
+# 可选：cover.webp

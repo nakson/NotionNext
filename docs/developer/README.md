@@ -39,5 +39,6 @@
 
 | 路径 | 说明 |
 | --- | --- |
+| [themes/custom/WEDDING_INVITATION.md](./themes/custom/WEDDING_INVITATION.md) | 婚礼电子请柬独立全屏页方案（custom） |
 | [performance/](./performance/) | 主题性能审计记录 |
 | [../DOCUMENTATION_POLICY.md](../DOCUMENTATION_POLICY.md) | 文档维护策略（同时在线发布） |

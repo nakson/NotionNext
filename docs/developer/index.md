@@ -23,6 +23,7 @@ NotionNext 文档不再把“站长教程”和“开发者文档”做成两个
 | --- | --- |
 | 主题迁移 | [THEME_MIGRATION_GUIDE.zh-CN.md](./THEME_MIGRATION_GUIDE.zh-CN.md) · [THEME_MIGRATION_GUIDE.md](./THEME_MIGRATION_GUIDE.md) |
 | 主题实现长文 | [themes/](./themes/) |
+| 婚礼请柬全屏页方案 | [themes/custom/WEDDING_INVITATION.md](./themes/custom/WEDDING_INVITATION.md) |
 | 大改动 RFC | [rfc/](./rfc/) |
 
 ## 维护资料

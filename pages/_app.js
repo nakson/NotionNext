@@ -81,15 +81,22 @@ const MyApp = ({ Component, pageProps }) => {
     [theme]
   )
 
+  // 页面级壳策略：独立全屏页可跳过主题 LayoutBase / 全局插件
+  const fullPage = Component.fullPage === true
+  const disableExternalPlugins = Component.disableExternalPlugins === true
+
   const enableClerk = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+  const pageBody = (
+    <>
+      <SEO {...pageProps} />
+      <Component {...pageProps} />
+    </>
+  )
   const content = (
     <AppErrorBoundary>
       <GlobalContextProvider {...pageProps}>
-        <GLayout {...pageProps}>
-          <SEO {...pageProps} />
-          <Component {...pageProps} />
-        </GLayout>
-        <ExternalPlugins {...pageProps} />
+        {fullPage ? pageBody : <GLayout {...pageProps}>{pageBody}</GLayout>}
+        {!disableExternalPlugins && <ExternalPlugins {...pageProps} />}
       </GlobalContextProvider>
     </AppErrorBoundary>
   )
