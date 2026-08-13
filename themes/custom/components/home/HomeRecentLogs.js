@@ -31,7 +31,9 @@ const HomeRecentLogs = ({ homePosts }) => {
             <span className='home-recent-logs__index cyber-mono'>
               [{String(index + 1).padStart(2, '0')}]
             </span>
-            <Link href={post.href} className='home-recent-logs__link'>
+            <Link
+              href={post.href || (post.slug ? `/${post.slug}` : '/')}
+              className='home-recent-logs__link'>
               <span className='home-recent-logs__title'>{post.title}</span>
               {post.category && (
                 <span className='home-recent-logs__meta cyber-mono'>

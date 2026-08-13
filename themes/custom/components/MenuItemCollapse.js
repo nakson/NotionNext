@@ -32,7 +32,7 @@ export const MenuItemCollapse = props => {
       <div className='w-full px-8 py-3 ' onClick={toggleShow}>
         {!hasSubMenu && (
           <Link
-            href={link?.href}
+            href={link?.href || '/'}
             target={link?.target}
             className='font-extralight flex justify-between pl-2 pr-4 !text-slate-800 dark:!text-slate-200 no-underline tracking-widest pb-1'>
             <span className='transition-all inline-flex items-center duration-200'>
@@ -71,7 +71,7 @@ export const MenuItemCollapse = props => {
               <div
                 key={index}
                 className='!text-slate-800 dark:!text-slate-200 hover:text-white dark:bg-black dark:text-gray-200 text-left px-10 justify-start bg-gray-50 tracking-widest transition-all duration-200  py-3 pr-6'>
-                <Link href={sLink.href} target={link?.target}>
+                <Link href={sLink.href || '/'} target={link?.target}>
                   <span className='text-sm ml-4 whitespace-nowrap inline-flex items-center'>
                     <MenuIcon
                       icon={sLink?.icon}

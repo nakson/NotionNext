@@ -20,7 +20,7 @@ export const MenuItemDrop = ({ link }) => {
       onMouseOut={() => changeShow(false)}>
       {!hasSubMenu && (
         <Link
-          href={link?.href}
+          href={link?.href || '/'}
           target={link?.target}
           className='menu-link px-3 py-2 no-underline tracking-wider font-mono text-[var(--pixel-text)] hover:text-[var(--pixel-accent)] border-2 border-transparent hover:border-[var(--pixel-accent)] transition-all duration-100 inline-flex items-center'>
           <MenuIcon icon={link?.icon} pageIcon={link?.pageIcon} />
@@ -56,7 +56,7 @@ export const MenuItemDrop = ({ link }) => {
               <li
                 key={index}
                 className='cursor-pointer hover:bg-[var(--pixel-accent)] hover:text-[var(--pixel-bg)] tracking-wide transition-all duration-100 border-b border-[var(--pixel-accent)] py-2 pr-6 pl-3 font-mono text-sm hover:translate-x-1'>
-                <Link href={sLink.href} target={link?.target}>
+                <Link href={sLink.href || '/'} target={link?.target}>
                   <span className='text-nowrap font-semibold inline-flex items-center'>
                     <MenuIcon icon={sLink?.icon} pageIcon={sLink?.pageIcon} />
                     {sLink.title}

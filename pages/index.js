@@ -14,6 +14,7 @@ import { generateRedirectJson } from '@/lib/utils/redirect'
 import { checkDataFromAlgolia } from '@/lib/plugins/algolia'
 import pLimit from 'p-limit'
 import { adapterNotionBlockMap } from '@/lib/utils/notion.util'
+import { sanitizeForStaticProps } from '@/lib/utils'
 
 /**
  * 首页布局
@@ -129,9 +130,11 @@ export async function getStaticProps(req) {
   }
   props.latestPosts = cleanPostSummaries(props.latestPosts)
   delete props.allPages
+  if (!Array.isArray(props.categoryOptions)) props.categoryOptions = []
+  if (!Array.isArray(props.tagOptions)) props.tagOptions = []
 
   return {
-    props,
+    props: sanitizeForStaticProps(props),
     revalidate: process.env.EXPORT
       ? undefined
       : siteConfig(

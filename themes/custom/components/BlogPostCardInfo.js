@@ -25,7 +25,7 @@ export const BlogPostCardInfo = ({
           <h2 className='pixel-title'>
             {/* 标题 - 像素风设计 */}
             <Link
-              href={post?.href}
+              href={post?.href || (post?.slug ? `/${post.slug}` : '/')}
               passHref
               className={`cyber-title-link line-clamp-2 replace cursor-pointer text-xl font-semibold ${
                 showPreview ? 'text-center' : ''

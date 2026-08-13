@@ -28,7 +28,7 @@ const BlogPostCard = ({ index, post, showSummary, siteInfo }) => {
         {/* 图片封面 */}
         {showPageCover && (
           <div className='md:w-auto md:aspect-[1/1.4] md:h-full w-full h-56 overflow-hidden relative flex-shrink-0 border-r border-[color:var(--cyber-panel-border)]'>
-            <Link href={post?.href}>
+            <Link href={post?.href || (post?.slug ? `/${post.slug}` : '/')}>
               <>
                 <LazyImage
                   priority={index === 1}

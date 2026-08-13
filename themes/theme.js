@@ -47,6 +47,10 @@ const getLayoutLoading = (themeName, layoutName) => {
 }
 
 const normalizeThemeName = themeValue => {
+  // Notion 配置表若把 THEME 做成 Select，解析结果会是数组
+  if (Array.isArray(themeValue)) {
+    themeValue = themeValue[0]
+  }
   if (!themeValue || typeof themeValue !== 'string') return BLOG.THEME
   const firstTheme = themeValue.split(',')[0].trim()
   if (!firstTheme) return BLOG.THEME

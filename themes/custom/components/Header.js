@@ -135,7 +135,7 @@ const Header = props => {
         className={
           'cyber-mobile-nav top-0 duration-300 transition-all fixed bg-transparent w-full z-20 transform border-b border-transparent'
         }>
-        <div className='w-full flex justify-between items-center px-6 py-3 max-w-8xl mx-auto cyber-mono text-sm border-b border-transparent'>
+        <div className='w-full flex justify-between items-center px-4 py-2 max-w-8xl mx-auto cyber-mono text-sm border-b border-transparent'>
           <div className='flex items-center'>
             <Logo {...props} />
           </div>
