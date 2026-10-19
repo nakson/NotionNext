@@ -954,6 +954,70 @@ const Style = () => {
         opacity: 0.65;
       }
 
+      /* 像素漫游：大厅 / 分类走廊 */
+      .pixel-walk {
+        border: 1px solid var(--glass-border);
+        border-radius: var(--glass-radius);
+        background: var(--glass-fill);
+        backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+        -webkit-backdrop-filter: blur(var(--glass-blur))
+          saturate(var(--glass-saturate));
+        box-shadow: var(--glass-highlight), var(--glass-shadow);
+        overflow: hidden;
+      }
+      .pixel-walk__chrome {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.35rem 0.75rem;
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        color: var(--cyber-term-dim);
+        border-bottom: 1px solid var(--glass-border);
+        background: color-mix(in srgb, var(--glass-fill) 85%, transparent);
+      }
+      .pixel-walk__stage {
+        position: relative;
+        width: 100%;
+        background: #1d2021;
+        touch-action: none;
+      }
+      .pixel-walk__canvas {
+        display: block;
+        width: 100%;
+        height: auto;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        cursor: crosshair;
+      }
+      .pixel-walk__loading {
+        min-height: 160px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        color: var(--cyber-term-dim);
+        background: #1d2021;
+      }
+      .pixel-walk__loading--strip {
+        min-height: 96px;
+      }
+      /* 屏幕阅读 / 无障碍：视觉隐藏但可聚焦跳转 */
+      .pixel-walk__a11y-links {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      .pixel-walk--lobby {
+        position: relative;
+      }
+
       /* 最近更新日志 */
       .home-recent-logs {
         border: 1px solid var(--glass-border);

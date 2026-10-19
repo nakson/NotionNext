@@ -3,6 +3,7 @@ import BlogPostListPage from '../components/BlogPostListPage'
 import BlogPostListScroll from '../components/BlogPostListScroll'
 import SearchInput from '../components/SearchInput'
 import SlotBar from '../components/SlotBar'
+import CategoryCorridorStrip from '../components/pixel-walk/CategoryCorridorStrip'
 import { useRouter } from 'next/router'
 import { resolveCategoryViewId } from './registry'
 import FineDiningMenuCategoryView from './views/FineDiningMenuCategoryView'
@@ -30,12 +31,20 @@ export default function CategoryPostList (props) {
   const viewId = resolveCategoryViewId(category)
   const CustomView = CATEGORY_VIEW_COMPONENTS[viewId]
 
+  const corridor = <CategoryCorridorStrip category={category} />
+
   if (CustomView) {
-    return <CustomView {...props} category={category} />
+    return (
+      <>
+        {corridor}
+        <CustomView {...props} category={category} />
+      </>
+    )
   }
 
   return (
     <div className='pt-2 lg:pt-8 overflow-hidden'>
+      {corridor}
       <SlotBar {...props} />
       <div className='mt-4 mb-8 max-lg:pr-14 lg:pr-24'>
         <SearchInput {...props} />

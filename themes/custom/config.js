@@ -97,6 +97,11 @@ const CONFIG = {
   /** 首页「stdout · 最近更新」条数 */
   HOME_RECENT_LOG_COUNT: 5,
 
+  /** 首页像素大厅导航（酒店大厅 → 分类门） */
+  HOME_LOBBY_GAME_ENABLE: true,
+  /** 分类页顶部走廊（左出口回首页） */
+  CATEGORY_CORRIDOR_WALK_ENABLE: true,
+
   /** 首页 Hero 命令框占位（未来接入 Agent） */
   HOME_AGENT_COMMAND_ENABLED: true,
 

@@ -20,7 +20,6 @@ import ButtonRandomPostMini from './components/ButtonRandomPostMini'
 import Card from './components/Card'
 import Footer from './components/Footer'
 import Header from './components/Header'
-import Hero from './components/Hero'
 import HomeDashboard from './components/home/HomeDashboard'
 import LoadingCover from './components/LoadingCover'
 import PostHero from './components/PostHero'
@@ -99,12 +98,8 @@ const LayoutBase = props => {
   )
   const hasBgArt = Boolean(bgArtUrl)
 
-  const headerSlot = post ? (
-    <PostHero {...props} />
-  ) : router.route === '/' &&
-    siteConfig('HEXO_HOME_BANNER_ENABLE', null, CONFIG) ? (
-    <Hero {...props} />
-  ) : null
+  // 首页 Hero 改由 HomeDashboard 排在 lobby 之后，避免压在大厅上面
+  const headerSlot = post ? <PostHero {...props} /> : null
 
   const drawerRight = useRef(null)
   const tocRef = isBrowser ? document.getElementById('article-wrapper') : null

@@ -62,3 +62,7 @@ package-lock.json
 .perf/
 tsconfig.tsbuildinfo
 webpack-internal:/
+
+# pixel-walk intermediate slices
+public/images/pixel-walk/_sliced/
+
